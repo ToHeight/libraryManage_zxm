@@ -9,3 +9,12 @@ spring:
     name: library-system-admin
 server:
   port: 8080
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 3000
+logging:
+  level:
+    sale.ljw: debug

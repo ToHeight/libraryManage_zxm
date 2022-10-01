@@ -7,7 +7,7 @@ import java.util.Map;
 @Data
 public class ResponseResult<T> {
 	private T result;
-	private StatusCode statusCode;
+	private String statusCode;
 	private String msgId;
 	private Map<String,String> msgParams;
 	private ResultType resultType;
@@ -15,7 +15,7 @@ public class ResponseResult<T> {
 	}
 
 
-	public ResponseResult(T result, String msgId, ResultType rt, StatusCode statusCode, Map<String,String> msgParams) {
+	public ResponseResult(T result, String msgId, ResultType rt, String statusCode, Map<String,String> msgParams) {
 		super();
 		this.result = result;
 		this.msgId = msgId;
@@ -24,34 +24,34 @@ public class ResponseResult<T> {
 		this.msgParams = msgParams;
 	}
 
-	public static <T> ResponseResult<T> getSuccessResult(T res) {
-		return new ResponseResult<T>(res, "C200", ResultType.SUCCESS, StatusCode.C200, null);
+	public static <T> ResponseResult<T> getSuccessResult(T res,String msgId) {
+		return new ResponseResult<T>(res, msgId, ResultType.SUCCESS, StatusCode.SUCCESS, null);
 	}
 	public static <T> ResponseResult<T> getSuccessResult(T res, String msgId, Map<String,String> msgParams) {
-		return new ResponseResult<T>(res, msgId, ResultType.SUCCESS, StatusCode.C200, msgParams);
+		return new ResponseResult<T>(res, msgId, ResultType.SUCCESS, StatusCode.SUCCESS, msgParams);
 	}
 
-	public static <T> ResponseResult<T> getMessageResult(T res, String msgId, StatusCode statusCode) {
+	public static <T> ResponseResult<T> getMessageResult(T res, String msgId, String statusCode) {
 		return new ResponseResult<T>(res, msgId, ResultType.MESSAGE, statusCode, null);
 	}
 	
 	public static <T> ResponseResult<T> getMessageResult(T res, String msgId) {
-		return new ResponseResult<T>(res, msgId, ResultType.MESSAGE, StatusCode.C200, null);
+		return new ResponseResult<T>(res, msgId, ResultType.MESSAGE, StatusCode.SUCCESS, null);
 	}
 	
 	public static <T> ResponseResult<T> getMessageResult(T res, String msgId, Map<String,String> msgParams) {
-		return new ResponseResult<T>(res, msgId, ResultType.MESSAGE, StatusCode.C200, msgParams);
+		return new ResponseResult<T>(res, msgId, ResultType.MESSAGE, StatusCode.SUCCESS, msgParams);
 	}
 	
-	public static <T> ResponseResult<T> getMessageResult(T res, String msgId, Map<String,String> msgParams, StatusCode statusCode) {
+	public static <T> ResponseResult<T> getMessageResult(T res, String msgId, Map<String,String> msgParams, String statusCode) {
 		return new ResponseResult<T>(res, msgId, ResultType.MESSAGE, statusCode, msgParams);
 	}
 	
-	public static <T> ResponseResult<T> getErrorResult(String msgId) {
-		return new ResponseResult<T>(null, msgId, ResultType.ERROR, StatusCode.C500, null);
+	public static <T> ResponseResult<T> getErrorResult(String msgId,String status) {
+		return new ResponseResult<T>(null, msgId, ResultType.ERROR, status, null);
 	}
 	
 	public static <T> ResponseResult<T> getNotFoundResult() {
-		return new ResponseResult<T>(null, null, ResultType.NOT_FOUND, StatusCode.C500, null);
+		return new ResponseResult<T>(null, null, ResultType.NOT_FOUND, StatusCode.NOT_FOUND, null);
 	}
 }

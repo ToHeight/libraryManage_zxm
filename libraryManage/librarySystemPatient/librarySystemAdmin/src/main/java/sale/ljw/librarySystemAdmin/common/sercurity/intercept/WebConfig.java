@@ -10,11 +10,4 @@ import javax.annotation.Resource;
 
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
-    @Resource
-    public PermissionCheck permissionCheck;
-
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor((HandlerInterceptor) permissionCheck).addPathPatterns("/**").excludePathPatterns();
-    }
 }

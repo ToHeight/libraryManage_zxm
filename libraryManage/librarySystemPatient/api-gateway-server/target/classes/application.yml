@@ -1,0 +1,28 @@
+server:
+  port: 80
+spring:
+  application:
+    name: api-gateway-server
+  cloud:
+    # 网关配置
+    gateway:
+      # 路由配置
+      routes: # 集合
+       - id: library-system-admin
+         uri: lb://library-system-admin
+         predicates:
+           - Path=/librarySystemAdmin/**
+       - id: library-system-reader
+         uri: lb://library-system-reader
+         predicates:
+           - Path=/librarySystemReader/**
+      discovery:
+        locator:
+          enabled: true # 请求路径前可以添加微服务名称
+          lower-case-service-id: true # 允许小写
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sale.ljw.backend.mapper.OpenMapper">
+
+    <resultMap id="BaseResultMap" type="sale.ljw.backend.pojo.Open">
+        <id property="floorId" column="floor_id" jdbcType="INTEGER"/>
+        <result property="floorName" column="floor_name" jdbcType="VARCHAR"/>
+        <result property="floorStatus" column="floor_status" jdbcType="CHAR"/>
+        <result property="peopleCount" column="people_count" jdbcType="INTEGER"/>
+        <result property="timeId" column="time_id" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        floor_id
+        ,floor_name,floor_status,
+        people_count,time_id
+    </sql>
+</mapper>

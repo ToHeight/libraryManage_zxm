@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sale.ljw.backend.mapper.ActivitytypeMapper">
+
+    <resultMap id="BaseResultMap" type="sale.ljw.backend.pojo.Activitytype">
+        <result property="activitytypeid" column="activityTypeId" jdbcType="INTEGER"/>
+        <result property="activitytypename" column="activityTypeName" jdbcType="VARCHAR"/>
+        <result property="activitytypeinfo" column="activityTypeInfo" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        activityTypeId
+        ,activityTypeName,activityTypeInfo
+    </sql>
+</mapper>

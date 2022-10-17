@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sale.ljw.backend.mapper.ApplicationMapper">
+
+    <resultMap id="BaseResultMap" type="sale.ljw.backend.pojo.Application">
+        <result property="applicationid" column="applicationId" jdbcType="VARCHAR"/>
+        <result property="userid" column="userId" jdbcType="INTEGER"/>
+        <result property="applicationstatus" column="applicationStatus" jdbcType="CHAR"/>
+        <result property="participatetime" column="participateTime" jdbcType="TIMESTAMP"/>
+        <result property="activityid" column="activityId" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        applicationId
+        ,userId,applicationStatus,
+        participateTime,activityId
+    </sql>
+</mapper>

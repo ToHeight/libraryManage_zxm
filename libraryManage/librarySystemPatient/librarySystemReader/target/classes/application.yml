@@ -40,10 +40,10 @@ spring:
       enabled: true
       file-size-threshold: 10MB
   datasource:
-    username: clinicSystem
+    username: libraryManage
     driver-class-name: com.mysql.cj.jdbc.Driver
-    password: 11i8hxm8bN9gKeHAEqQm
-    url: jdbc:mysql://123.57.20.244:3306/clinicSystem?serverTimezone=Asia/Shanghai&characterEncoding=utf-8
+    password: oN1jyw3r53806o5NcrNT
+    url: jdbc:mysql://123.57.20.244:3306/libraryManage?serverTimezone=Asia/Shanghai&characterEncoding=utf-8
     #    ip数据库
     #    url: jdbc:mysql://123.57.20.244:3306/neusoftTest?serverTimezone=Asia/Shanghai&characterEncoding=utf-8
     hikari:

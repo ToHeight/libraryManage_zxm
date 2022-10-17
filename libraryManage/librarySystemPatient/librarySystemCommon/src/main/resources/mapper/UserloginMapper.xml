@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sale.ljw.backend.mapper.UserloginMapper">
+
+    <resultMap id="BaseResultMap" type="sale.ljw.backend.pojo.Userlogin">
+        <id property="userId" column="user_id" jdbcType="INTEGER"/>
+        <result property="userLogin" column="user_login" jdbcType="VARCHAR"/>
+        <result property="userPasswd" column="user_passwd" jdbcType="VARCHAR"/>
+        <result property="permission" column="permission" jdbcType="INTEGER"/>
+        <result property="status" column="status" jdbcType="CHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        user_id
+        ,user_login,user_passwd,
+        permission,status
+    </sql>
+</mapper>

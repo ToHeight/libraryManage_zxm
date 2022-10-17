@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/testServletReader")
 public class TestServletReader {
     @GetMapping("/testGetById/{id}")
-    public String testGetById(@PathVariable int id){
-        return "id:"+id;
+    public String testGetById(@PathVariable int id) {
+        return "id:" + id;
     }
 }

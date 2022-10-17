@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sale.ljw.backend.mapper.ActivityMapper">
+
+    <resultMap id="BaseResultMap" type="sale.ljw.backend.pojo.Activity">
+        <id property="activityid" column="activityId" jdbcType="INTEGER"/>
+        <result property="activityname" column="activityName" jdbcType="VARCHAR"/>
+        <result property="activitytypeid" column="activityTypeId" jdbcType="INTEGER"/>
+        <result property="activityinfo" column="activityInfo" jdbcType="VARCHAR"/>
+        <result property="activityorganizer" column="activityOrganizer" jdbcType="VARCHAR"/>
+        <result property="activityguests" column="activityGuests" jdbcType="VARCHAR"/>
+        <result property="activityaddressid" column="activityAddressId" jdbcType="CHAR"/>
+        <result property="activitydate" column="activityDate" jdbcType="TIMESTAMP"/>
+        <result property="activityapplication" column="activityApplication" jdbcType="TIMESTAMP"/>
+        <result property="activityage" column="activityAge" jdbcType="INTEGER"/>
+        <result property="activitystatus" column="activityStatus" jdbcType="CHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        activityId
+        ,activityName,activityTypeId,
+        activityInfo,activityOrganizer,activityGuests,
+        activityAddressId,activityDate,activityApplication,
+        activityAge,activityStatus
+    </sql>
+</mapper>

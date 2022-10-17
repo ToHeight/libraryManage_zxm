@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sale.ljw.backend.mapper.ManagerMapper">
+
+    <resultMap id="BaseResultMap" type="sale.ljw.backend.pojo.Manager">
+        <id property="managerId" column="manager_id" jdbcType="INTEGER"/>
+        <result property="managerName" column="manager_name" jdbcType="VARCHAR"/>
+        <result property="managerAge" column="manager_age" jdbcType="INTEGER"/>
+        <result property="managerGender" column="manager_gender" jdbcType="CHAR"/>
+        <result property="managerTelephone" column="manager_telephone" jdbcType="CHAR"/>
+        <result property="managerAddress" column="manager_address" jdbcType="VARCHAR"/>
+        <result property="managerDelete" column="manager_delete" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        manager_id
+        ,manager_name,manager_age,
+        manager_gender,manager_telephone,manager_address,
+        manager_delete
+    </sql>
+</mapper>

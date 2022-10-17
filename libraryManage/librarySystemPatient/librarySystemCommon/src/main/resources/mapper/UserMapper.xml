@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sale.ljw.backend.mapper.UserMapper">
+
+    <resultMap id="BaseResultMap" type="sale.ljw.backend.pojo.User">
+        <id property="userId" column="user_id" jdbcType="INTEGER"/>
+        <result property="userName" column="user_name" jdbcType="VARCHAR"/>
+        <result property="userIdcard" column="user_idcard" jdbcType="CHAR"/>
+        <result property="userGender" column="user_gender" jdbcType="CHAR"/>
+        <result property="userTelephone" column="user_telephone" jdbcType="CHAR"/>
+        <result property="userAddress" column="user_address" jdbcType="VARCHAR"/>
+        <result property="userEmail" column="user_email" jdbcType="VARCHAR"/>
+        <result property="userImage" column="user_image" jdbcType="VARCHAR"/>
+        <result property="userAge" column="user_age" jdbcType="INTEGER"/>
+        <result property="userBirth" column="user_birth" jdbcType="DATE"/>
+        <result property="leaserenewalnumber" column="leaseRenewalNumber" jdbcType="INTEGER"/>
+        <result property="userDelete" column="user_delete" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        user_id
+        ,user_name,user_idcard,
+        user_gender,user_telephone,user_address,
+        user_email,user_image,user_age,
+        user_birth,leaseRenewalNumber,user_delete
+    </sql>
+</mapper>

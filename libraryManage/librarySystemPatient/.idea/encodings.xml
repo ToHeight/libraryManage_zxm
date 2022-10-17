@@ -3,6 +3,8 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/api-gateway-server/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/librarySystemAdmin/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/librarySystemCommon/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/librarySystemCommon/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/librarySystemReader/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/librarySystemReader/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/librarySystemServer/src/main/java" charset="UTF-8" />

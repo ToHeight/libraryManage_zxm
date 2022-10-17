@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sale.ljw.backend.mapper.BookMapper">
+
+    <resultMap id="BaseResultMap" type="sale.ljw.backend.pojo.Book">
+        <id property="bookId" column="book_id" jdbcType="VARCHAR"/>
+        <result property="typeId" column="type_id" jdbcType="INTEGER"/>
+        <result property="bookName" column="book_name" jdbcType="VARCHAR"/>
+        <result property="bookAuthor" column="book_author" jdbcType="VARCHAR"/>
+        <result property="bookInfo" column="book_info" jdbcType="VARCHAR"/>
+        <result property="bookImage" column="book_image" jdbcType="VARCHAR"/>
+        <result property="bookAddress" column="book_address" jdbcType="VARCHAR"/>
+        <result property="bookStatus" column="book_status" jdbcType="CHAR"/>
+        <result property="bookCount" column="book_count" jdbcType="INTEGER"/>
+        <result property="bookDelete" column="book_delete" jdbcType="INTEGER"/>
+        <result property="borrowNumber" column="borrow_number" jdbcType="INTEGER"/>
+        <result property="bookLanguage" column="book_language" jdbcType="CHAR"/>
+        <result property="authorCountry" column="author_country" jdbcType="CHAR"/>
+        <result property="bookStar" column="book_star" jdbcType="DOUBLE"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        book_id
+        ,type_id,book_name,
+        book_author,book_info,book_image,
+        book_address,book_status,book_count,
+        book_delete,borrow_number,book_language,
+        author_country,book_star
+    </sql>
+</mapper>

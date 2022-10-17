@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import sale.ljw.librarySystemAdmin.common.config.librarySystemReaderFeignClient;
 
 @RestController
 @RequestMapping("/testServletAdmin")
@@ -14,7 +13,7 @@ public class TestServletAdmin {
     private sale.ljw.librarySystemAdmin.common.config.librarySystemReaderFeignClient librarySystemReaderFeignClient;
 
     @GetMapping("/testGetById/{id}")
-    public String testGetById(@PathVariable int id){
+    public String testGetById(@PathVariable int id) {
         return librarySystemReaderFeignClient.testGetById(id);
     }
 }

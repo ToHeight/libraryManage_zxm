@@ -16,11 +16,12 @@ import org.springframework.context.annotation.PropertySource;
 @EnableFeignClients
 @EnableDiscoveryClient
 @EnableHystrixDashboard // 开启Hystrix仪表盘监控功能
-@PropertySource(value={"classpath:/token.properties"})
+@PropertySource(value = {"classpath:/token.properties", "classpath:/snowflake.properties"})
 public class LibrarySystemReader {
     public static void main(String[] args) {
-        SpringApplication.run(LibrarySystemReader.class,args);
+        SpringApplication.run(LibrarySystemReader.class, args);
     }
+
     @Bean
     public ServletRegistrationBean getServlet() {
         HystrixMetricsStreamServlet streamServlet = new HystrixMetricsStreamServlet();

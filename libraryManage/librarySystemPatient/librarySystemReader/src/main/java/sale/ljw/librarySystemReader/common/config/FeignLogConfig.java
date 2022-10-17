@@ -9,10 +9,11 @@ import org.springframework.context.annotation.Configuration;
 public class FeignLogConfig {
     /**
      * 日志记录
+     *
      * @return
      */
     @Bean
-    public Logger.Level level(){
+    public Logger.Level level() {
         return Logger.Level.FULL;
     }
 }

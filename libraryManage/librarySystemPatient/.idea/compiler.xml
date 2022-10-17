@@ -12,6 +12,7 @@
         <module name="librarySystemTurbine" />
         <module name="librarySystemAdmin" />
         <module name="api-gateway-server" />
+        <module name="librarySystemCommon" />
       </profile>
     </annotationProcessing>
   </component>
@@ -19,6 +20,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="api-gateway-server" options="-parameters" />
       <module name="librarySystemAdmin" options="-parameters" />
+      <module name="librarySystemCommon" options="-parameters" />
       <module name="librarySystemPatient" options="" />
       <module name="librarySystemReader" options="-parameters" />
       <module name="librarySystemServer" options="-parameters" />

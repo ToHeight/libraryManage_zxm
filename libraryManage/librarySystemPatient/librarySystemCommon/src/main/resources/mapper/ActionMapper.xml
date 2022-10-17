@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sale.ljw.backend.mapper.ActionMapper">
+
+    <resultMap id="BaseResultMap" type="sale.ljw.backend.pojo.Action">
+        <id property="actionId" column="action_id" jdbcType="INTEGER"/>
+        <result property="actionName" column="action_name" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        action_id
+        ,action_name
+    </sql>
+</mapper>

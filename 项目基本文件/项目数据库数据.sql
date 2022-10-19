@@ -54,3 +54,29 @@ INSERT INTO Constant(coding,VALUE) VALUES
 ,('BWS03','已逾期')
 ,('BWS04','续租中')
 
+# 根据条件查找图书信息 图书名称、图片、作者、信息、种类、地址、状态、星级
+SELECT DISTINCT book_name bookName,book_image bookImage,book_author bookAuthor,
+       book_info bookInfo,book_address bookAddress,book_star bookStar,
+       Constant.value bookStatus,Book_type.type_name bookType,
+       Book_Constant_language.value bookLanguage,Book_Constant_country.value bookCountry,
+       Book.borrow_number borrowNumber,Book.book_id bookId
+FROM Book
+INNER JOIN Constant ON Book.book_status=Constant.coding
+INNER JOIN TYPE Book_type ON Book.type_id=Book_type.type_id
+INNER JOIN Constant Book_Constant_language ON Book.book_language=Book_Constant_language.coding
+INNER JOIN Constant Book_Constant_country ON Book.author_country=Book_Constant_country.coding
+WHERE Book.book_delete=0
+
+# 获取图书类别下拉列表
+SELECT type_id id,type_name typeName
+FROM TYPE
+
+# 获取作者国家下拉列表
+SELECT coding,VALUE
+FROM Constant
+WHERE coding LIKE 'C____'
+
+# 获取图书语言下拉列表
+SELECT coding,VALUE
+FROM Constant
+WHERE coding LIKE 'L____'

@@ -1,6 +1,8 @@
 package sale.ljw.backend.pojo;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
@@ -18,6 +20,7 @@ public class Application implements Serializable {
     /**
      * 报名id
      */
+    @TableId(value = "applicationId")
     private String applicationid;
     /**
      * 用户Id

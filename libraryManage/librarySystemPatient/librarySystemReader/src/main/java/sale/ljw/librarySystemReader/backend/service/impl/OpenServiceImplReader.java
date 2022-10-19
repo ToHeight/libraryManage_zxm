@@ -2,7 +2,7 @@ package sale.ljw.librarySystemReader.backend.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
-import sale.ljw.backend.mapper.OpenMapper;
+import sale.ljw.backend.dao.OpenMapper;
 import sale.ljw.backend.pojo.Open;
 import sale.ljw.librarySystemReader.backend.service.OpenServiceReader;
 

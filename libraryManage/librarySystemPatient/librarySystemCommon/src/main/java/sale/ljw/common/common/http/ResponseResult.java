@@ -49,8 +49,8 @@ public class ResponseResult<T> {
         return new ResponseResult<T>(res, msgId, ResultType.MESSAGE, statusCode, msgParams);
     }
 
-    public static <T> ResponseResult<T> getErrorResult(String msgId, String status) {
-        return new ResponseResult<T>(null, msgId, ResultType.ERROR, status, null);
+    public static <T> ResponseResult<T> getErrorResult(String msgId, String status,T res) {
+        return new ResponseResult<T>(res, msgId, ResultType.ERROR, status, null);
     }
 
     public static <T> ResponseResult<T> getNotFoundResult() {

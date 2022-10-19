@@ -7,33 +7,38 @@ spring:
     # 网关配置
     gateway:
       globalcors:
+        add-to-simple-url-handler-mapping: true
         cors‐configurations:
           '[/**]': # 匹配所有请求
-            allowedOrigins: "*" #跨域处理 允许所有的域
+            # allowedOrigins: "*"
+            allowedOriginPatterns: '*' #跨域处理 允许所有的域
+            allowCredentials: true # 是否允许携带cookie
             allowedMethods: # 支持的方法
-              ‐ GET
-              ‐ POST
-              ‐ PUT
-              ‐ DELETE
+              - "GET"
+              - "POST"
+              - "DELETE"
+              - "PUT"
+              - "OPTIONS"
+            allowedHeaders: "*" # 允许在请求中携带的头信息
       # 路由配置
       routes: # 集合
-       - id: library-system-admin
-         uri: lb://library-system-admin
-         predicates:
-           - Path=/librarySystemAdmin/**
-         filters:
-         - StripPrefix= 1
-         - name: RequestRateLimiter #请求数限流
-           args:
-             key-resolver: "#{@ipKeyResolver}"
-             redis‐rate‐limiter.replenishRate: 1 #令牌桶每秒填充平均速率
-             redis‐rate‐limiter.burstCapacity: 1 #令牌桶总容量
-       - id: library-system-reader
-         uri: lb://library-system-reader
-         predicates:
-           - Path=/librarySystemReader/**
-         filters:
-         - StripPrefix= 1
+        - id: library-system-admin
+          uri: lb://library-system-admin
+          predicates:
+            - Path=/librarySystemAdmin/**
+          filters:
+            - StripPrefix= 1
+            - name: RequestRateLimiter #请求数限流
+              args:
+                key-resolver: "#{@ipKeyResolver}"
+                redis‐rate‐limiter.replenishRate: 1 #令牌桶每秒填充平均速率
+                redis‐rate‐limiter.burstCapacity: 1 #令牌桶总容量
+        - id: library-system-reader
+          uri: lb://library-system-reader
+          predicates:
+            - Path=/librarySystemReader/**
+          filters:
+            - StripPrefix= 1
       discovery:
         locator:
           enabled: true # 请求路径前可以添加微服务名称

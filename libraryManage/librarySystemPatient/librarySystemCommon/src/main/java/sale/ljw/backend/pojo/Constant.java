@@ -1,6 +1,7 @@
 package sale.ljw.backend.pojo;
 
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
@@ -17,9 +18,11 @@ public class Constant implements Serializable {
     /**
      * 编码
      */
+    @TableId(value = "coding")
     private String coding;
     /**
      * 值
      */
+    @TableField(value = "value")
     private String value;
 }

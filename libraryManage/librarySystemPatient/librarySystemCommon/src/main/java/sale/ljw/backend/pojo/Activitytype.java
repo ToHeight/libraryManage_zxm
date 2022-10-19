@@ -1,6 +1,8 @@
 package sale.ljw.backend.pojo;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
@@ -17,6 +19,7 @@ public class Activitytype implements Serializable {
     /**
      * 活动种类Id
      */
+    @TableId(type = IdType.AUTO)
     private Integer activitytypeid;
     /**
      * 种类名称

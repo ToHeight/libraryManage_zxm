@@ -16,7 +16,7 @@ public class IpFilter implements GlobalFilter, Ordered {
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         System.out.println("ip检测过滤器执行了....");
         InetSocketAddress remoteAddress = exchange.getRequest().getRemoteAddress();
-        System.out.println(remoteAddress.getHostName());
+        System.out.println(remoteAddress.getHostString());
         return chain.filter(exchange);
     }
 

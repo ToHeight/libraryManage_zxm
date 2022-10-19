@@ -2,7 +2,7 @@ package sale.ljw.librarySystemAdmin.backend.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
-import sale.ljw.backend.mapper.BooktagMapper;
+import sale.ljw.backend.dao.BooktagMapper;
 import sale.ljw.backend.pojo.Booktag;
 import sale.ljw.librarySystemAdmin.backend.service.BooktagServiceAdmin;
 

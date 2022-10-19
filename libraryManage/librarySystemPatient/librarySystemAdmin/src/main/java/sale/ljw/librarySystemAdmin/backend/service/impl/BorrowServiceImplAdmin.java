@@ -2,7 +2,7 @@ package sale.ljw.librarySystemAdmin.backend.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
-import sale.ljw.backend.mapper.BorrowMapper;
+import sale.ljw.backend.dao.BorrowMapper;
 import sale.ljw.backend.pojo.Borrow;
 import sale.ljw.librarySystemAdmin.backend.service.BorrowServiceAdmin;
 

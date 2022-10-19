@@ -2,7 +2,7 @@ package sale.ljw.librarySystemAdmin.backend.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
-import sale.ljw.backend.mapper.ManagerMapper;
+import sale.ljw.backend.dao.ManagerMapper;
 import sale.ljw.backend.pojo.Manager;
 import sale.ljw.librarySystemAdmin.backend.service.ManagerServiceAdmin;
 

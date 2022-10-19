@@ -2,7 +2,7 @@ package sale.ljw.librarySystemReader.backend.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
-import sale.ljw.backend.mapper.CommentsMapper;
+import sale.ljw.backend.dao.CommentsMapper;
 import sale.ljw.backend.pojo.Comments;
 import sale.ljw.librarySystemReader.backend.service.CommentsServiceReader;
 

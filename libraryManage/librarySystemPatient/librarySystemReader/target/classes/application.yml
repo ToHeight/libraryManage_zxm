@@ -24,6 +24,11 @@ logging:
   level:
     sale.ljw: debug
 spring:
+  mail:
+    username: sale.iove@qq.com
+    password: tvugozmdwulcdhgg
+    host: smtp.qq.com
+    default-encoding: utf-8
   application:
     name: library-system-reader
   profiles:
@@ -60,16 +65,16 @@ spring:
     timeout: 1000
 mybatis-plus:
   #配置MyBatis映射文件
-  mapper-locations: classpath:/mybatis/mappers/*.xml
+  mapper-locations: classpath:/mapper/*.xml
   #配置MyBatis返回类型别名
-  type-aliases-package: sale.ljw.librarySystemAdmin.backend.pojo
+  type-aliases-package: sale.ljw.backend.pojo
   configuration:
     map-underscore-to-camel-case: true
     cache-enabled: true
     jdbc-type-for-null: 'null'
     default-statement-timeout: 3000
-  #    日志输出
-  #    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#      日志输出
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   global-config:
     db-config:
       update-strategy: ignored

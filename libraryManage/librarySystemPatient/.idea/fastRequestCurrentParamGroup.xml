@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="fastRequestCurrentParamGroup">
+    <option name="bodyParamMap">
+      <map>
+        <entry key="findBookByCriteria">
+          <value>
+            <Object />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="className" value="sale.ljw.librarySystemReader.backend.api.RBookServlet" />
+    <option name="method" value="findBookByCriteria" />
+    <option name="methodDescription" value="根据条件查找图书" />
+    <option name="methodType" value="POST" />
+    <option name="module" value="librarySystemReader" />
+    <option name="originUrl" value="/bookByReader/findBookByCriteria" />
+    <option name="url" value="/bookByReader/findBookByCriteria" />
+  </component>
+</project>

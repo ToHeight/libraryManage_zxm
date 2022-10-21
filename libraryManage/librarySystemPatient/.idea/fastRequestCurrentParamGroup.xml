@@ -3,7 +3,7 @@
   <component name="fastRequestCurrentParamGroup">
     <option name="bodyParamMap">
       <map>
-        <entry key="findBookByCriteria">
+        <entry key="loginCredentials">
           <value>
             <Object />
           </value>
@@ -16,6 +16,7 @@
     <option name="methodType" value="POST" />
     <option name="module" value="librarySystemReader" />
     <option name="originUrl" value="/bookByReader/findBookByCriteria" />
-    <option name="url" value="/bookByReader/findBookByCriteria" />
+    <option name="tempId" value="" />
+    <option name="url" value="/readerLogin/login" />
   </component>
 </project>

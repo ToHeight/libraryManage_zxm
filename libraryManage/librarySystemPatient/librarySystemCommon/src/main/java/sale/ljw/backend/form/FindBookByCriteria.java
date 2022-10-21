@@ -43,4 +43,7 @@ public class FindBookByCriteria implements Serializable {
     @ApiModelProperty(value = "根据借阅次数升序或降序")
     private Boolean borrowNumber;
 
+    @ApiModelProperty(value = "是否是推荐书籍")
+    private Boolean recommendedBooks;
+
 }

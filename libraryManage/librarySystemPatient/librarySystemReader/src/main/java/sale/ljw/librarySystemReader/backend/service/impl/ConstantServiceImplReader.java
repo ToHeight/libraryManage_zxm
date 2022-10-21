@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sale.ljw.backend.dao.ConstantMapper;
 import sale.ljw.backend.pojo.Constant;
+import sale.ljw.common.common.http.ResponseResult;
+import sale.ljw.common.common.http.StatusCode;
 import sale.ljw.librarySystemReader.backend.service.ConstantServiceReader;
 
 import java.util.ArrayList;
@@ -22,15 +24,15 @@ public class ConstantServiceImplReader extends ServiceImpl<ConstantMapper, Const
     private ConstantMapper constantMapper;
 
     @Override
-    public ArrayList<Map<String, Object>> getAuthorCountry() {
+    public ResponseResult<ArrayList<Map<String, Object>>> getAuthorCountry() {
         ArrayList<Map<String, Object>> authorCountry=constantMapper.getAuthorCountry();
-        return authorCountry;
+        return ResponseResult.getSuccessResult(authorCountry, "获取成功");
     }
 
     @Override
-    public ArrayList<Map<String, Object>> getBookLanguage() {
+    public ResponseResult<ArrayList<Map<String, Object>>> getBookLanguage() {
         ArrayList<Map<String, Object>> bookLanguage=constantMapper.getBookLanguage();
-        return bookLanguage;
+        return ResponseResult.getSuccessResult(bookLanguage, "获取成功");
     }
 }
 

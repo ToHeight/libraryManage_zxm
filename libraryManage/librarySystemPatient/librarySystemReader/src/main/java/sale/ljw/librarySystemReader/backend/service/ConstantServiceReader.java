@@ -2,6 +2,7 @@ package sale.ljw.librarySystemReader.backend.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import sale.ljw.backend.pojo.Constant;
+import sale.ljw.common.common.http.ResponseResult;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -13,8 +14,8 @@ import java.util.Map;
  */
 public interface ConstantServiceReader extends IService<Constant> {
 
-    ArrayList<Map<String, Object>> getAuthorCountry();
+    ResponseResult<ArrayList<Map<String, Object>>> getAuthorCountry();
 
-    ArrayList<Map<String, Object>> getBookLanguage();
+    ResponseResult<ArrayList<Map<String, Object>>> getBookLanguage();
 
 }

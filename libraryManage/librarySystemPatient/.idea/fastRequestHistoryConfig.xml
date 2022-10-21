@@ -4,6 +4,192 @@
     <option name="historyList">
       <list>
         <ResponseHistory>
+          <option name="className" value="sale.ljw.librarySystemReader.backend.api.RLoginServlet" />
+          <option name="code" value="200" />
+          <option name="enableEnv" value="local8081" />
+          <option name="enableProject" value="Object" />
+          <option name="method" value="login" />
+          <option name="methodType" value="POST" />
+          <option name="paramGroup">
+            <ParamGroupCollection>
+              <option name="bodyKeyValueListJson" value="{&#10;  &quot;userLoginName&quot;: &quot;user_1&quot;,&#10;  &quot;password&quot;: &quot;123456&quot;&#10;}" />
+              <option name="className" value="sale.ljw.librarySystemReader.backend.api.RLoginServlet" />
+              <option name="jsonDocument" value="{&#10;  &quot;userLoginName&quot;: &quot;登录名&quot;,&#10;  &quot;password&quot;: &quot;登录密码&quot;&#10;}" />
+              <option name="method" value="login" />
+              <option name="methodDescription" value="New Request" />
+              <option name="methodType" value="POST" />
+              <option name="multipartKeyValueListJson" value="[]" />
+              <option name="originUrl" value="/readerLogin/login" />
+              <option name="pathParamsKeyValueListJson" value="[]" />
+              <option name="url" value="/librarySystemReader/readerLogin/login" />
+              <option name="urlEncodedKeyValueListJson" value="[]" />
+              <option name="urlParamsKeyValueListJson" value="[]" />
+            </ParamGroupCollection>
+          </option>
+          <option name="requestInfo" value="Request Url: http://localhost:8081/librarySystemReader/readerLogin/login&#13;&#10;Request Headers: &#13;&#10;    Accept: application/json,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8&#13;&#10;    User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36 Hutool&#13;&#10;    Accept-Encoding: gzip, deflate&#13;&#10;    Accept-Language: zh-CN,zh;q=0.8&#13;&#10;    Content-Length: 46&#13;&#10;    Content-Type: application/json;charset=UTF-8&#13;&#10;Request Body: &#13;&#10;    {&quot;password&quot;:&quot;123456&quot;,&quot;userLoginName&quot;:&quot;user_1&quot;}&#13;&#10;" />
+          <option name="response" value="{&quot;result&quot;:null,&quot;statusCode&quot;:&quot;C200&quot;,&quot;message&quot;:&quot;登录成功！&quot;,&quot;msgParams&quot;:null,&quot;resultType&quot;:&quot;SUCCESS&quot;}" />
+          <option name="url" value="/librarySystemReader/readerLogin/login" />
+        </ResponseHistory>
+        <ResponseHistory>
+          <option name="className" value="sale.ljw.librarySystemReader.backend.api.RLoginServlet" />
+          <option name="code" value="200" />
+          <option name="enableEnv" value="local8081" />
+          <option name="enableProject" value="Object" />
+          <option name="method" value="login" />
+          <option name="methodType" value="POST" />
+          <option name="paramGroup">
+            <ParamGroupCollection>
+              <option name="bodyKeyValueListJson" value="{&#10;  &quot;userLogin&quot;: &quot;user_1&quot;,&#10;  &quot;password&quot;: &quot;123456&quot;&#10;}" />
+              <option name="className" value="sale.ljw.librarySystemReader.backend.api.RLoginServlet" />
+              <option name="jsonDocument" value="{&#10;  &quot;userLogin&quot;: &quot;登录名&quot;,&#10;  &quot;password&quot;: &quot;登录密码&quot;&#10;}" />
+              <option name="method" value="login" />
+              <option name="methodDescription" value="New Request" />
+              <option name="methodType" value="POST" />
+              <option name="multipartKeyValueListJson" value="[]" />
+              <option name="originUrl" value="/readerLogin/login" />
+              <option name="pathParamsKeyValueListJson" value="[]" />
+              <option name="url" value="/librarySystemReader/readerLogin/login" />
+              <option name="urlEncodedKeyValueListJson" value="[]" />
+              <option name="urlParamsKeyValueListJson" value="[]" />
+            </ParamGroupCollection>
+          </option>
+          <option name="requestInfo" value="Request Url: http://localhost:8081/librarySystemReader/readerLogin/login&#13;&#10;Request Headers: &#13;&#10;    Accept: application/json,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8&#13;&#10;    User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36 Hutool&#13;&#10;    Accept-Encoding: gzip, deflate&#13;&#10;    Accept-Language: zh-CN,zh;q=0.8&#13;&#10;    Content-Length: 42&#13;&#10;    Content-Type: application/json;charset=UTF-8&#13;&#10;Request Body: &#13;&#10;    {&quot;userLogin&quot;:&quot;user_1&quot;,&quot;password&quot;:&quot;123456&quot;}&#13;&#10;" />
+          <option name="response" value="{&quot;result&quot;:null,&quot;statusCode&quot;:&quot;C202&quot;,&quot;message&quot;:&quot;登录失败,用户名不存在&quot;,&quot;msgParams&quot;:null,&quot;resultType&quot;:&quot;ERROR&quot;}" />
+          <option name="url" value="/librarySystemReader/readerLogin/login" />
+        </ResponseHistory>
+        <ResponseHistory>
+          <option name="className" value="sale.ljw.librarySystemReader.backend.api.RLoginServlet" />
+          <option name="code" value="404" />
+          <option name="enableEnv" value="local8081" />
+          <option name="enableProject" value="Object" />
+          <option name="method" value="login" />
+          <option name="methodType" value="POST" />
+          <option name="paramGroup">
+            <ParamGroupCollection>
+              <option name="bodyKeyValueListJson" value="{&#10;  &quot;userLogin&quot;: &quot;user_1&quot;,&#10;  &quot;password&quot;: &quot;123456&quot;&#10;}" />
+              <option name="className" value="sale.ljw.librarySystemReader.backend.api.RLoginServlet" />
+              <option name="jsonDocument" value="{&#10;  &quot;userLogin&quot;: &quot;登录名&quot;,&#10;  &quot;password&quot;: &quot;登录密码&quot;&#10;}" />
+              <option name="method" value="login" />
+              <option name="methodDescription" value="New Request" />
+              <option name="methodType" value="POST" />
+              <option name="multipartKeyValueListJson" value="[]" />
+              <option name="originUrl" value="/readerLogin/login" />
+              <option name="pathParamsKeyValueListJson" value="[]" />
+              <option name="url" value="/librarySystemReader/readerLogin/login" />
+              <option name="urlEncodedKeyValueListJson" value="[]" />
+              <option name="urlParamsKeyValueListJson" value="[]" />
+            </ParamGroupCollection>
+          </option>
+          <option name="requestInfo" value="Request Url: http://localhost:8081/librarySystemReader/readerLogin/login&#13;&#10;Request Headers: &#13;&#10;    Accept: application/json,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8&#13;&#10;    User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36 Hutool&#13;&#10;    Accept-Encoding: gzip, deflate&#13;&#10;    Accept-Language: zh-CN,zh;q=0.8&#13;&#10;    Content-Length: 42&#13;&#10;    Content-Type: application/json;charset=UTF-8&#13;&#10;Request Body: &#13;&#10;    {&quot;userLogin&quot;:&quot;user_1&quot;,&quot;password&quot;:&quot;123456&quot;}&#13;&#10;" />
+          <option name="response" value="{&quot;timestamp&quot;:&quot;2022-10-20T08:01:54.400+00:00&quot;,&quot;status&quot;:404,&quot;error&quot;:&quot;Not Found&quot;,&quot;path&quot;:&quot;/librarySystemReader/readerLogin/login&quot;}" />
+          <option name="url" value="/librarySystemReader/readerLogin/login" />
+        </ResponseHistory>
+        <ResponseHistory>
+          <option name="className" value="sale.ljw.librarySystemReader.backend.api.RLoginServlet" />
+          <option name="code" value="200" />
+          <option name="enableEnv" value="local8081" />
+          <option name="enableProject" value="Object" />
+          <option name="method" value="login" />
+          <option name="methodType" value="POST" />
+          <option name="paramGroup">
+            <ParamGroupCollection>
+              <option name="bodyKeyValueListJson" value="{&#10;  &quot;userLogin&quot;: &quot;user&quot;,&#10;  &quot;password&quot;: &quot;123456&quot;&#10;}" />
+              <option name="className" value="sale.ljw.librarySystemReader.backend.api.RLoginServlet" />
+              <option name="jsonDocument" value="{&#10;  &quot;userLogin&quot;: &quot;登录名&quot;,&#10;  &quot;password&quot;: &quot;登录密码&quot;&#10;}" />
+              <option name="method" value="login" />
+              <option name="methodDescription" value="New Request" />
+              <option name="methodType" value="POST" />
+              <option name="multipartKeyValueListJson" value="[]" />
+              <option name="originUrl" value="/readerLogin/login" />
+              <option name="pathParamsKeyValueListJson" value="[]" />
+              <option name="url" value="/librarySystemReader/readerLogin/login" />
+              <option name="urlEncodedKeyValueListJson" value="[]" />
+              <option name="urlParamsKeyValueListJson" value="[]" />
+            </ParamGroupCollection>
+          </option>
+          <option name="requestInfo" value="Request Url: http://localhost:8081/librarySystemReader/readerLogin/login&#13;&#10;Request Headers: &#13;&#10;    Accept: application/json,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8&#13;&#10;    User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36 Hutool&#13;&#10;    Accept-Encoding: gzip, deflate&#13;&#10;    Accept-Language: zh-CN,zh;q=0.8&#13;&#10;    Content-Length: 40&#13;&#10;    Content-Type: application/json;charset=UTF-8&#13;&#10;Request Body: &#13;&#10;    {&quot;userLogin&quot;:&quot;user&quot;,&quot;password&quot;:&quot;123456&quot;}&#13;&#10;" />
+          <option name="url" value="/librarySystemReader/readerLogin/login" />
+        </ResponseHistory>
+        <ResponseHistory>
+          <option name="className" value="sale.ljw.librarySystemReader.backend.api.RLoginServlet" />
+          <option name="code" value="200" />
+          <option name="enableEnv" value="local8081" />
+          <option name="enableProject" value="Object" />
+          <option name="method" value="login" />
+          <option name="methodType" value="POST" />
+          <option name="paramGroup">
+            <ParamGroupCollection>
+              <option name="bodyKeyValueListJson" value="{&#10;  &quot;userLogin&quot;: &quot;user&quot;,&#10;  &quot;password&quot;: &quot;123456&quot;&#10;}" />
+              <option name="className" value="sale.ljw.librarySystemReader.backend.api.RLoginServlet" />
+              <option name="jsonDocument" value="{&#10;  &quot;userLogin&quot;: &quot;登录名&quot;,&#10;  &quot;password&quot;: &quot;登录密码&quot;&#10;}" />
+              <option name="method" value="login" />
+              <option name="methodDescription" value="New Request" />
+              <option name="methodType" value="POST" />
+              <option name="multipartKeyValueListJson" value="[]" />
+              <option name="originUrl" value="/readerLogin/login" />
+              <option name="pathParamsKeyValueListJson" value="[]" />
+              <option name="url" value="/librarySystemReader/readerLogin/login" />
+              <option name="urlEncodedKeyValueListJson" value="[]" />
+              <option name="urlParamsKeyValueListJson" value="[]" />
+            </ParamGroupCollection>
+          </option>
+          <option name="requestInfo" value="Request Url: http://localhost:8081/librarySystemReader/readerLogin/login&#13;&#10;Request Headers: &#13;&#10;    Accept: application/json,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8&#13;&#10;    User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36 Hutool&#13;&#10;    Accept-Encoding: gzip, deflate&#13;&#10;    Accept-Language: zh-CN,zh;q=0.8&#13;&#10;    Content-Length: 40&#13;&#10;    Content-Type: application/json;charset=UTF-8&#13;&#10;Request Body: &#13;&#10;    {&quot;userLogin&quot;:&quot;user&quot;,&quot;password&quot;:&quot;123456&quot;}&#13;&#10;" />
+          <option name="url" value="/librarySystemReader/readerLogin/login" />
+        </ResponseHistory>
+        <ResponseHistory>
+          <option name="className" value="sale.ljw.librarySystemReader.backend.api.RLoginServlet" />
+          <option name="code" value="200" />
+          <option name="enableEnv" value="local8081" />
+          <option name="enableProject" value="Object" />
+          <option name="method" value="login" />
+          <option name="methodType" value="POST" />
+          <option name="paramGroup">
+            <ParamGroupCollection>
+              <option name="bodyKeyValueListJson" value="{&#10;  &quot;userLogin&quot;: &quot;user&quot;,&#10;  &quot;password&quot;: &quot;123456&quot;&#10;}" />
+              <option name="className" value="sale.ljw.librarySystemReader.backend.api.RLoginServlet" />
+              <option name="jsonDocument" value="{&#10;  &quot;userLogin&quot;: &quot;登录名&quot;,&#10;  &quot;password&quot;: &quot;登录密码&quot;&#10;}" />
+              <option name="method" value="login" />
+              <option name="methodDescription" value="New Request" />
+              <option name="methodType" value="POST" />
+              <option name="multipartKeyValueListJson" value="[]" />
+              <option name="originUrl" value="/readerLogin/login" />
+              <option name="pathParamsKeyValueListJson" value="[]" />
+              <option name="url" value="/librarySystemReader/readerLogin/login" />
+              <option name="urlEncodedKeyValueListJson" value="[]" />
+              <option name="urlParamsKeyValueListJson" value="[]" />
+            </ParamGroupCollection>
+          </option>
+          <option name="requestInfo" value="Request Url: http://localhost:8081/librarySystemReader/readerLogin/login&#13;&#10;Request Headers: &#13;&#10;    Accept: application/json,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8&#13;&#10;    User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36 Hutool&#13;&#10;    Accept-Encoding: gzip, deflate&#13;&#10;    Accept-Language: zh-CN,zh;q=0.8&#13;&#10;    Content-Length: 40&#13;&#10;    Content-Type: application/json;charset=UTF-8&#13;&#10;Request Body: &#13;&#10;    {&quot;userLogin&quot;:&quot;user&quot;,&quot;password&quot;:&quot;123456&quot;}&#13;&#10;" />
+          <option name="url" value="/librarySystemReader/readerLogin/login" />
+        </ResponseHistory>
+        <ResponseHistory>
+          <option name="className" value="sale.ljw.librarySystemReader.backend.api.RLoginServlet" />
+          <option name="code" value="404" />
+          <option name="enableEnv" value="local8081" />
+          <option name="enableProject" value="Object" />
+          <option name="method" value="login" />
+          <option name="methodType" value="POST" />
+          <option name="paramGroup">
+            <ParamGroupCollection>
+              <option name="bodyKeyValueListJson" value="{&#10;  &quot;userLogin&quot;: &quot;user&quot;,&#10;  &quot;password&quot;: &quot;123456&quot;&#10;}" />
+              <option name="className" value="sale.ljw.librarySystemReader.backend.api.RLoginServlet" />
+              <option name="jsonDocument" value="{&#10;  &quot;userLogin&quot;: &quot;登录名&quot;,&#10;  &quot;password&quot;: &quot;登录密码&quot;&#10;}" />
+              <option name="method" value="login" />
+              <option name="methodDescription" value="New Request" />
+              <option name="methodType" value="POST" />
+              <option name="multipartKeyValueListJson" value="[]" />
+              <option name="originUrl" value="/readerLogin/login" />
+              <option name="pathParamsKeyValueListJson" value="[]" />
+              <option name="url" value="/librarySystemReader/readerLogin/login" />
+              <option name="urlEncodedKeyValueListJson" value="[]" />
+              <option name="urlParamsKeyValueListJson" value="[]" />
+            </ParamGroupCollection>
+          </option>
+          <option name="requestInfo" value="Request Url: http://localhost:8081/librarySystemReader/readerLogin/login&#13;&#10;Request Headers: &#13;&#10;    Accept: application/json,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8&#13;&#10;    User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36 Hutool&#13;&#10;    Accept-Encoding: gzip, deflate&#13;&#10;    Accept-Language: zh-CN,zh;q=0.8&#13;&#10;    Content-Length: 40&#13;&#10;    Content-Type: application/json;charset=UTF-8&#13;&#10;Request Body: &#13;&#10;    {&quot;userLogin&quot;:&quot;user&quot;,&quot;password&quot;:&quot;123456&quot;}&#13;&#10;" />
+          <option name="response" value="{&quot;timestamp&quot;:&quot;2022-10-20T07:11:19.739+00:00&quot;,&quot;status&quot;:404,&quot;error&quot;:&quot;Not Found&quot;,&quot;path&quot;:&quot;/librarySystemReader/readerLogin/login&quot;}" />
+          <option name="url" value="/librarySystemReader/readerLogin/login" />
+        </ResponseHistory>
+        <ResponseHistory>
           <option name="className" value="sale.ljw.librarySystemReader.backend.api.RBookServlet" />
           <option name="code" value="200" />
           <option name="enableEnv" value="local8081" />
@@ -365,201 +551,6 @@
           <option name="requestInfo" value="Request Url: http://localhost:8081/librarySystemReader/bookByReader/findBookByCriteria&#13;&#10;Request Headers: &#13;&#10;    Accept: application/json,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8&#13;&#10;    User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36 Hutool&#13;&#10;    Accept-Encoding: gzip, deflate&#13;&#10;    Accept-Language: zh-CN,zh;q=0.8&#13;&#10;    Content-Length: 239&#13;&#10;    Content-Type: application/json;charset=UTF-8&#13;&#10;Request Body: &#13;&#10;    {&quot;borrowNumber&quot;:true,&quot;authorCountry&quot;:&quot;authorCountry_pi2hl&quot;,&quot;bookTypeId&quot;:&quot;bookTypeId_08wzo&quot;,&quot;bookStarMin&quot;:1.0,&quot;pageSize&quot;:1,&quot;page&quot;:1,&quot;bookAuthor&quot;:&quot;bookAuthor_4oa7s&quot;,&quot;bookLanguageCoding&quot;:&quot;bookLanguageCoding_iwves&quot;,&quot;bookName&quot;:&quot;bookName_yzmut&quot;}&#13;&#10;" />
           <option name="response" value="{&quot;timestamp&quot;:&quot;2022-10-18T22:57:40.447+00:00&quot;,&quot;status&quot;:404,&quot;error&quot;:&quot;Not Found&quot;,&quot;path&quot;:&quot;/librarySystemReader/bookByReader/findBookByCriteria&quot;}" />
           <option name="url" value="/librarySystemReader/bookByReader/findBookByCriteria" />
-        </ResponseHistory>
-        <ResponseHistory>
-          <option name="className" value="sale.ljw.librarySystemReader.backend.api.RBookServlet" />
-          <option name="code" value="404" />
-          <option name="enableEnv" value="local8081" />
-          <option name="enableProject" value="Object" />
-          <option name="method" value="findBookByCriteria" />
-          <option name="methodType" value="POST" />
-          <option name="name" value="根据条件查找图书" />
-          <option name="paramGroup">
-            <ParamGroupCollection>
-              <option name="bodyKeyValueListJson" value="{&#10;  &quot;page&quot;: 1,&#10;  &quot;pageSize&quot;: 1,&#10;  &quot;bookName&quot;: &quot;bookName_yzmut&quot;,&#10;  &quot;bookAuthor&quot;: &quot;bookAuthor_4oa7s&quot;,&#10;  &quot;bookTypeId&quot;: &quot;bookTypeId_08wzo&quot;,&#10;  &quot;bookLanguageCoding&quot;: &quot;bookLanguageCoding_iwves&quot;,&#10;  &quot;authorCountry&quot;: &quot;authorCountry_pi2hl&quot;,&#10;  &quot;bookStarMin&quot;: 1.0,&#10;  &quot;borrowNumber&quot;: true&#10;}" />
-              <option name="className" value="sale.ljw.librarySystemReader.backend.api.RBookServlet" />
-              <option name="jsonDocument" value="{&#10;  &quot;page&quot;: &quot;页码&quot;,&#10;  &quot;pageSize&quot;: &quot;当前页条数&quot;,&#10;  &quot;bookName&quot;: &quot;图书名称&quot;,&#10;  &quot;bookAuthor&quot;: &quot;图书作者&quot;,&#10;  &quot;bookTypeId&quot;: &quot;图书类别&quot;,&#10;  &quot;bookLanguageCoding&quot;: &quot;图书语言&quot;,&#10;  &quot;authorCountry&quot;: &quot;作者国家&quot;,&#10;  &quot;bookStarMin&quot;: &quot;图书星级&quot;,&#10;  &quot;borrowNumber&quot;: &quot;根据借阅次数升序或降序&quot;&#10;}" />
-              <option name="method" value="findBookByCriteria" />
-              <option name="methodDescription" value="根据条件查找图书" />
-              <option name="methodType" value="POST" />
-              <option name="multipartKeyValueListJson" value="[]" />
-              <option name="originUrl" value="/bookByReader/findBookByCriteria" />
-              <option name="pathParamsKeyValueListJson" value="[]" />
-              <option name="url" value="/librarySystemReader/bookByReader/findBookByCriteria" />
-              <option name="urlEncodedKeyValueListJson" value="[]" />
-              <option name="urlParamsKeyValueListJson" value="[]" />
-            </ParamGroupCollection>
-          </option>
-          <option name="requestInfo" value="Request Url: http://localhost:8081/librarySystemReader/bookByReader/findBookByCriteria&#13;&#10;Request Headers: &#13;&#10;    Accept: application/json,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8&#13;&#10;    User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36 Hutool&#13;&#10;    Accept-Encoding: gzip, deflate&#13;&#10;    Accept-Language: zh-CN,zh;q=0.8&#13;&#10;    Content-Length: 239&#13;&#10;    Content-Type: application/json;charset=UTF-8&#13;&#10;Request Body: &#13;&#10;    {&quot;borrowNumber&quot;:true,&quot;authorCountry&quot;:&quot;authorCountry_pi2hl&quot;,&quot;bookTypeId&quot;:&quot;bookTypeId_08wzo&quot;,&quot;bookStarMin&quot;:1.0,&quot;pageSize&quot;:1,&quot;page&quot;:1,&quot;bookAuthor&quot;:&quot;bookAuthor_4oa7s&quot;,&quot;bookLanguageCoding&quot;:&quot;bookLanguageCoding_iwves&quot;,&quot;bookName&quot;:&quot;bookName_yzmut&quot;}&#13;&#10;" />
-          <option name="response" value="{&quot;timestamp&quot;:&quot;2022-10-18T22:57:39.632+00:00&quot;,&quot;status&quot;:404,&quot;error&quot;:&quot;Not Found&quot;,&quot;path&quot;:&quot;/librarySystemReader/bookByReader/findBookByCriteria&quot;}" />
-          <option name="url" value="/librarySystemReader/bookByReader/findBookByCriteria" />
-        </ResponseHistory>
-        <ResponseHistory>
-          <option name="className" value="sale.ljw.librarySystemReader.backend.api.RBookServlet" />
-          <option name="code" value="404" />
-          <option name="enableEnv" value="local8081" />
-          <option name="enableProject" value="Object" />
-          <option name="method" value="findBookByCriteria" />
-          <option name="methodType" value="POST" />
-          <option name="name" value="根据条件查找图书" />
-          <option name="paramGroup">
-            <ParamGroupCollection>
-              <option name="bodyKeyValueListJson" value="{&#10;  &quot;page&quot;: 1,&#10;  &quot;pageSize&quot;: 1,&#10;  &quot;bookName&quot;: &quot;bookName_yzmut&quot;,&#10;  &quot;bookAuthor&quot;: &quot;bookAuthor_4oa7s&quot;,&#10;  &quot;bookTypeId&quot;: &quot;bookTypeId_08wzo&quot;,&#10;  &quot;bookLanguageCoding&quot;: &quot;bookLanguageCoding_iwves&quot;,&#10;  &quot;authorCountry&quot;: &quot;authorCountry_pi2hl&quot;,&#10;  &quot;bookStarMin&quot;: 1.0,&#10;  &quot;borrowNumber&quot;: true&#10;}" />
-              <option name="className" value="sale.ljw.librarySystemReader.backend.api.RBookServlet" />
-              <option name="jsonDocument" value="{&#10;  &quot;page&quot;: &quot;页码&quot;,&#10;  &quot;pageSize&quot;: &quot;当前页条数&quot;,&#10;  &quot;bookName&quot;: &quot;图书名称&quot;,&#10;  &quot;bookAuthor&quot;: &quot;图书作者&quot;,&#10;  &quot;bookTypeId&quot;: &quot;图书类别&quot;,&#10;  &quot;bookLanguageCoding&quot;: &quot;图书语言&quot;,&#10;  &quot;authorCountry&quot;: &quot;作者国家&quot;,&#10;  &quot;bookStarMin&quot;: &quot;图书星级&quot;,&#10;  &quot;borrowNumber&quot;: &quot;根据借阅次数升序或降序&quot;&#10;}" />
-              <option name="method" value="findBookByCriteria" />
-              <option name="methodDescription" value="根据条件查找图书" />
-              <option name="methodType" value="POST" />
-              <option name="multipartKeyValueListJson" value="[]" />
-              <option name="originUrl" value="/bookByReader/findBookByCriteria" />
-              <option name="pathParamsKeyValueListJson" value="[]" />
-              <option name="url" value="/librarySystemReader/bookByReader/findBookByCriteria" />
-              <option name="urlEncodedKeyValueListJson" value="[]" />
-              <option name="urlParamsKeyValueListJson" value="[]" />
-            </ParamGroupCollection>
-          </option>
-          <option name="requestInfo" value="Request Url: http://localhost:8081/librarySystemReader/bookByReader/findBookByCriteria&#13;&#10;Request Headers: &#13;&#10;    Accept: application/json,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8&#13;&#10;    User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36 Hutool&#13;&#10;    Accept-Encoding: gzip, deflate&#13;&#10;    Accept-Language: zh-CN,zh;q=0.8&#13;&#10;    Content-Length: 239&#13;&#10;    Content-Type: application/json;charset=UTF-8&#13;&#10;Request Body: &#13;&#10;    {&quot;borrowNumber&quot;:true,&quot;authorCountry&quot;:&quot;authorCountry_pi2hl&quot;,&quot;bookTypeId&quot;:&quot;bookTypeId_08wzo&quot;,&quot;bookStarMin&quot;:1.0,&quot;pageSize&quot;:1,&quot;page&quot;:1,&quot;bookAuthor&quot;:&quot;bookAuthor_4oa7s&quot;,&quot;bookLanguageCoding&quot;:&quot;bookLanguageCoding_iwves&quot;,&quot;bookName&quot;:&quot;bookName_yzmut&quot;}&#13;&#10;" />
-          <option name="response" value="{&quot;timestamp&quot;:&quot;2022-10-18T22:57:21.474+00:00&quot;,&quot;status&quot;:404,&quot;error&quot;:&quot;Not Found&quot;,&quot;path&quot;:&quot;/librarySystemReader/bookByReader/findBookByCriteria&quot;}" />
-          <option name="url" value="/librarySystemReader/bookByReader/findBookByCriteria" />
-        </ResponseHistory>
-        <ResponseHistory>
-          <option name="className" value="sale.ljw.librarySystemReader.backend.api.RBookServlet" />
-          <option name="code" value="404" />
-          <option name="enableEnv" value="local8081" />
-          <option name="enableProject" value="Object" />
-          <option name="method" value="findBookByCriteria" />
-          <option name="methodType" value="POST" />
-          <option name="name" value="根据条件查找图书" />
-          <option name="paramGroup">
-            <ParamGroupCollection>
-              <option name="bodyKeyValueListJson" value="{&#10;  &quot;page&quot;: 1,&#10;  &quot;pageSize&quot;: 1,&#10;  &quot;bookName&quot;: &quot;bookName_yzmut&quot;,&#10;  &quot;bookAuthor&quot;: &quot;bookAuthor_4oa7s&quot;,&#10;  &quot;bookTypeId&quot;: &quot;bookTypeId_08wzo&quot;,&#10;  &quot;bookLanguageCoding&quot;: &quot;bookLanguageCoding_iwves&quot;,&#10;  &quot;authorCountry&quot;: &quot;authorCountry_pi2hl&quot;,&#10;  &quot;bookStarMin&quot;: 1.0,&#10;  &quot;borrowNumber&quot;: true&#10;}" />
-              <option name="className" value="sale.ljw.librarySystemReader.backend.api.RBookServlet" />
-              <option name="jsonDocument" value="{&#10;  &quot;page&quot;: &quot;页码&quot;,&#10;  &quot;pageSize&quot;: &quot;当前页条数&quot;,&#10;  &quot;bookName&quot;: &quot;图书名称&quot;,&#10;  &quot;bookAuthor&quot;: &quot;图书作者&quot;,&#10;  &quot;bookTypeId&quot;: &quot;图书类别&quot;,&#10;  &quot;bookLanguageCoding&quot;: &quot;图书语言&quot;,&#10;  &quot;authorCountry&quot;: &quot;作者国家&quot;,&#10;  &quot;bookStarMin&quot;: &quot;图书星级&quot;,&#10;  &quot;borrowNumber&quot;: &quot;根据借阅次数升序或降序&quot;&#10;}" />
-              <option name="method" value="findBookByCriteria" />
-              <option name="methodDescription" value="根据条件查找图书" />
-              <option name="methodType" value="POST" />
-              <option name="multipartKeyValueListJson" value="[]" />
-              <option name="originUrl" value="/bookByReader/findBookByCriteria" />
-              <option name="pathParamsKeyValueListJson" value="[]" />
-              <option name="url" value="/librarySystemReader/bookByReader/findBookByCriteria" />
-              <option name="urlEncodedKeyValueListJson" value="[]" />
-              <option name="urlParamsKeyValueListJson" value="[]" />
-            </ParamGroupCollection>
-          </option>
-          <option name="requestInfo" value="Request Url: http://localhost:8081/librarySystemReader/bookByReader/findBookByCriteria&#13;&#10;Request Headers: &#13;&#10;    Accept: application/json,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8&#13;&#10;    User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36 Hutool&#13;&#10;    Accept-Encoding: gzip, deflate&#13;&#10;    Accept-Language: zh-CN,zh;q=0.8&#13;&#10;    Content-Length: 239&#13;&#10;    Content-Type: application/json;charset=UTF-8&#13;&#10;Request Body: &#13;&#10;    {&quot;borrowNumber&quot;:true,&quot;authorCountry&quot;:&quot;authorCountry_pi2hl&quot;,&quot;bookTypeId&quot;:&quot;bookTypeId_08wzo&quot;,&quot;bookStarMin&quot;:1.0,&quot;pageSize&quot;:1,&quot;page&quot;:1,&quot;bookAuthor&quot;:&quot;bookAuthor_4oa7s&quot;,&quot;bookLanguageCoding&quot;:&quot;bookLanguageCoding_iwves&quot;,&quot;bookName&quot;:&quot;bookName_yzmut&quot;}&#13;&#10;" />
-          <option name="response" value="{&quot;timestamp&quot;:&quot;2022-10-18T22:56:46.074+00:00&quot;,&quot;status&quot;:404,&quot;error&quot;:&quot;Not Found&quot;,&quot;path&quot;:&quot;/librarySystemReader/bookByReader/findBookByCriteria&quot;}" />
-          <option name="url" value="/librarySystemReader/bookByReader/findBookByCriteria" />
-        </ResponseHistory>
-        <ResponseHistory>
-          <option name="className" value="sale.ljw.librarySystemReader.backend.api.RBookServlet" />
-          <option name="code" value="404" />
-          <option name="enableEnv" value="local8081" />
-          <option name="enableProject" value="Object" />
-          <option name="method" value="findBookByCriteria" />
-          <option name="methodType" value="POST" />
-          <option name="name" value="根据条件查找图书" />
-          <option name="paramGroup">
-            <ParamGroupCollection>
-              <option name="bodyKeyValueListJson" value="{&#10;  &quot;page&quot;: 1,&#10;  &quot;pageSize&quot;: 1,&#10;  &quot;bookName&quot;: &quot;bookName_yzmut&quot;,&#10;  &quot;bookAuthor&quot;: &quot;bookAuthor_4oa7s&quot;,&#10;  &quot;bookTypeId&quot;: &quot;bookTypeId_08wzo&quot;,&#10;  &quot;bookLanguageCoding&quot;: &quot;bookLanguageCoding_iwves&quot;,&#10;  &quot;authorCountry&quot;: &quot;authorCountry_pi2hl&quot;,&#10;  &quot;bookStarMin&quot;: 1.0,&#10;  &quot;borrowNumber&quot;: true&#10;}" />
-              <option name="className" value="sale.ljw.librarySystemReader.backend.api.RBookServlet" />
-              <option name="jsonDocument" value="{&#10;  &quot;page&quot;: &quot;页码&quot;,&#10;  &quot;pageSize&quot;: &quot;当前页条数&quot;,&#10;  &quot;bookName&quot;: &quot;图书名称&quot;,&#10;  &quot;bookAuthor&quot;: &quot;图书作者&quot;,&#10;  &quot;bookTypeId&quot;: &quot;图书类别&quot;,&#10;  &quot;bookLanguageCoding&quot;: &quot;图书语言&quot;,&#10;  &quot;authorCountry&quot;: &quot;作者国家&quot;,&#10;  &quot;bookStarMin&quot;: &quot;图书星级&quot;,&#10;  &quot;borrowNumber&quot;: &quot;根据借阅次数升序或降序&quot;&#10;}" />
-              <option name="method" value="findBookByCriteria" />
-              <option name="methodDescription" value="根据条件查找图书" />
-              <option name="methodType" value="POST" />
-              <option name="multipartKeyValueListJson" value="[]" />
-              <option name="originUrl" value="/bookByReader/findBookByCriteria" />
-              <option name="pathParamsKeyValueListJson" value="[]" />
-              <option name="url" value="/librarySystemReader/bookByReader/findBookByCriteria" />
-              <option name="urlEncodedKeyValueListJson" value="[]" />
-              <option name="urlParamsKeyValueListJson" value="[]" />
-            </ParamGroupCollection>
-          </option>
-          <option name="requestInfo" value="Request Url: http://localhost:8081/librarySystemReader/bookByReader/findBookByCriteria&#13;&#10;Request Headers: &#13;&#10;    Accept: application/json,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8&#13;&#10;    User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36 Hutool&#13;&#10;    Accept-Encoding: gzip, deflate&#13;&#10;    Accept-Language: zh-CN,zh;q=0.8&#13;&#10;    Content-Length: 239&#13;&#10;    Content-Type: application/json;charset=UTF-8&#13;&#10;Request Body: &#13;&#10;    {&quot;borrowNumber&quot;:true,&quot;authorCountry&quot;:&quot;authorCountry_pi2hl&quot;,&quot;bookTypeId&quot;:&quot;bookTypeId_08wzo&quot;,&quot;bookStarMin&quot;:1.0,&quot;pageSize&quot;:1,&quot;page&quot;:1,&quot;bookAuthor&quot;:&quot;bookAuthor_4oa7s&quot;,&quot;bookLanguageCoding&quot;:&quot;bookLanguageCoding_iwves&quot;,&quot;bookName&quot;:&quot;bookName_yzmut&quot;}&#13;&#10;" />
-          <option name="response" value="{&quot;timestamp&quot;:&quot;2022-10-18T22:46:45.091+00:00&quot;,&quot;status&quot;:404,&quot;error&quot;:&quot;Not Found&quot;,&quot;path&quot;:&quot;/librarySystemReader/bookByReader/findBookByCriteria&quot;}" />
-          <option name="url" value="/librarySystemReader/bookByReader/findBookByCriteria" />
-        </ResponseHistory>
-        <ResponseHistory>
-          <option name="className" value="sale.ljw.librarySystemReader.backend.api.RBookServlet" />
-          <option name="code" value="200" />
-          <option name="enableEnv" value="local8081" />
-          <option name="enableProject" value="Object" />
-          <option name="method" value="findBookByCriteria" />
-          <option name="methodType" value="POST" />
-          <option name="name" value="根据条件查找图书" />
-          <option name="paramGroup">
-            <ParamGroupCollection>
-              <option name="bodyKeyValueListJson" value="{&#10;  &quot;page&quot;: 1,&#10;  &quot;pageSize&quot;: 1,&#10;  &quot;bookName&quot;: &quot;bookName_yzmut&quot;,&#10;  &quot;bookAuthor&quot;: &quot;bookAuthor_4oa7s&quot;,&#10;  &quot;bookTypeId&quot;: &quot;bookTypeId_08wzo&quot;,&#10;  &quot;bookLanguageCoding&quot;: &quot;bookLanguageCoding_iwves&quot;,&#10;  &quot;authorCountry&quot;: &quot;authorCountry_pi2hl&quot;,&#10;  &quot;bookStarMin&quot;: 1.0,&#10;  &quot;borrowNumber&quot;: true&#10;}" />
-              <option name="className" value="sale.ljw.librarySystemReader.backend.api.RBookServlet" />
-              <option name="jsonDocument" value="{&#10;  &quot;page&quot;: &quot;页码&quot;,&#10;  &quot;pageSize&quot;: &quot;当前页条数&quot;,&#10;  &quot;bookName&quot;: &quot;图书名称&quot;,&#10;  &quot;bookAuthor&quot;: &quot;图书作者&quot;,&#10;  &quot;bookTypeId&quot;: &quot;图书类别&quot;,&#10;  &quot;bookLanguageCoding&quot;: &quot;图书语言&quot;,&#10;  &quot;authorCountry&quot;: &quot;作者国家&quot;,&#10;  &quot;bookStarMin&quot;: &quot;图书星级&quot;,&#10;  &quot;borrowNumber&quot;: &quot;根据借阅次数升序或降序&quot;&#10;}" />
-              <option name="method" value="findBookByCriteria" />
-              <option name="methodDescription" value="根据条件查找图书" />
-              <option name="methodType" value="POST" />
-              <option name="multipartKeyValueListJson" value="[]" />
-              <option name="originUrl" value="/bookByReader/findBookByCriteria" />
-              <option name="pathParamsKeyValueListJson" value="[]" />
-              <option name="url" value="/librarySystemReader/bookByReader/findBookByCriteria" />
-              <option name="urlEncodedKeyValueListJson" value="[]" />
-              <option name="urlParamsKeyValueListJson" value="[]" />
-            </ParamGroupCollection>
-          </option>
-          <option name="requestInfo" value="Request Url: http://localhost:8081/librarySystemReader/bookByReader/findBookByCriteria&#13;&#10;Request Headers: &#13;&#10;    Accept: application/json,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8&#13;&#10;    User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36 Hutool&#13;&#10;    Accept-Encoding: gzip, deflate&#13;&#10;    Accept-Language: zh-CN,zh;q=0.8&#13;&#10;    Content-Length: 239&#13;&#10;    Content-Type: application/json;charset=UTF-8&#13;&#10;Request Body: &#13;&#10;    {&quot;borrowNumber&quot;:true,&quot;authorCountry&quot;:&quot;authorCountry_pi2hl&quot;,&quot;bookTypeId&quot;:&quot;bookTypeId_08wzo&quot;,&quot;bookStarMin&quot;:1.0,&quot;pageSize&quot;:1,&quot;page&quot;:1,&quot;bookAuthor&quot;:&quot;bookAuthor_4oa7s&quot;,&quot;bookLanguageCoding&quot;:&quot;bookLanguageCoding_iwves&quot;,&quot;bookName&quot;:&quot;bookName_yzmut&quot;}&#13;&#10;" />
-          <option name="response" value="{&quot;result&quot;:{&quot;total&quot;:0,&quot;list&quot;:[],&quot;pageNum&quot;:1,&quot;pageSize&quot;:1,&quot;size&quot;:0,&quot;startRow&quot;:0,&quot;endRow&quot;:0,&quot;pages&quot;:0,&quot;prePage&quot;:0,&quot;nextPage&quot;:0,&quot;isFirstPage&quot;:true,&quot;isLastPage&quot;:true,&quot;hasPreviousPage&quot;:false,&quot;hasNextPage&quot;:false,&quot;navigatePages&quot;:8,&quot;navigatepageNums&quot;:[],&quot;navigateFirstPage&quot;:0,&quot;navigateLastPage&quot;:0},&quot;statusCode&quot;:&quot;C200&quot;,&quot;msgId&quot;:&quot;C200&quot;,&quot;msgParams&quot;:null,&quot;resultType&quot;:&quot;SUCCESS&quot;}" />
-          <option name="url" value="/librarySystemReader/bookByReader/findBookByCriteria" />
-        </ResponseHistory>
-        <ResponseHistory>
-          <option name="className" value="sale.ljw.librarySystemReader.backend.api.RBookServlet" />
-          <option name="code" value="404" />
-          <option name="enableEnv" value="local8081" />
-          <option name="enableProject" value="Object" />
-          <option name="method" value="findBookByCriteria" />
-          <option name="methodType" value="POST" />
-          <option name="name" value="根据条件查找图书" />
-          <option name="paramGroup">
-            <ParamGroupCollection>
-              <option name="bodyKeyValueListJson" value="{&#10;  &quot;page&quot;: 1,&#10;  &quot;pageSize&quot;: 1,&#10;  &quot;bookName&quot;: &quot;bookName_yzmut&quot;,&#10;  &quot;bookAuthor&quot;: &quot;bookAuthor_4oa7s&quot;,&#10;  &quot;bookTypeId&quot;: &quot;bookTypeId_08wzo&quot;,&#10;  &quot;bookLanguageCoding&quot;: &quot;bookLanguageCoding_iwves&quot;,&#10;  &quot;authorCountry&quot;: &quot;authorCountry_pi2hl&quot;,&#10;  &quot;bookStarMin&quot;: 1.0,&#10;  &quot;borrowNumber&quot;: true&#10;}" />
-              <option name="className" value="sale.ljw.librarySystemReader.backend.api.RBookServlet" />
-              <option name="jsonDocument" value="{&#10;  &quot;page&quot;: &quot;页码&quot;,&#10;  &quot;pageSize&quot;: &quot;当前页条数&quot;,&#10;  &quot;bookName&quot;: &quot;图书名称&quot;,&#10;  &quot;bookAuthor&quot;: &quot;图书作者&quot;,&#10;  &quot;bookTypeId&quot;: &quot;图书类别&quot;,&#10;  &quot;bookLanguageCoding&quot;: &quot;图书语言&quot;,&#10;  &quot;authorCountry&quot;: &quot;作者国家&quot;,&#10;  &quot;bookStarMin&quot;: &quot;图书星级&quot;,&#10;  &quot;borrowNumber&quot;: &quot;根据借阅次数升序或降序&quot;&#10;}" />
-              <option name="method" value="findBookByCriteria" />
-              <option name="methodDescription" value="根据条件查找图书" />
-              <option name="methodType" value="POST" />
-              <option name="multipartKeyValueListJson" value="[]" />
-              <option name="originUrl" value="/bookByReader/findBookByCriteria" />
-              <option name="pathParamsKeyValueListJson" value="[]" />
-              <option name="url" value="/librarySystemReader/bookByReader/findBookByCriteria" />
-              <option name="urlEncodedKeyValueListJson" value="[]" />
-              <option name="urlParamsKeyValueListJson" value="[]" />
-            </ParamGroupCollection>
-          </option>
-          <option name="requestInfo" value="Request Url: http://localhost:8081/librarySystemReader/bookByReader/findBookByCriteria&#13;&#10;Request Headers: &#13;&#10;    Accept: application/json,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8&#13;&#10;    User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36 Hutool&#13;&#10;    Accept-Encoding: gzip, deflate&#13;&#10;    Accept-Language: zh-CN,zh;q=0.8&#13;&#10;    Content-Length: 239&#13;&#10;    Content-Type: application/json;charset=UTF-8&#13;&#10;Request Body: &#13;&#10;    {&quot;borrowNumber&quot;:true,&quot;authorCountry&quot;:&quot;authorCountry_pi2hl&quot;,&quot;bookTypeId&quot;:&quot;bookTypeId_08wzo&quot;,&quot;bookStarMin&quot;:1.0,&quot;pageSize&quot;:1,&quot;page&quot;:1,&quot;bookAuthor&quot;:&quot;bookAuthor_4oa7s&quot;,&quot;bookLanguageCoding&quot;:&quot;bookLanguageCoding_iwves&quot;,&quot;bookName&quot;:&quot;bookName_yzmut&quot;}&#13;&#10;" />
-          <option name="response" value="{&quot;timestamp&quot;:&quot;2022-10-18T22:45:09.051+00:00&quot;,&quot;status&quot;:404,&quot;error&quot;:&quot;Not Found&quot;,&quot;path&quot;:&quot;/librarySystemReader/bookByReader/findBookByCriteria&quot;}" />
-          <option name="url" value="/librarySystemReader/bookByReader/findBookByCriteria" />
-        </ResponseHistory>
-        <ResponseHistory>
-          <option name="className" value="sale.ljw.librarySystemReader.backend.api.RBookServlet" />
-          <option name="code" value="200" />
-          <option name="enableEnv" value="local8081" />
-          <option name="enableProject" value="Object" />
-          <option name="method" value="findBookByCriteria" />
-          <option name="methodType" value="POST" />
-          <option name="name" value="根据条件查找图书" />
-          <option name="paramGroup">
-            <ParamGroupCollection>
-              <option name="bodyKeyValueListJson" value="{&#10;  &quot;page&quot;: 1,&#10;  &quot;pageSize&quot;: 1,&#10;  &quot;bookName&quot;: &quot;bookName_yzmut&quot;,&#10;  &quot;bookAuthor&quot;: &quot;bookAuthor_4oa7s&quot;,&#10;  &quot;bookTypeId&quot;: &quot;bookTypeId_08wzo&quot;,&#10;  &quot;bookLanguageCoding&quot;: &quot;bookLanguageCoding_iwves&quot;,&#10;  &quot;authorCountry&quot;: &quot;authorCountry_pi2hl&quot;,&#10;  &quot;bookStarMin&quot;: 1.0,&#10;  &quot;borrowNumber&quot;: true&#10;}" />
-              <option name="className" value="sale.ljw.librarySystemReader.backend.api.RBookServlet" />
-              <option name="jsonDocument" value="{&#10;  &quot;page&quot;: &quot;页码&quot;,&#10;  &quot;pageSize&quot;: &quot;当前页条数&quot;,&#10;  &quot;bookName&quot;: &quot;图书名称&quot;,&#10;  &quot;bookAuthor&quot;: &quot;图书作者&quot;,&#10;  &quot;bookTypeId&quot;: &quot;图书类别&quot;,&#10;  &quot;bookLanguageCoding&quot;: &quot;图书语言&quot;,&#10;  &quot;authorCountry&quot;: &quot;作者国家&quot;,&#10;  &quot;bookStarMin&quot;: &quot;图书星级&quot;,&#10;  &quot;borrowNumber&quot;: &quot;根据借阅次数升序或降序&quot;&#10;}" />
-              <option name="method" value="findBookByCriteria" />
-              <option name="methodDescription" value="根据条件查找图书" />
-              <option name="methodType" value="POST" />
-              <option name="multipartKeyValueListJson" value="[]" />
-              <option name="originUrl" value="/bookByReader/findBookByCriteria" />
-              <option name="pathParamsKeyValueListJson" value="[]" />
-              <option name="url" value="/librarySystemReader/bookByReader/findBookByCriterias" />
-              <option name="urlEncodedKeyValueListJson" value="[]" />
-              <option name="urlParamsKeyValueListJson" value="[]" />
-            </ParamGroupCollection>
-          </option>
-          <option name="requestInfo" value="Request Url: http://localhost:8081/librarySystemReader/bookByReader/findBookByCriterias&#13;&#10;Request Headers: &#13;&#10;    Accept: application/json,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8&#13;&#10;    User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36 Hutool&#13;&#10;    Accept-Encoding: gzip, deflate&#13;&#10;    Accept-Language: zh-CN,zh;q=0.8&#13;&#10;    Content-Length: 239&#13;&#10;    Content-Type: application/json;charset=UTF-8&#13;&#10;Request Body: &#13;&#10;    {&quot;borrowNumber&quot;:true,&quot;authorCountry&quot;:&quot;authorCountry_pi2hl&quot;,&quot;bookTypeId&quot;:&quot;bookTypeId_08wzo&quot;,&quot;bookStarMin&quot;:1.0,&quot;pageSize&quot;:1,&quot;page&quot;:1,&quot;bookAuthor&quot;:&quot;bookAuthor_4oa7s&quot;,&quot;bookLanguageCoding&quot;:&quot;bookLanguageCoding_iwves&quot;,&quot;bookName&quot;:&quot;bookName_yzmut&quot;}&#13;&#10;" />
-          <option name="url" value="/librarySystemReader/bookByReader/findBookByCriterias" />
         </ResponseHistory>
       </list>
     </option>

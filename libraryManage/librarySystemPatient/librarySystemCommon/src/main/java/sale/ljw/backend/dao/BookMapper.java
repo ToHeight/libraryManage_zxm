@@ -22,6 +22,7 @@ public interface BookMapper extends BaseMapper<Book> {
     @MapKey(value = "bookId")
     public List<Map<String,Object>> findBookByCriteria(FindBookByCriteria bookByCriteria);
 
+
 }
 
 

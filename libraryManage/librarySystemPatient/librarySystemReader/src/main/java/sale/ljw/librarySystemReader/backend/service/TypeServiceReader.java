@@ -2,6 +2,7 @@ package sale.ljw.librarySystemReader.backend.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import sale.ljw.backend.pojo.Type;
+import sale.ljw.common.common.http.ResponseResult;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -12,7 +13,5 @@ import java.util.Map;
  * @createDate 2022-10-17 16:36:05
  */
 public interface TypeServiceReader extends IService<Type> {
-
-    ArrayList<Map<String, Object>> getBookType();
-
+    ResponseResult<ArrayList<Map<String, Object>>> getBookType();
 }

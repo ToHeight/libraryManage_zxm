@@ -1,8 +1,6 @@
 package sale.ljw.backend.pojo;
 
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -19,22 +17,29 @@ public class Bookshelf implements Serializable {
     /**
      * 书架id
      */
-    @TableId
+    @TableId(type = IdType.AUTO,value = "shelf_id")
     private Integer shelfId;
     /**
      * 用户id
      */
+    @TableField(value = "user_id")
     private Integer userId;
     /**
      * 图书id
      */
+    @TableField(value = "book_id")
     private String bookId;
     /**
      * 添加时间
      */
+    @TableField(value = "add_time")
     private Date addTime;
     /**
      * 图书评价
      */
+    @TableField(value = "book_star")
     private Integer bookStar;
+
+    @TableLogic(value = "book_delete")
+    private Integer bookDelete;
 }

@@ -80,3 +80,18 @@ WHERE coding LIKE 'C____'
 SELECT coding,VALUE
 FROM Constant
 WHERE coding LIKE 'L____'
+
+
+# 书架查询
+SELECT DISTINCT book_name bookName,book_image bookImage,book_author bookAuthor,
+       book_info bookInfo,book_address bookAddress,BookShelf.book_star bookStar,
+       Constant.value bookStatus,Book_type.type_name bookType,
+       Book_Constant_language.value bookLanguage,Book_Constant_country.value bookCountry,
+       Book.borrow_number borrowNumber,Book.book_id bookId
+FROM BookShelf
+INNER JOIN Book ON BookShelf.book_id=Book.book_id 
+INNER JOIN Constant ON Book.book_status=Constant.coding
+INNER JOIN Constant Book_Constant_language ON Book.book_language=Book_Constant_language.coding
+INNER JOIN Constant Book_Constant_country ON Book.author_country=Book_Constant_country.coding
+INNER JOIN TYPE Book_type ON Book.type_id=Book_type.type_id
+WHERE BookShelf.book_delete=0

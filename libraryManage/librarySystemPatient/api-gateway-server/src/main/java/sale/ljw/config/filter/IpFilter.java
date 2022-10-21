@@ -6,17 +6,17 @@ import org.springframework.core.Ordered;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
+import sale.ljw.config.utils.HttpUtils;
 
-import java.net.InetSocketAddress;
+import java.util.List;
 
 @Component
 public class IpFilter implements GlobalFilter, Ordered {
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-        System.out.println("ip检测过滤器执行了....");
-        InetSocketAddress remoteAddress = exchange.getRequest().getRemoteAddress();
-        System.out.println(remoteAddress.getHostString());
+        List<String> strings = exchange.getRequest().getHeaders().get("X-Real-Ip");
+        System.out.println("环境客户端IP：" + ((strings != null && strings.size() != 0) ? strings.get(0) + " —内网穿透(Ngrok)环境" : HttpUtils.getIpAddress(exchange.getRequest()) + "—真实客户端IP"));
         return chain.filter(exchange);
     }
 

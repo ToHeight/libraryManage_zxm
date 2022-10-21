@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sale.ljw.backend.dao.TypeMapper;
 import sale.ljw.backend.pojo.Type;
+import sale.ljw.common.common.http.ResponseResult;
+import sale.ljw.common.common.http.StatusCode;
 import sale.ljw.librarySystemReader.backend.service.TypeServiceReader;
 
 import java.util.ArrayList;
@@ -22,9 +24,9 @@ public class TypeServiceImplReader extends ServiceImpl<TypeMapper, Type>
     private TypeMapper typeMapper;
 
     @Override
-    public ArrayList<Map<String, Object>> getBookType() {
+    public ResponseResult<ArrayList<Map<String, Object>>> getBookType() {
         ArrayList<Map<String, Object>> bookType = typeMapper.getBookType();
-        return bookType;
+        return ResponseResult.getSuccessResult(bookType, "获取成功！");
     }
 
 }

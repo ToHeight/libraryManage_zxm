@@ -6,6 +6,8 @@ import sale.ljw.backend.form.FindBookByCriteria;
 import sale.ljw.backend.pojo.Book;
 import sale.ljw.common.common.http.ResponseResult;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Map;
 
@@ -17,4 +19,6 @@ import java.util.Map;
 public interface BookServiceReader extends IService<Book> {
 
     ResponseResult<PageInfo<Map<String,Object>>> findBookByCriteria(FindBookByCriteria findBookByCriteria);
+
+    ResponseResult<String> addBookshelves(String bookId, String token);
 }

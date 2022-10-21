@@ -11,7 +11,7 @@ import reactor.core.publisher.Mono;
 
 @SpringBootApplication
 @EnableEurekaClient
-@PropertySource(value = {"classpath:/token.properties"})
+@PropertySource(value = {"classpath:/token.properties", "classpath:/snowflake.properties","classpath:/obsHuaWei.properties"})
 public class GatewayServerApp {
     public static void main(String[] args) {
         SpringApplication.run(GatewayServerApp.class, args);

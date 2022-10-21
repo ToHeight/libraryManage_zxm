@@ -34,7 +34,7 @@
                         book_info bookInfo,book_address bookAddress,book_star bookStar,
                         Constant.value bookStatus,Book_type.type_name bookType,
                         Book_Constant_language.value bookLanguage,Book_Constant_country.value bookCountry,
-                        Book.borrow_number borrowNumber,Book.book_id bookId
+                        Book.borrow_number borrowNumber,Book.book_id bookId,Book.book_count bookCount
         FROM Book
                  INNER JOIN Constant ON Book.book_status=Constant.coding
                  INNER JOIN Type Book_type ON Book.type_id=Book_type.type_id
@@ -42,10 +42,10 @@
                  INNER JOIN Constant Book_Constant_country ON Book.author_country=Book_Constant_country.coding
         WHERE Book.book_delete=0
         <if test="bookName != null">
-            AND Book.book_name LIKE CONCAT('%'+#{bookName}+'%')
+            AND Book.book_name LIKE CONCAT('%',#{bookName},'%')
         </if>
         <if test="bookAuthor != null">
-            AND Book.book_author LIKE CONCAT('%'+#{bookAuthor}+'%')
+            AND Book.book_author LIKE CONCAT('%',#{bookAuthor},'%')
         </if>
         <if test="bookLanguageCoding != null">
             AND Book.book_language = #{bookLanguageCoding}
@@ -58,6 +58,9 @@
         </if>
         <if test="bookStarMin != null">
             AND Book.book_star > #{bookStarMin}
+        </if>
+        <if test="recommendedBooks">
+            AND Book.book_star >= 5.0
         </if>
         ORDER BY Book.book_star
         <if test="borrowNumber">

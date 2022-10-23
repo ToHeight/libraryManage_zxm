@@ -49,4 +49,10 @@ public class RDropdownListDataServlet {
         return constantServiceReader.getBookLanguage();
     }
 
+    @ApiOperation(value = "获取借阅状态")
+    @GetMapping("/getBorrowStatus")
+    public ResponseResult<ArrayList<Map<String,Object>>> getBorrowStatus(){
+        return constantServiceReader.getBorrowStatus();
+    }
+
 }

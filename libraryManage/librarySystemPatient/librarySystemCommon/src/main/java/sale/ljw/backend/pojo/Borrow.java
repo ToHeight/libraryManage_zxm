@@ -1,8 +1,6 @@
 package sale.ljw.backend.pojo;
 
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -19,30 +17,36 @@ public class Borrow implements Serializable {
     /**
      * 借阅id
      */
-    @TableId
+    @TableId(value = "borrow_id",type = IdType.AUTO)
     private Integer borrowId;
     /**
      * 用户id
      */
+    @TableField(value = "user_id")
     private Integer userId;
     /**
      * 图书id
      */
+    @TableField(value = "book_id")
     private String bookId;
     /**
      * 借阅时间
      */
+    @TableField(value = "borrow_time")
     private Date borrowTime;
     /**
      * 归还时间
      */
+    @TableField(value = "return_time")
     private Date returnTime;
     /**
      * 借阅状态
      */
+    @TableField(value = "borrow_tatus")
     private String borrowTatus;
     /**
      * 逻辑删除
      */
+    @TableLogic(value = "borrow_delete")
     private Integer borrowDelete;
 }

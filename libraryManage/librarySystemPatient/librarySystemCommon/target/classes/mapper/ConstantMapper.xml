@@ -24,4 +24,9 @@
         FROM Constant
         WHERE coding LIKE 'L____'
     </select>
+    <select id="getBorrowStatus" resultType="java.util.Map">
+        SELECT coding,value
+        FROM Constant
+        WHERE coding LIKE 'BWS__'
+    </select>
 </mapper>

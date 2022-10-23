@@ -57,7 +57,8 @@ public class BookServiceImplReader extends ServiceImpl<BookMapper, Book>
         //查询当前图书库存是否不为0
         QueryWrapper<Book> queryWrapper=new QueryWrapper<>();
         queryWrapper.eq("book_id",bookId).eq("book_delete",0).select("book_count");
-        if(bookMapper.selectOne(queryWrapper).getBookCount()==0){
+        Book book = bookMapper.selectOne(queryWrapper);
+        if(book == null || book.getBookCount() == 0){
             return ResponseResult.getErrorResult("图书数量异常！",StatusCode.NOT_MODIFIED, null);
         }
         //将图书添加到书架中

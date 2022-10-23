@@ -32,8 +32,5 @@ public class Userlogin implements Serializable {
      * 权限
      */
     private Integer permission;
-    /**
-     * 账号状态
-     */
-    private String status;
+
 }

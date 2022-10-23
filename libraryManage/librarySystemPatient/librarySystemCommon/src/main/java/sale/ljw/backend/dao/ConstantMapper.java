@@ -22,6 +22,9 @@ public interface ConstantMapper extends BaseMapper<Constant> {
     ArrayList<Map<String, Object>> getAuthorCountry();
     @MapKey(value = "coding")
     ArrayList<Map<String, Object>> getBookLanguage();
+    @MapKey(value = "coding")
+    ArrayList<Map<String, Object>> getBorrowStatus();
+
 }
 
 

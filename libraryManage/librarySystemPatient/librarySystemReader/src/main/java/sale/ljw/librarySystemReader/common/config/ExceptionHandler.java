@@ -53,7 +53,7 @@ public class ExceptionHandler {
     @ResponseBody
     public String exceptionHandler(Exception e) throws MessagingException {
         System.out.println(getExceptionAllInfo(e));
-        emailSending(e);
+//        emailSending(e);
         return JSON.toJSONString(ResponseResult.getErrorResult(StatusCode.ERROR, "500", e.getMessage()));
     }
 
@@ -68,7 +68,8 @@ public class ExceptionHandler {
                         "错误发生时间为：" +DateFormatUtils.format(new Date(), "yyyy-MM-dd HH:mm:ss")+
                         "<br>服务器出错错误信息如下：</p><p>"+getExceptionAllInfo(e)+"</p>"
         ,true);
-        messageHelper.setTo("1362468712@qq.com");
+        String[] email = new String[]{"1362468712@qq.com","2163615907@qq.com"};
+        messageHelper.setTo(email);
         messageHelper.setFrom("sale.iove@qq.com");
         mailSender.send(mimeMessage);
     }

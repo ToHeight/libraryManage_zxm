@@ -63,6 +63,12 @@ spring:
         max-active: 1000
         min-idle: 100
     timeout: 1000
+  rabbitmq:
+    port: 5672
+    host: 123.57.20.244
+    username: ljw
+    password: BKYFE76c4R
+    virtual-host: /
 mybatis-plus:
   #配置MyBatis映射文件
   mapper-locations: classpath:/mapper/*.xml

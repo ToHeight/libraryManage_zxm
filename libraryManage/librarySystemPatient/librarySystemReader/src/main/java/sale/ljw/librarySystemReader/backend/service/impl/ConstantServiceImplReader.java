@@ -34,6 +34,12 @@ public class ConstantServiceImplReader extends ServiceImpl<ConstantMapper, Const
         ArrayList<Map<String, Object>> bookLanguage=constantMapper.getBookLanguage();
         return ResponseResult.getSuccessResult(bookLanguage, "获取成功");
     }
+
+    @Override
+    public ResponseResult<ArrayList<Map<String, Object>>> getBorrowStatus() {
+        ArrayList<Map<String, Object>> borrowStatus=constantMapper.getBorrowStatus();
+        return ResponseResult.getSuccessResult(borrowStatus, "获取成功");
+    }
 }
 
 

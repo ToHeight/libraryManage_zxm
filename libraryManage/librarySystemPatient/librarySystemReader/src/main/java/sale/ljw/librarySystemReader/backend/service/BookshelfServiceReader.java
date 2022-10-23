@@ -7,6 +7,7 @@ import sale.ljw.backend.pojo.Bookshelf;
 import sale.ljw.common.common.http.ResponseResult;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.Map;
 
 /**
@@ -17,4 +18,6 @@ import java.util.Map;
 public interface BookshelfServiceReader extends IService<Bookshelf> {
 
     ResponseResult<PageInfo<Map<String, Object>>> queryBookshelvesBooks(QueryBookshelves bookshelves, String token);
+
+    ResponseResult<String> deleteBookshelvesBooks(ArrayList<String> bookIds, String token);
 }

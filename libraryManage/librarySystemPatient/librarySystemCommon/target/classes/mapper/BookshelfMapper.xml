@@ -17,4 +17,27 @@
         ,user_id,book_id,
         add_time,book_star
     </sql>
+    <select id="queryBookshelvesBooks" resultType="java.util.Map">
+        SELECT DISTINCT book_name bookName,book_image bookImage,book_author bookAuthor,
+                        book_info bookInfo,book_address bookAddress,BookShelf.book_star bookStar,
+                        Constant.value bookStatus,Book_type.type_name bookType,
+                        Book_Constant_language.value bookLanguage,Book_Constant_country.value bookCountry,
+                        Book.borrow_number borrowNumber,Book.book_id bookId
+        FROM BookShelf
+                 INNER JOIN Book ON BookShelf.book_id=Book.book_id
+                 INNER JOIN Constant ON Book.book_status=Constant.coding
+                 INNER JOIN Constant Book_Constant_language ON Book.book_language=Book_Constant_language.coding
+                 INNER JOIN Constant Book_Constant_country ON Book.author_country=Book_Constant_country.coding
+                 INNER JOIN Type Book_type ON Book.type_id=Book_type.type_id
+        WHERE BookShelf.book_delete=0 AND BookShelf.user_id=#{userId}
+        <if test="bookName != null">
+            AND Book.book_name LIKE CONCAT('%',#{bookName},'%')
+        </if>
+        <if test="authorName != null">
+            AND Book.book_author LIKE CONCAT('%',#{authorName},'%')
+        </if>
+        <if test="bookType != null">
+            AND Book.type_id = #{bookType}
+        </if>
+    </select>
 </mapper>

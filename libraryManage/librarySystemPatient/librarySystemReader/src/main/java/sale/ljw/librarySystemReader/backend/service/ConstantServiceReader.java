@@ -18,4 +18,6 @@ public interface ConstantServiceReader extends IService<Constant> {
 
     ResponseResult<ArrayList<Map<String, Object>>> getBookLanguage();
 
+    ResponseResult<ArrayList<Map<String, Object>>> getBorrowStatus();
+
 }

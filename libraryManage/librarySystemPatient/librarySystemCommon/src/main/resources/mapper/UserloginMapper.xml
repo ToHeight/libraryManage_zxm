@@ -9,12 +9,11 @@
         <result property="userLogin" column="user_login" jdbcType="VARCHAR"/>
         <result property="userPasswd" column="user_passwd" jdbcType="VARCHAR"/>
         <result property="permission" column="permission" jdbcType="INTEGER"/>
-        <result property="status" column="status" jdbcType="CHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
         user_id
         ,user_login,user_passwd,
-        permission,status
+        permission
     </sql>
 </mapper>

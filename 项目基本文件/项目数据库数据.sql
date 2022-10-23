@@ -46,10 +46,11 @@ INSERT INTO Constant(coding,VALUE) VALUES
 # 帐号状态
 INSERT INTO Constant(coding,VALUE) VALUES
  ('ASU01','已激活')
-,('AS002','未激活')
+,('ASU02','未激活')
 # 借阅状态
 INSERT INTO Constant(coding,VALUE) VALUES
  ('BWS01','正在借阅中')
+,('BWS05','归还未确认')
 ,('BWS02','已归还')
 ,('BWS03','已逾期')
 ,('BWS04','续租中')
@@ -94,4 +95,13 @@ INNER JOIN Constant ON Book.book_status=Constant.coding
 INNER JOIN Constant Book_Constant_language ON Book.book_language=Book_Constant_language.coding
 INNER JOIN Constant Book_Constant_country ON Book.author_country=Book_Constant_country.coding
 INNER JOIN TYPE Book_type ON Book.type_id=Book_type.type_id
-WHERE BookShelf.book_delete=0
+WHERE BookShelf.book_delete=0 AND BookShelf.user_id=''
+
+# 借阅图书查询
+SELECT Borrow.borrow_id borrowId,Constant.value borrowStatus,Book.book_name bookName,Book.book_author bookAuthor,Book.book_image bookImage,User.leaseRenewalNumber,
+	DATE_FORMAT(Borrow.return_time, '%Y年%m月%d日 %H时%i分') returnTime,DATE_FORMAT(Borrow.borrow_time, '%Y年%m月%d日 %H时%i分') borrowTime,User.leaseRenewalNumber,User.borrowing_number borrowingNumber
+FROM Borrow
+INNER JOIN Book ON Borrow.book_id=Book.book_id
+INNER JOIN Constant ON Borrow.borrow_tatus=Constant.coding
+INNER JOIN USER ON Borrow.user_id=User.user_id
+WHERE Borrow.borrow_delete=0 AND User.user_id='1'

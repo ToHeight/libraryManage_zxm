@@ -1,7 +1,12 @@
 package sale.ljw.librarySystemReader.backend.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.github.pagehelper.PageInfo;
+import sale.ljw.backend.form.FindBorrowedBooks;
 import sale.ljw.backend.pojo.Borrow;
+import sale.ljw.common.common.http.ResponseResult;
+
+import java.util.Map;
 
 /**
  * @author 86155
@@ -10,4 +15,13 @@ import sale.ljw.backend.pojo.Borrow;
  */
 public interface BorrowServiceReader extends IService<Borrow> {
 
+    ResponseResult<String> borrowBook(String bookId, String token);
+
+    void booksNotReturnedOverTime(Integer borrowId);
+
+    ResponseResult<PageInfo<Map<String, Object>>> findBorrowedBooks(FindBorrowedBooks findBorrowedBooks, String token);
+
+    ResponseResult<String> returnBooks(String borrowId, String token);
+
+    ResponseResult<String> deleteBorrowingRecord(String borrowId,String token);
 }

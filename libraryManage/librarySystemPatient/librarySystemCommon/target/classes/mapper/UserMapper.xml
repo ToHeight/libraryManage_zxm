@@ -16,7 +16,9 @@
         <result property="userAge" column="user_age" jdbcType="INTEGER"/>
         <result property="userBirth" column="user_birth" jdbcType="DATE"/>
         <result property="leaserenewalnumber" column="leaseRenewalNumber" jdbcType="INTEGER"/>
+        <result property="borrowingNumber" column="borrowing_number" jdbcType="INTEGER"/>
         <result property="userDelete" column="user_delete" jdbcType="INTEGER"/>
+        <result property="status" column="status" jdbcType="CHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
@@ -24,6 +26,6 @@
         ,user_name,user_idcard,
         user_gender,user_telephone,user_address,
         user_email,user_image,user_age,
-        user_birth,leaseRenewalNumber,user_delete
+        user_birth,leaseRenewalNumber,user_delete,status
     </sql>
 </mapper>

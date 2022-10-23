@@ -3,20 +3,19 @@
   <component name="fastRequestCurrentParamGroup">
     <option name="bodyParamMap">
       <map>
-        <entry key="loginCredentials">
+        <entry key="bookIds">
           <value>
             <Object />
           </value>
         </entry>
       </map>
     </option>
-    <option name="className" value="sale.ljw.librarySystemReader.backend.api.RBookServlet" />
-    <option name="method" value="findBookByCriteria" />
-    <option name="methodDescription" value="根据条件查找图书" />
+    <option name="className" value="sale.ljw.librarySystemReader.backend.api.RLoginServlet" />
+    <option name="method" value="login" />
     <option name="methodType" value="POST" />
     <option name="module" value="librarySystemReader" />
-    <option name="originUrl" value="/bookByReader/findBookByCriteria" />
+    <option name="originUrl" value="/readerLogin/login" />
     <option name="tempId" value="" />
-    <option name="url" value="/readerLogin/login" />
+    <option name="url" value="/bookShelfServletByReader/deleteBookshelvesBooks" />
   </component>
 </project>

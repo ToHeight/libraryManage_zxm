@@ -5,16 +5,30 @@
 <mapper namespace="sale.ljw.backend.dao.ApplicationMapper">
 
     <resultMap id="BaseResultMap" type="sale.ljw.backend.pojo.Application">
-        <result property="applicationid" column="applicationId" jdbcType="VARCHAR"/>
+        <result property="applicationid" column="applicationId" jdbcType="BIGINT"/>
         <result property="userid" column="userId" jdbcType="INTEGER"/>
         <result property="applicationstatus" column="applicationStatus" jdbcType="CHAR"/>
-        <result property="participatetime" column="participateTime" jdbcType="TIMESTAMP"/>
         <result property="activityid" column="activityId" jdbcType="INTEGER"/>
     </resultMap>
 
     <sql id="Base_Column_List">
         applicationId
-        ,userId,applicationStatus,
-        participateTime,activityId
+        ,userId,applicationStatus,activityId
     </sql>
+    <update id="updateUserActivityStatus">
+        UPDATE application
+            INNER JOIN activity ON application.activityId=activity.activityId
+        SET application.applicationStatus=(CASE WHEN (NOW()>activity.activityDate AND (application.applicationStatus='APS02' OR application.applicationStatus='APS04'))
+            THEN 'APS05'
+            ELSE (
+                CASE WHEN (NOW()>activity.activityDate AND application.applicationStatus='APS01')
+                THEN 'APS03'
+                ELSE (
+                    CASE WHEN (NOW()>activityApplication AND activityDate>NOW() AND application.applicationStatus='APS02')
+                    THEN 'APS04' ELSE 'APS01' END) END) END)
+        WHERE application.applicationStatus IN ('APS04','APS01','APS02')
+    </update>
+    <delete id="cancellationApplication">
+        UPDATE application SET application.applicationStatus='APS03' WHERE applicationStatus IN ('APS01','APS02') AND applicationId=#{applicationId} AND userId=#{userId}
+    </delete>
 </mapper>

@@ -14,4 +14,9 @@
         bookId
         ,tapId,userId
     </sql>
+    <select id="queryBookmarksByBookId" resultType="java.util.Map">
+        SELECT bookTap.id,bookTag.tag_value tagValue
+        FROM bookTap,bookTag
+        WHERE bookTap.bookId=#{bookId} AND bookTag.tag_delete=0 AND bookTap.tapId=bookTag.tag_id AND (bookTap.userId IS NULL OR bookTap.userId=bookTag.user_id=#{userId})
+    </select>
 </mapper>

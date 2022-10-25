@@ -1,6 +1,8 @@
 package sale.ljw.backend.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 import sale.ljw.backend.pojo.Comments;
 
 /**
@@ -9,6 +11,8 @@ import sale.ljw.backend.pojo.Comments;
  * @createDate 2022-10-17 16:25:04
  * @Entity sale.ljw.backend.pojo.Comments
  */
+@Mapper
+@Repository
 public interface CommentsMapper extends BaseMapper<Comments> {
 
 }

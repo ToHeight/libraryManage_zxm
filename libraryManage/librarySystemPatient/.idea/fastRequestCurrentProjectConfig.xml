@@ -4,5 +4,13 @@
     <option name="domain" value="http://localhost:8081" />
     <option name="enableEnv" value="local8081" />
     <option name="enableProject" value="Object" />
+    <option name="headerList">
+      <list>
+        <DataMapping>
+          <option name="type" value="token" />
+          <option name="value" value="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwZXJtaXNzaW9uIjoicGF0aWVudCIsImlkIjoiMSIsImV4cCI6MTY2NjYwNzg1M30.vHoEl0LmnrkJBBZ1aYd6If7BUX6JO0tulaW9yoYUtIA" />
+        </DataMapping>
+      </list>
+    </option>
   </component>
 </project>

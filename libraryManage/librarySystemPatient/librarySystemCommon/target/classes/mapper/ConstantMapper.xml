@@ -29,4 +29,14 @@
         FROM Constant
         WHERE coding LIKE 'BWS__'
     </select>
+    <select id="getPreOrderBookStatus" resultType="java.util.Map">
+        SELECT coding,value
+        FROM Constant
+        WHERE coding LIKE 'RS___'
+    </select>
+    <select id="getActivityStatus" resultType="java.util.Map">
+        SELECT coding,value
+        FROM Constant
+        WHERE coding LIKE 'ACS__'
+    </select>
 </mapper>

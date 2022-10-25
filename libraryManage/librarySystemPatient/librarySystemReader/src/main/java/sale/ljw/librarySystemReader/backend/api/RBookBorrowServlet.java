@@ -3,11 +3,14 @@ package sale.ljw.librarySystemReader.backend.api;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
 import sale.ljw.backend.form.FindBorrowedBooks;
 import sale.ljw.common.common.http.ResponseResult;
 import sale.ljw.librarySystemReader.backend.service.BorrowServiceReader;
+import sale.ljw.librarySystemReader.common.config.RabbitQueuesConfig;
 
 import javax.validation.Valid;
 import java.util.Map;
@@ -18,6 +21,19 @@ public class RBookBorrowServlet {
 
     @Autowired
     private BorrowServiceReader borrowServiceReader;
+
+    @Autowired
+    private RabbitTemplate rabbitTemplate;
+
+    /**
+     * 定时任务：查询是否未归还得图书
+     */
+    //@Scheduled(fixedDelay = 10000)
+    @Scheduled(cron = "0 0 * * * ?")
+    public void booksNotReturnedOver(){
+        //给队列发送消息
+        rabbitTemplate.convertAndSend("", RabbitQueuesConfig.borrowTask,"-");
+    }
 
     /**
      * 借阅图书
@@ -33,11 +49,21 @@ public class RBookBorrowServlet {
     }
 
     /**
+     * 监听自动收货得消息
+     * @param message
+     */
+    @RabbitListener(queues = RabbitQueuesConfig.borrowTask)
+    public void booksNotReturnedOverListenerQueue(String message) {
+        //System.out.println("收到检测逾期归还图书消息");
+        borrowServiceReader.booksNotReturnedOver();
+    }
+
+    /**
      * 超时未还书
      *
      * @param borrowId
      */
-    @RabbitListener(queues = "librarySystemReaderBorrowTimeOut")
+    @RabbitListener(queues =  RabbitQueuesConfig.borrowTimeOut)
     public void ListenerQueue(Integer borrowId) {
         borrowServiceReader.booksNotReturnedOverTime(borrowId);
     }

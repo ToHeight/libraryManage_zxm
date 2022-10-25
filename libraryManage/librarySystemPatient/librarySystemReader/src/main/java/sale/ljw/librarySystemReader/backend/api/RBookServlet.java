@@ -4,16 +4,11 @@ import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import sale.ljw.backend.dao.BookshelfMapper;
 import sale.ljw.backend.form.FindBookByCriteria;
-import sale.ljw.backend.form.QueryBookshelves;
 import sale.ljw.common.common.http.ResponseResult;
 import sale.ljw.librarySystemReader.backend.service.BookServiceReader;
-import sale.ljw.librarySystemReader.backend.service.BookshelfServiceReader;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -45,7 +40,6 @@ public class RBookServlet {
     public ResponseResult<String> addBookshelves(@PathVariable String bookId, @RequestHeader(name = "token") String token) {
         return bookServiceReader.addBookshelves(bookId, token);
     }
-
 
 
 }

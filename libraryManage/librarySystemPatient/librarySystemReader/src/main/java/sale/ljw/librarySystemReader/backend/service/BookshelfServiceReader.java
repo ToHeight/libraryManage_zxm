@@ -2,6 +2,7 @@ package sale.ljw.librarySystemReader.backend.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.github.pagehelper.PageInfo;
+import sale.ljw.backend.form.BookshelvesBooks;
 import sale.ljw.backend.form.QueryBookshelves;
 import sale.ljw.backend.pojo.Bookshelf;
 import sale.ljw.common.common.http.ResponseResult;
@@ -17,7 +18,7 @@ import java.util.Map;
  */
 public interface BookshelfServiceReader extends IService<Bookshelf> {
 
-    ResponseResult<PageInfo<Map<String, Object>>> queryBookshelvesBooks(QueryBookshelves bookshelves, String token);
+    ResponseResult<PageInfo<BookshelvesBooks>> queryBookshelvesBooks(QueryBookshelves bookshelves, String token);
 
     ResponseResult<String> deleteBookshelvesBooks(ArrayList<String> bookIds, String token);
 }

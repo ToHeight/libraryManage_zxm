@@ -8,6 +8,7 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sale.ljw.backend.dao.BookshelfMapper;
+import sale.ljw.backend.form.BookshelvesBooks;
 import sale.ljw.backend.form.QueryBookshelves;
 import sale.ljw.backend.pojo.Bookshelf;
 import sale.ljw.common.common.http.ResponseResult;
@@ -31,12 +32,12 @@ public class BookshelfServiceImplReader extends ServiceImpl<BookshelfMapper, Boo
     @Autowired
     private BookshelfMapper bookshelfMapper;
     @Override
-    public ResponseResult<PageInfo<Map<String, Object>>> queryBookshelvesBooks(QueryBookshelves bookshelves,String token) {
+    public ResponseResult<PageInfo<BookshelvesBooks>> queryBookshelvesBooks(QueryBookshelves bookshelves,String token) {
         //获取用户id，封装
         bookshelves.setUserId(JwtUtils.parseJWT(token));
         PageHelper.startPage(bookshelves.getPage(), bookshelves.getPageSize());
-        List<Map<String,Object>> bookList=bookshelfMapper.queryBookshelvesBooks(bookshelves);
-        PageInfo<Map<String, Object>> pageInfo=new PageInfo<>(bookList);
+        List<BookshelvesBooks> bookList=bookshelfMapper.queryBookshelvesBooks(bookshelves);
+        PageInfo<BookshelvesBooks> pageInfo=new PageInfo<>(bookList);
         return ResponseResult.getSuccessResult(pageInfo,"查询书架图书成功");
     }
 

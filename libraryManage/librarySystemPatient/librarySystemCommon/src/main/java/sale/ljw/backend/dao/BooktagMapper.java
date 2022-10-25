@@ -1,6 +1,8 @@
 package sale.ljw.backend.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 import sale.ljw.backend.pojo.Booktag;
 
 /**
@@ -9,6 +11,8 @@ import sale.ljw.backend.pojo.Booktag;
  * @createDate 2022-10-17 16:19:03
  * @Entity sale.ljw.backend.pojo.Booktag
  */
+@Mapper
+@Repository
 public interface BooktagMapper extends BaseMapper<Booktag> {
 
 }

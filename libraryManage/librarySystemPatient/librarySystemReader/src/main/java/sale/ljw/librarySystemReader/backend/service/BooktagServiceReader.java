@@ -2,6 +2,7 @@ package sale.ljw.librarySystemReader.backend.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import sale.ljw.backend.pojo.Booktag;
+import sale.ljw.common.common.http.ResponseResult;
 
 /**
  * @author 86155
@@ -10,4 +11,5 @@ import sale.ljw.backend.pojo.Booktag;
  */
 public interface BooktagServiceReader extends IService<Booktag> {
 
+    ResponseResult<String> deleteBookTag(Integer tagId, String token);
 }

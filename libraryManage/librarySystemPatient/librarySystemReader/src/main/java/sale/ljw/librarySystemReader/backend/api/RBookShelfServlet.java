@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import sale.ljw.backend.form.BookshelvesBooks;
 import sale.ljw.backend.form.QueryBookshelves;
 import sale.ljw.common.common.http.ResponseResult;
 import sale.ljw.librarySystemReader.backend.service.BookshelfServiceReader;
@@ -30,7 +31,7 @@ public class RBookShelfServlet {
      */
     @ApiOperation(value = "查询书架内图书")
     @PostMapping(path = "/queryBookshelvesBooks")
-    public ResponseResult<PageInfo<Map<String, Object>>> queryBookshelvesBooks(@RequestBody @Valid QueryBookshelves bookshelves, @RequestHeader(name = "token") String token) {
+    public ResponseResult<PageInfo<BookshelvesBooks>> queryBookshelvesBooks(@RequestBody @Valid QueryBookshelves bookshelves, @RequestHeader(name = "token") String token) {
         return bookshelfServiceReader.queryBookshelvesBooks(bookshelves, token);
     }
 

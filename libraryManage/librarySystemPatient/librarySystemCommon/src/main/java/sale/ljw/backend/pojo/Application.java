@@ -21,21 +21,20 @@ public class Application implements Serializable {
      * 报名id
      */
     @TableId(value = "applicationId")
-    private String applicationid;
+    private long applicationid;
     /**
      * 用户Id
      */
+    @TableField(value = "userId")
     private Integer userid;
     /**
      * 报名状态
      */
+    @TableField(value = "applicationStatus")
     private String applicationstatus;
-    /**
-     * 参加时间
-     */
-    private Date participatetime;
     /**
      * 活动id
      */
+    @TableField(value = "activityId")
     private Integer activityid;
 }

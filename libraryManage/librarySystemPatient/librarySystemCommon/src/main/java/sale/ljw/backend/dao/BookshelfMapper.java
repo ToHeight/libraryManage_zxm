@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.MapKey;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
+import sale.ljw.backend.form.BookshelvesBooks;
 import sale.ljw.backend.form.QueryBookshelves;
 import sale.ljw.backend.pojo.Bookshelf;
 
@@ -20,7 +21,7 @@ import java.util.Map;
 @Repository
 public interface BookshelfMapper extends BaseMapper<Bookshelf> {
     @MapKey(value = "bookId")
-    List<Map<String, Object>> queryBookshelvesBooks(QueryBookshelves bookshelves);
+    List<BookshelvesBooks> queryBookshelvesBooks(QueryBookshelves bookshelves);
 }
 
 

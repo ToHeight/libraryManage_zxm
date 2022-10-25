@@ -24,4 +24,6 @@ public interface BorrowServiceReader extends IService<Borrow> {
     ResponseResult<String> returnBooks(String borrowId, String token);
 
     ResponseResult<String> deleteBorrowingRecord(String borrowId,String token);
+
+    void booksNotReturnedOver();
 }

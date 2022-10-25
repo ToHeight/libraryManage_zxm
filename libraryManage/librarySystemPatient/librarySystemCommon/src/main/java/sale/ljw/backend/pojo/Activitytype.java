@@ -19,14 +19,16 @@ public class Activitytype implements Serializable {
     /**
      * 活动种类Id
      */
-    @TableId(type = IdType.AUTO)
+    @TableId(type = IdType.AUTO,value = "activityTypeId")
     private Integer activitytypeid;
     /**
      * 种类名称
      */
+    @TableField(value = "activityTypeName")
     private String activitytypename;
     /**
      * 种类介绍
      */
+    @TableField(value = "activityTypeInfo")
     private String activitytypeinfo;
 }

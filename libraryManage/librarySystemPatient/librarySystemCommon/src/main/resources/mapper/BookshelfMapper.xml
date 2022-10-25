@@ -12,17 +12,38 @@
         <result property="bookStar" column="book_star" jdbcType="INTEGER"/>
     </resultMap>
 
+    <resultMap id="BaseResultBookshelf" type="sale.ljw.backend.form.BookshelvesBooks">
+        <id property="bookName" column="bookName" jdbcType="VARCHAR"/>
+        <id property="bookImage" column="bookImage" jdbcType="VARCHAR"/>
+        <id property="bookAuthor" column="bookAuthor" jdbcType="VARCHAR"/>
+        <id property="bookInfo" column="bookInfo" jdbcType="VARCHAR"/>
+        <id property="bookAddress" column="bookAddress" jdbcType="VARCHAR"/>
+        <id property="bookStar" column="bookStar" jdbcType="DOUBLE"/>
+        <id property="bookStatus" column="bookStatus" jdbcType="VARCHAR"/>
+        <id property="bookType" column="bookType" jdbcType="VARCHAR"/>
+        <id property="bookLanguage" column="bookLanguage" jdbcType="VARCHAR"/>
+        <id property="bookCountry" column="bookCountry" jdbcType="VARCHAR"/>
+        <id property="bookId" column="bookId" jdbcType="VARCHAR"/>
+        <id property="userId" column="userId" jdbcType="VARCHAR"/>
+        <id property="borrowNumber" column="borrowNumber" jdbcType="INTEGER"/>
+        <collection property="bookTags"
+                    javaType="arrayList"
+                    ofType="map"
+                    column="{bookId=bookId,userId=userId}"
+                    select="sale.ljw.backend.dao.BooktapMapper.queryBookmarksByBookId"/>
+    </resultMap>
+
     <sql id="Base_Column_List">
         shelf_id
         ,user_id,book_id,
         add_time,book_star
     </sql>
-    <select id="queryBookshelvesBooks" resultType="java.util.Map">
+    <select id="queryBookshelvesBooks" resultMap="BaseResultBookshelf">
         SELECT DISTINCT book_name bookName,book_image bookImage,book_author bookAuthor,
                         book_info bookInfo,book_address bookAddress,BookShelf.book_star bookStar,
                         Constant.value bookStatus,Book_type.type_name bookType,
                         Book_Constant_language.value bookLanguage,Book_Constant_country.value bookCountry,
-                        Book.borrow_number borrowNumber,Book.book_id bookId
+                        Book.borrow_number borrowNumber,Book.book_id bookId,BookShelf.user_id userId
         FROM BookShelf
                  INNER JOIN Book ON BookShelf.book_id=Book.book_id
                  INNER JOIN Constant ON Book.book_status=Constant.coding

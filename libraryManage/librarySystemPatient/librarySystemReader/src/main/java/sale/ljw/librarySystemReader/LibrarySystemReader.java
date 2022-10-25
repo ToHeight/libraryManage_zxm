@@ -12,6 +12,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 @EnableEurekaClient
 @SpringBootApplication
@@ -21,6 +22,7 @@ import org.springframework.context.annotation.PropertySource;
 @PropertySource(value = {"classpath:/token.properties", "classpath:/snowflake.properties","classpath:/obsHuaWei.properties"})
 @MapperScan(basePackages = ("sale.ljw.backend.dao"))
 @ComponentScan({"sale.ljw.librarySystemReader", "sale.ljw"})
+@EnableScheduling
 public class LibrarySystemReader {
     public static void main(String[] args) {
         SpringApplication.run(LibrarySystemReader.class, args);

@@ -1,8 +1,6 @@
 package sale.ljw.backend.pojo;
 
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -18,18 +16,21 @@ public class Booktag implements Serializable {
     /**
      * 标签id
      */
-    @TableId
+    @TableId(type = IdType.AUTO,value = "tag_id")
     private Integer tagId;
     /**
      * 标签值
      */
+    @TableField(value = "tag_value")
     private String tagValue;
-    /**
-     * 用户id
-     */
-    private Integer userId;
     /**
      * 逻辑删除
      */
+    @TableLogic(value = "tag_delete")
     private Integer tagDelete;
+    /**
+     * 用户id
+     */
+    @TableField(value = "user_id")
+    private Integer userId;
 }

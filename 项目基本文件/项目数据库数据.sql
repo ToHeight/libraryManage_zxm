@@ -1,4 +1,4 @@
-# 图书语言
+`Open`# 图书语言
 INSERT INTO Constant(coding,VALUE) VALUES('LE001','英文')
 ,('LC002','中文')
 ,('LG003','德语')
@@ -54,7 +54,18 @@ INSERT INTO Constant(coding,VALUE) VALUES
 ,('BWS02','已归还')
 ,('BWS03','已逾期')
 ,('BWS04','续租中')
-
+# 活动状态
+INSERT INTO Constant(coding,VALUE) VALUES
+ ('ACS01','报名中')
+,('ACS02','活动进行中')
+,('ACS03','活动已经结束')
+# 报名状态
+INSERT INTO Constant(coding,VALUE) VALUES
+ ('APS01','报名中')
+,('APS02','报名成功')
+,('APS03','报名失败')
+,('APS04','活动进行中')
+,('APS05','活动已经结束')
 # 根据条件查找图书信息 图书名称、图片、作者、信息、种类、地址、状态、星级
 SELECT DISTINCT book_name bookName,book_image bookImage,book_author bookAuthor,
        book_info bookInfo,book_address bookAddress,book_star bookStar,
@@ -99,9 +110,74 @@ WHERE BookShelf.book_delete=0 AND BookShelf.user_id=''
 
 # 借阅图书查询
 SELECT Borrow.borrow_id borrowId,Constant.value borrowStatus,Book.book_name bookName,Book.book_author bookAuthor,Book.book_image bookImage,User.leaseRenewalNumber,
-	DATE_FORMAT(Borrow.return_time, '%Y年%m月%d日 %H时%i分') returnTime,DATE_FORMAT(Borrow.borrow_time, '%Y年%m月%d日 %H时%i分') borrowTime,User.leaseRenewalNumber,User.borrowing_number borrowingNumber
+	DATE_FORMAT(Borrow.return_time, '%Y年%m月%d日 %H时%i分') returnTime,DATE_FORMAT(Borrow.borrow_time, '%Y年%m月%d日 %H时%i分') borrowTime,User.leaseRenewalNumber,
+	User.borrowing_number borrowingNumber,Comments.comments_info commentdInfo,Comments.comments_id commentsId
 FROM Borrow
 INNER JOIN Book ON Borrow.book_id=Book.book_id
 INNER JOIN Constant ON Borrow.borrow_tatus=Constant.coding
-INNER JOIN USER ON Borrow.user_id=User.user_id
-WHERE Borrow.borrow_delete=0 AND User.user_id='1'
+INNER JOIN libraryManage.User ON Borrow.user_id=User.user_id
+LEFT JOIN Comments ON Comments.book_id=Borrow.book_id AND Comments.delete_comments=0 AND Comments.user_id=1
+WHERE Borrow.borrow_delete=0
+
+# 过期图书
+SELECT borrow_id
+FROM Borrow 
+WHERE borrow_time>return_time
+
+# 查询当前数据
+SELECT bookTap.id,bookTag.tag_value
+FROM bookTap,bookTag
+WHERE bookTap.bookId='8' AND bookTag.tag_delete=0 AND bookTap.tapId=bookTag.tag_id 
+AND (bookTap.userId IS NULL OR bookTap.userId=bookTag.user_id=1)
+
+SELECT Scheduled.scheduled_id,Scheduled.book_name,Constant.value
+FROM Scheduled
+INNER JOIN Constant ON Scheduled.scheduled_status=Constant.coding
+WHERE Scheduled.user_id=1 
+
+# 查询活动类别
+SELECT activityTypeId coding,activityTypeName VALUE
+FROM activityType
+
+# 查询活动 活动名称、活动种类id、活动状态、举办方名称
+SELECT  activity.activityId,activity.activityName,activityInfo,activityOrganizer,
+	DATE_FORMAT(activityDate, '%Y年%m月%d日') activityDate,DATE_FORMAT(activityApplication, '%Y年%m月%d日 %H时%i分') activityApplication,activity.activityAge,
+	Constant.value activityStatus,activityType.activityTypeName,appCon.value applicationStatus
+FROM activity
+INNER JOIN Constant ON Constant.coding=activity.activityStatus
+INNER JOIN activityType ON activityType.activityTypeId=activity.activityTypeId
+INNER JOIN application ON application.userId=1
+INNER JOIN Constant appCon ON application.applicationStatus=appCon.coding
+WHERE activity.activityDelete=0 AND activity.activityId IN (SELECT app.activityId FROM application app WHERE app.userId=1)
+ AND activity.activityName LIKE CONCAT('%','亲','%') AND activity.activityId NOT IN (1)
+
+# 更新活动列表
+UPDATE activity SET activityStatus=(
+	CASE WHEN activityDate<NOW() 
+	THEN 'ACS03' 
+	ELSE (
+		CASE WHEN (NOW()>activityApplication AND NOW()<activityDate) 
+		THEN 'ACS02' ELSE 'ACS01' END) END) 
+WHERE activityStatus IN ('ACS01','ACS02') AND activityDelete=0
+
+# 更新用户报名状态
+UPDATE application
+INNER JOIN activity ON application.activityId=activity.activityId
+SET application.applicationStatus=(CASE WHEN (activity.activityDate<NOW() AND (application.applicationStatus='APS02' OR application.applicationStatus='APS04'))
+	THEN 'APS05' 
+	ELSE (
+		CASE WHEN (activity.activityDate<NOW() AND application.applicationStatus='APS01')
+	THEN 'APS03' 
+	ELSE (
+		CASE WHEN (NOW()>activityApplication AND NOW()<activityDate AND application.applicationStatus='APS02') 
+		THEN 'APS04' ELSE 'APS01' END) END) END)
+WHERE application.applicationStatus IN ('APS04','APS01','APS02')
+
+# 查询用户活动是否够资格
+SELECT COUNT(user.user_id)
+FROM USER USER
+INNER JOIN activity ON activity.activityId=1
+WHERE user.user_id=1 AND user.user_age>activity.activityAge AND NOW()<activity.activityApplication
+
+# 撤销报名
+UPDATE application SET application.applicationStatus='APS03' WHERE applicationStatus IN ('APS01','APS02') AND applicationId='1' AND userId='1'

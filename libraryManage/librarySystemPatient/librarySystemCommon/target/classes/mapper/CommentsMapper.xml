@@ -5,7 +5,7 @@
 <mapper namespace="sale.ljw.backend.dao.CommentsMapper">
 
     <resultMap id="BaseResultMap" type="sale.ljw.backend.pojo.Comments">
-        <id property="commentsId" column="comments_id" jdbcType="INTEGER"/>
+        <id property="commentsId" column="comments_id" jdbcType="BIGINT"/>
         <result property="userId" column="user_id" jdbcType="INTEGER"/>
         <result property="bookId" column="book_id" jdbcType="VARCHAR"/>
         <result property="commentsInfo" column="comments_info" jdbcType="VARCHAR"/>

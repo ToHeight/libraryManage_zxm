@@ -14,4 +14,8 @@
         activityTypeId
         ,activityTypeName,activityTypeInfo
     </sql>
+    <select id="getEventCategory" resultType="java.util.Map">
+        SELECT activityTypeId coding,activityTypeName value
+        FROM activityType
+    </select>
 </mapper>

@@ -25,13 +25,16 @@ public class Booktap implements Serializable {
     /**
      * 图书id
      */
+    @TableField(value = "bookId")
     private String bookid;
     /**
      * 标签id
      */
+    @TableField(value = "tapId")
     private Integer tapid;
     /**
      * 用户id
      */
+    @TableField(value = "userId")
     private Integer userid;
 }

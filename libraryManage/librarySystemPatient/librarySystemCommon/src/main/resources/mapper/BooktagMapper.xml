@@ -7,8 +7,8 @@
     <resultMap id="BaseResultMap" type="sale.ljw.backend.pojo.Booktag">
         <id property="tagId" column="tag_id" jdbcType="INTEGER"/>
         <result property="tagValue" column="tag_value" jdbcType="VARCHAR"/>
-        <result property="userId" column="user_id" jdbcType="INTEGER"/>
         <result property="tagDelete" column="tag_delete" jdbcType="INTEGER"/>
+        <result property="userId" column="user_id" jdbcType="INTEGER"/>
     </resultMap>
 
     <sql id="Base_Column_List">

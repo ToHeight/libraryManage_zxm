@@ -2,6 +2,10 @@ package sale.ljw.librarySystemReader.backend.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import sale.ljw.backend.pojo.Activitytype;
+import sale.ljw.common.common.http.ResponseResult;
+
+import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * @author 86155
@@ -10,4 +14,5 @@ import sale.ljw.backend.pojo.Activitytype;
  */
 public interface ActivitytypeServiceReader extends IService<Activitytype> {
 
+    ResponseResult<ArrayList<Map<String, Object>>> getEventCategory();
 }

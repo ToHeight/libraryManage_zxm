@@ -1,4 +1,4 @@
-package sale.ljw.librarySystemReader.common.config;
+package sale.ljw.librarySystemReader.common.config.feign;
 
 import org.springframework.cloud.openfeign.FeignClient;
 

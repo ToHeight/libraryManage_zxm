@@ -181,3 +181,4 @@ WHERE user.user_id=1 AND user.user_age>activity.activityAge AND NOW()<activity.a
 
 # 撤销报名
 UPDATE application SET application.applicationStatus='APS03' WHERE applicationStatus IN ('APS01','APS02') AND applicationId='1' AND userId='1'
+

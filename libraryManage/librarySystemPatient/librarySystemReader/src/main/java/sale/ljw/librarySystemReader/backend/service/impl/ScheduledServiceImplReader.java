@@ -37,6 +37,11 @@ public class ScheduledServiceImplReader extends ServiceImpl<ScheduledMapper, Sch
     @Override
     public ResponseResult<String> bookReservationByBookName(String bookName, String token) {
         //查询当前书签存在此书
+        try {
+            bookName=URLDecoder.decode(bookName, "UTF-8").replace("=", "");
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
         QueryWrapper<Book> queryWrapper_0=new QueryWrapper<>();
         queryWrapper_0.eq("book_name", bookName);
         if(bookMapper.selectCount(queryWrapper_0)!=0){
@@ -58,6 +63,11 @@ public class ScheduledServiceImplReader extends ServiceImpl<ScheduledMapper, Sch
 
     @Override
     public ResponseResult<ArrayList<Map<String,Object>>> findBookReservation(String bookName, String bookType, String token) {
+        try {
+            bookName=URLDecoder.decode(bookName, "UTF-8").replace("=", "");
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
         int userId = Integer.parseInt(JwtUtils.parseJWT(token));
         ArrayList<Map<String,Object>> schedules=scheduledMapper.findBookReservation(bookName,bookType,userId);
         //返回结果
@@ -66,6 +76,11 @@ public class ScheduledServiceImplReader extends ServiceImpl<ScheduledMapper, Sch
 
     @Override
     public ResponseResult<String> amendBookReservations(Integer bookId, String bookName, String token) {
+        try {
+            bookName=URLDecoder.decode(bookName, "UTF-8").replace("=", "");
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
         UpdateWrapper<Scheduled> updateWrapper=new UpdateWrapper<>();
         updateWrapper.eq("scheduled_id", bookId).eq("user_id", Integer.parseInt(JwtUtils.parseJWT(token))).eq("scheduled_status", "RS001").set("book_name", bookName);
         if(scheduledMapper.update(null, updateWrapper)==0){

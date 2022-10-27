@@ -1,4 +1,4 @@
-package sale.ljw.librarySystemReader.common.config;
+package sale.ljw.librarySystemReader.common.config.feign;
 
 import feign.Logger;
 import org.springframework.context.annotation.Bean;

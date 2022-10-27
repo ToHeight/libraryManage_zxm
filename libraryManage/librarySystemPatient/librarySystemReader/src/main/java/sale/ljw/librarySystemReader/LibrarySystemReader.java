@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.web.socket.config.annotation.EnableWebSocket;
 
 @EnableEurekaClient
 @SpringBootApplication
@@ -23,6 +24,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @MapperScan(basePackages = ("sale.ljw.backend.dao"))
 @ComponentScan({"sale.ljw.librarySystemReader", "sale.ljw"})
 @EnableScheduling
+@EnableWebSocket
 public class LibrarySystemReader {
     public static void main(String[] args) {
         SpringApplication.run(LibrarySystemReader.class, args);

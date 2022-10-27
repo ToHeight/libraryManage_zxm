@@ -15,6 +15,9 @@ import sale.ljw.common.common.http.StatusCode;
 import sale.ljw.common.utils.JwtUtils;
 import sale.ljw.librarySystemReader.backend.service.BooktapServiceReader;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+
 /**
  * @author 86155
  * @description 针对表【bookTap】的数据库操作Service实现
@@ -32,6 +35,11 @@ public class BooktapServiceImplReader extends ServiceImpl<BooktapMapper, Booktap
     @Transactional
     public ResponseResult<String> addBookmark(String bookId, String value, String token) {
         //检测当前value是否有记录
+        try {
+            value=URLDecoder.decode(value, "UTF-8").replace("=", "");
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
         boolean newTag=false;
         String userId = JwtUtils.parseJWT(token);
         QueryWrapper<Booktag> queryWrapper_0=new QueryWrapper<>();

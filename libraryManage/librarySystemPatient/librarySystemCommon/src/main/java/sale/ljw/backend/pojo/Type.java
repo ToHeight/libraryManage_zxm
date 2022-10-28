@@ -1,5 +1,6 @@
 package sale.ljw.backend.pojo;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -18,14 +19,16 @@ public class Type implements Serializable {
     /**
      * 图书种类id
      */
-    @TableId
+    @TableId(value = "type_id",type = IdType.AUTO)
     private Integer typeId;
     /**
      * 种类名称
      */
+    @TableField(value = "type_name")
     private String typeName;
     /**
      * 种类介绍
      */
+    @TableField(value = "type_info")
     private String typeInfo;
 }

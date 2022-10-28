@@ -18,18 +18,21 @@ public class Scheduled implements Serializable {
     /**
      * 预定id
      */
-    @TableId
+    @TableId(value = "scheduled_id")
     private Long scheduledId;
     /**
      * 用户id
      */
+    @TableField(value = "user_id")
     private Integer userId;
     /**
      * 图书名称
      */
+    @TableField(value = "book_name")
     private String bookName;
     /**
      * 预定状态
      */
+    @TableField(value = "scheduled_status")
     private String scheduledStatus;
 }

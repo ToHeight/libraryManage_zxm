@@ -1,8 +1,6 @@
 package sale.ljw.backend.pojo;
 
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -18,30 +16,36 @@ public class Manager implements Serializable {
     /**
      * 管理员id
      */
-    @TableId
+    @TableId(value = "manager_id",type = IdType.AUTO)
     private Integer managerId;
     /**
      * 管理员姓名
      */
+    @TableField(value = "manager_name")
     private String managerName;
     /**
      * 管理员年龄
      */
+    @TableField(value = "manager_age")
     private Integer managerAge;
     /**
      * 管理员性别
      */
+    @TableField(value = "manager_gender")
     private String managerGender;
     /**
      * 管理员电话
      */
+    @TableField(value = "manager_telephone")
     private String managerTelephone;
     /**
      * 管理员地址
      */
+    @TableField(value = "manager_address")
     private String managerAddress;
     /**
      * 逻辑删除
      */
+    @TableLogic(value = "manager_delete")
     private Integer managerDelete;
 }

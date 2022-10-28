@@ -23,6 +23,7 @@ public class HttpHandShakeInterceptor implements HandshakeInterceptor {
             HttpSession session = req.getServletRequest().getSession();
             String sessionId = session.getId();
             attributes.put("sessionId", sessionId);
+
         }
         return true;
     }

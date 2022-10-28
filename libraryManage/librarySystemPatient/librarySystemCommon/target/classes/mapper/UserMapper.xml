@@ -28,4 +28,9 @@
         user_email,user_image,user_age,
         user_birth,leaseRenewalNumber,user_delete,status
     </sql>
+    <select id="getInformationById" resultType="java.util.HashMap">
+        SELECT User.user_id id,user_name userName,user_image userImage
+        FROM User
+        WHERE User.user_id=#{userId}
+    </select>
 </mapper>

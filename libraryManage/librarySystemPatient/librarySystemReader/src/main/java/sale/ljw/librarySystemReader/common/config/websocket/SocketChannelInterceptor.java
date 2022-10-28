@@ -1,14 +1,21 @@
 package sale.ljw.librarySystemReader.common.config.websocket;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.messaging.support.ChannelInterceptorAdapter;
+import org.springframework.stereotype.Component;
+
+import java.util.LinkedList;
 
 /**
  * 功能：频道拦截器，类似管道，可以获取消息的一些meta数据
  *
  */
+@Component
 public class SocketChannelInterceptor extends ChannelInterceptorAdapter {
     /**
      * 消息被实际发送到频道之前进行调用
@@ -36,10 +43,11 @@ public class SocketChannelInterceptor extends ChannelInterceptorAdapter {
             //连接状态
             case CONNECT:
                 System.out.println("connect sessionId = "+sessionId);
+                
                 break;
             //断开连接
             case DISCONNECT:
-                System.out.println("disconnect sessionId = "+sessionId);
+                disConnection(sessionId);
                 break;
             default:
                 break;
@@ -55,5 +63,10 @@ public class SocketChannelInterceptor extends ChannelInterceptorAdapter {
     @Override
     public void afterReceiveCompletion(Message<?> message, MessageChannel channel, Exception ex) {
         super.afterReceiveCompletion(message, channel, ex);
+    }
+    //拦截器无法注入所以采用记录方式
+    public static LinkedList<String> sessionIds=new LinkedList<>();
+    public void disConnection(String sessionId){
+        sessionIds.add(sessionId);
     }
 }

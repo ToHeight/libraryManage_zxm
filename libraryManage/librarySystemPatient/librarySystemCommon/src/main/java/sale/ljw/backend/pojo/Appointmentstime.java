@@ -1,5 +1,6 @@
 package sale.ljw.backend.pojo;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -19,14 +20,16 @@ public class Appointmentstime implements Serializable {
     /**
      * 时间id
      */
-    @TableId
+    @TableId(value = "time_id",type = IdType.AUTO)
     private Integer timeId;
     /**
      * 开始时间
      */
+    @TableField(value = "time_start")
     private Date timeStart;
     /**
      * 结束时间
      */
+    @TableField(value = "time_end")
     private Date timeEnd;
 }

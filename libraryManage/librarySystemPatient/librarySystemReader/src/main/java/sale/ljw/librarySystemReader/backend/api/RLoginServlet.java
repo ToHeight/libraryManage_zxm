@@ -9,6 +9,7 @@ import sale.ljw.librarySystemReader.backend.service.UserloginServiceReader;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/readerLogin")
@@ -24,7 +25,7 @@ public class RLoginServlet {
      */
     @ApiOperation(value = "用户登录")
     @PostMapping(path = "/login")
-    public ResponseResult<String> login(@RequestBody @Valid LoginCredentials loginCredentials, HttpServletResponse response){
+    public ResponseResult<Map<String,Object>> login(@RequestBody @Valid LoginCredentials loginCredentials, HttpServletResponse response){
         return userloginServiceReader.login(loginCredentials,response);
     }
 }

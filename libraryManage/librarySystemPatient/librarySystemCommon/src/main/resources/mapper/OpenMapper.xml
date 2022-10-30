@@ -17,4 +17,10 @@
         ,floor_name,floor_status,
         people_count,time_id
     </sql>
+    <update id="reservePeoperCount">
+        UPDATE libraryManage.Open SET people_count=people_count-#{number} WHERE floor_id=#{floorId}
+    </update>
+    <update id="updateFloorPeopleCount">
+        UPDATE libraryManage.Open SET people_count=#{number}
+    </update>
 </mapper>

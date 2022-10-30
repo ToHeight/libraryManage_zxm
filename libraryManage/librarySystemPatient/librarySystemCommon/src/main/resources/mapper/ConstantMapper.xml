@@ -39,4 +39,10 @@
         FROM Constant
         WHERE coding LIKE 'ACS__'
     </select>
+    <select id="getFloor" resultType="java.util.Map">
+        SELECT floor_id coding,floor_name value,AppointmentsTime.time_start timeStart,AppointmentsTime.time_end timeEnd
+        FROM libraryManage.Open
+            INNER JOIN AppointmentsTime ON Open.time_id=AppointmentsTime.time_id
+        WHERE floor_status='FS001' AND people_count!=0
+    </select>
 </mapper>

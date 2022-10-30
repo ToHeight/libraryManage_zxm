@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import sale.ljw.backend.pojo.User;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author 86155
@@ -17,8 +18,10 @@ import java.util.HashMap;
 @Mapper
 @Repository
 public interface UserMapper extends BaseMapper<User> {
-    @MapKey(value = "id")
-    public HashMap<Integer, Object> getInformationById(Integer userId);
+
+    HashMap<String, Object> getInformationById(Integer userId);
+
+    HashMap<String, Object> findUserInformationLogin(Integer userId);
 }
 
 

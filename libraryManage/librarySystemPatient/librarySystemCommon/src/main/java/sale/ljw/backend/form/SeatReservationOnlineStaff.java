@@ -11,8 +11,11 @@ import java.util.HashMap;
 public class SeatReservationOnlineStaff {
     @ApiModelProperty(value = "旧地址")
     private String oldSeatNumber;
+    @ApiModelProperty(value = "是否是预约成功座位")
+    private Boolean appointmentSuccessful;
     @ApiModelProperty(value = "新地址")
     private String newSeatNumber;
+
     @ApiModelProperty(value = "用户信息")
-    private HashMap<Integer,Object> userInformation;
+    private HashMap<String, Object> userInformation;
 }

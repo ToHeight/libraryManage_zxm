@@ -186,3 +186,43 @@ UPDATE application SET application.applicationStatus='APS03' WHERE applicationSt
 SELECT user_name userName,user_image userImage
 FROM USER
 WHERE User.user_id=1
+
+# 更新用户表的信息
+UPDATE UserAppointments
+INNER JOIN libraryManage.Open ON UserAppointments.floor_id=Open.floor_id
+ SET appointments_status=(CASE WHEN  Open.floor_status='FS002'
+	THEN 'AS004' 
+	ELSE (CASE WHEN 
+		DATE_ADD(appointment_time,INTERVAL 2 HOUR)<NOW()
+		THEN 'AS002' ELSE 'AS001' END
+	) END) 
+WHERE appointments_status IN ('AS001','AS005')
+
+# 更新楼层状态
+UPDATE libraryManage.Open
+INNER JOIN AppointmentsTime ON Open.time_id=AppointmentsTime.time_id
+SET Open.floor_status=(CASE WHEN (CURTIME()>AppointmentsTime.time_end || CURTIME()<AppointmentsTime.time_start) THEN 'FS002' ELSE 'FS001' END)
+
+# 查找当前预约人员,根据用户选择的预约时间来获取预约座位
+SELECT seatName
+FROM UserAppointments
+WHERE appointment_time<DATE_ADD('2022-10-30 08:00:00',INTERVAL 2 HOUR) AND appointments_status IN ('AS001','AS005') AND floor_id=1
+
+# 获取楼层下拉列表
+SELECT floor_id coding,floor_name VALUE,AppointmentsTime.time_start timeStart,AppointmentsTime.time_end timeEnd
+FROM libraryManage.Open
+INNER JOIN AppointmentsTime ON Open.time_id=AppointmentsTime.time_id
+WHERE floor_status='FS001' AND people_count!=0
+
+#获取用户信息
+SELECT User.user_id id,User.user_name userName,conGen.value gender,user_address userAddress,user_email userEmail,user_age age
+FROM libraryManage.User
+INNER JOIN Constant conGen ON conGen.coding=User.user_gender 
+WHERE User.user_id=1
+
+# 添加新的数据
+INSERT INTO UserAppointments(floor_id,user_id,appointment_time,appointments_createTime,seatName) 
+SELECT  2,2,'2022-10-29 12:00:00',NOW(),'E-2'
+FROM DUAL WHERE EXISTS 
+(SELECT floor_id FROM libraryManage.Open WHERE floor_id=3 AND people_count!=0)
+

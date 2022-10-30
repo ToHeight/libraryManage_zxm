@@ -8,7 +8,7 @@
         <id property="appointmentId" column="appointment_id" jdbcType="INTEGER"/>
         <result property="floorId" column="floor_id" jdbcType="INTEGER"/>
         <result property="userId" column="user_id" jdbcType="INTEGER"/>
-        <result property="appointmentTime" column="appointments_time" jdbcType="TIME"/>
+        <result property="appointmentTime" column="appointments_time" jdbcType="TIMESTAMP"/>
         <result property="appointmentsStatus" column="appointments_status" jdbcType="CHAR"/>
         <result property="appointmentsCreatetime" column="appointments_createTime" jdbcType="TIMESTAMP"/>
         <result property="seatname" column="seatName" jdbcType="VARCHAR"/>

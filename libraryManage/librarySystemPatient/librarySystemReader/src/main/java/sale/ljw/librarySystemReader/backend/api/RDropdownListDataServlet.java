@@ -88,4 +88,10 @@ public class RDropdownListDataServlet {
     public ResponseResult<ArrayList<Map<String,Object>>> getActivityStatus(){
         return constantServiceReader.getActivityStatus();
     }
+
+    @ApiOperation(value = "获取楼层")
+    @GetMapping("/getFloor")
+    public ResponseResult<ArrayList<Map<String,Object>>> getFloor(){
+        return constantServiceReader.getFloor();
+    }
 }

@@ -52,6 +52,12 @@ public class ConstantServiceImplReader extends ServiceImpl<ConstantMapper, Const
         ArrayList<Map<String, Object>> activityStatus=constantMapper.getActivityStatus();
         return ResponseResult.getSuccessResult(activityStatus, "获取成功");
     }
+
+    @Override
+    public ResponseResult<ArrayList<Map<String, Object>>> getFloor() {
+        ArrayList<Map<String, Object>> floors=constantMapper.getFloor();
+        return ResponseResult.getSuccessResult(floors, "获取成功");
+    }
 }
 
 

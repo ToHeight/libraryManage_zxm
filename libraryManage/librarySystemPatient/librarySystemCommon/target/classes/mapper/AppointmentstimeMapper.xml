@@ -14,4 +14,38 @@
         time_id
         ,time_start,time_end
     </sql>
+    <update id="updateUserAppointments">
+        UPDATE UserAppointments
+        INNER JOIN libraryManage.Open ON UserAppointments.floor_id=Open.floor_id
+        SET appointments_status=(CASE WHEN  Open.floor_status='FS002'
+            THEN 'AS004'
+                ELSE (CASE WHEN
+                    NOW()>DATE_ADD(appointment_time,INTERVAL 2 HOUR)
+                    THEN 'AS002' ELSE 'AS001' END
+            ) END)
+        WHERE appointments_status IN ('AS001','AS005')
+    </update>
+    <update id="updateFloor">
+        UPDATE libraryManage.Open
+        INNER JOIN AppointmentsTime ON Open.time_id=AppointmentsTime.time_id
+        SET Open.floor_status=(
+            CASE WHEN
+                (CURTIME()>AppointmentsTime.time_end || AppointmentsTime.time_start)>CURTIME()
+            THEN
+                'FS002'
+            ELSE
+                'FS001'
+            END)
+    </update>
+    <select id="initializeFixedSeat" resultType="java.util.Map">
+        SELECT appointment_id appointmentId,seatName
+        FROM UserAppointments
+        WHERE DATE_ADD(#{appointmentTime},INTERVAL 2 HOUR)>appointment_time AND appointments_status IN ('AS001','AS005') AND floor_id=#{floorId}
+    </select>
+    <insert id="reserveSeat">
+        INSERT INTO UserAppointments(floor_id,user_id,appointment_time,appointments_createTime,seatName)
+        SELECT  #{reserveSeat.floorId},#{userId},#{reserveSeat.reserveTime},NOW(),#{reserveSeat.seatNumber}
+        FROM DUAL WHERE EXISTS
+                            (SELECT floor_id FROM libraryManage.Open WHERE floor_id=#{reserveSeat.floorId} AND people_count!=0)
+    </insert>
 </mapper>

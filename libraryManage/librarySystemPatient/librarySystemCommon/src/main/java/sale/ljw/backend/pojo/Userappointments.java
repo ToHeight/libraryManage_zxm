@@ -37,7 +37,7 @@ public class Userappointments implements Serializable {
      * 预约时间编号
      */
     @TableField(value = "appointment_time")
-    private Time appointmentTime;
+    private Date appointmentTime;
     /**
      * 当前预约状态
      */

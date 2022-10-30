@@ -11,7 +11,7 @@ import sale.ljw.backend.dao.UserMapper;
 import sale.ljw.backend.form.SeatReservationOnlineStaff;
 import sale.ljw.common.utils.JwtUtils;
 
-import java.util.ConcurrentModificationException;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
@@ -43,21 +43,24 @@ public class SubscribeEventListener implements ApplicationListener<SessionSubscr
             Integer userId = Integer.parseInt(JwtUtils.parseJWT(header.getNativeHeader("token").toString()));
             SeatReservationOnlineStaff seatReservationOnlineStaff = new SeatReservationOnlineStaff();
             seatReservationOnlineStaff.setUserInformation(userMapper.getInformationById(userId));
+            seatReservationOnlineStaff.setAppointmentSuccessful(false);
             //存在数据将数据提取出来，从redis中拿取数据,设置过期事件10分钟
             onlineStaff.expire(10, TimeUnit.MINUTES);
             onlineStaff.put(header.getSessionAttributes().get("sessionId"), seatReservationOnlineStaff);
         }
         //检测拦截器中登出的集合是否有数据
-        try{
-            LinkedList<String> sessionIds = SocketChannelInterceptor.sessionIds;
-            if (sessionIds != null && sessionIds.size() != 0) {
-                for (String sessionId : sessionIds) {
-                    onlineStaff.delete(sessionId);
-                    //移除记录的sessionId
-                    sessionIds.remove(sessionId);
+        LinkedList<String> sessionIds = SocketChannelInterceptor.sessionIds;
+        if (sessionIds != null && sessionIds.size() != 0) {
+            //防止并发异常出现使用迭代器 ConcurrentModificationException
+            Iterator<String> sessionId = sessionIds.iterator();
+            while (sessionId.hasNext()) {
+                try {
+                    String nextId = sessionId.next();
+                    onlineStaff.delete(nextId);
+                }catch (NullPointerException ignored){
                 }
             }
-        }catch (ConcurrentModificationException ignored){}
-
+            SocketChannelInterceptor.sessionIds=new LinkedList<>();
+        }
     }
 }

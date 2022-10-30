@@ -6,6 +6,7 @@ import sale.ljw.backend.pojo.Userlogin;
 import sale.ljw.common.common.http.ResponseResult;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.Map;
 
 /**
  * @author 86155
@@ -14,5 +15,5 @@ import javax.servlet.http.HttpServletResponse;
  */
 public interface UserloginServiceReader extends IService<Userlogin> {
 
-    ResponseResult<String> login(LoginCredentials loginCredentials, HttpServletResponse response);
+    ResponseResult<Map<String,Object>> login(LoginCredentials loginCredentials, HttpServletResponse response);
 }

@@ -1,6 +1,6 @@
 import SockJS from 'sockjs-client';
 import {Stomp} from "@stomp/stompjs";
-import {bookingSet, determineReservationConditions, findSeat, getFloors} from "@/api/zxmLibrary";
+import {bookingSet, determineReservationConditions, findSeat, getFloors, historyAppointment} from "@/api/zxmLibrary";
 import {ElMessage} from "element-plus";
 
 export default {
@@ -61,6 +61,14 @@ export default {
                     areaId: 'D'
                 },
             ],
+            page:1,
+            historyList:[{
+
+            }],
+            floorName:'',
+            appointmentsStatus:'',
+            appointmentTime:'',
+            appointmentsCreateTime:'',
         }
     },
     methods: {
@@ -335,6 +343,7 @@ export default {
             bookingSet(para, this.configs).then((res) => {
                 if (res.data.statusCode === 'C200') {
                     this.seatArry = res.data.result;
+                    this.determineReservationDisplay=false;
                 } else {
                     ElMessage.error(res.data.message);
                 }
@@ -350,10 +359,23 @@ export default {
                 }
             })
         },
+        //预约历史记录
+        apponitmentHistory(){
+            alert(this.page)
+            historyAppointment(this.page,this.configs).then((res) => {
+                if (res.data.statusCode == 'C404') {
+                    ElMessage.error(res.data.message);
+                } else if (res.data.statusCode == 'C200') {
+                    this.historyList = res.data.result.list;
+                    ElMessage.success(res.data.message);
+                }
+            })
+        }
 
     },
     mounted() {
         this.determineReservationCondition();
         this.floorList();
+        this.apponitmentHistory();
     },
 }

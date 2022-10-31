@@ -7,67 +7,45 @@
 <!--  </div>-->
    <section>
 <!--  最终界面   -->
-     <div class="container">
-       <div class="card">
+     <div class="container" v-for="item in bookShelfData" :key="item.bookName" @selection-change="selsChange">
+       <div class="card" >
          <div class="img">
-           <img src="../assets/dmbj.png" alt="">
+           <img :src="item.bookImage" :alt="item.bookName">
          </div>
          <div class="content">
-           <div class="title">三体</div>
-           <div class="text">波雅·汉库克，日本漫画《航海王》及其衍生作品中的角色。人称：海贼女帝，是位于无风带女儿岛的海贼国家亚马逊·百合王国的现任皇帝，同时也是九蛇海贼团的船长，其绝世的容颜被世人评价为“世界第一美女”。</div>
-           <button class="button1">删除</button>
-           <button class="button2">借阅图书</button>
+           <div class="title">{{ item.bookName }}&nbsp;&nbsp;<span class="author">作者:{{item.bookAuthor}}</span>
+             <div class="status">
+               <el-tag class="ml-2" type="success" v-if="item.bookStatus === '可借阅'" size="small">不可借阅</el-tag>
+               <el-tag class="ml-2" type="danger" v-if="item.bookStatus === '不可借阅'" size="small">不可借阅</el-tag>
+             </div>
+             <div class="tags">
+               <div v-if="item.bookTags.length!=0">
+                <el-tag class="ml-2" type="warning" v-for="tag in item.bookTags" :key="tag.tagId" closable @close="deleteTag(tag)">
+                     {{tag.tagValue}}
+                </el-tag>
+                 <div class="addTags">
+                   <el-icon @click="addTagPage(item)"><CirclePlusFilled /></el-icon>
+                 </div>
+               </div>
+
+             </div>
+           </div>
+           <div class="text-wrap">
+             <div class="text">{{item.bookInfo}}</div>
+           </div>
+           <div class="more">
+             <span>[图书语言]:{{item.bookLanguage}}</span><br/>
+             <span>[作者国家]:{{item.bookCountry}}</span><br/>
+             <span>[图书种类]:{{item.bookType}}</span><br/>
+           </div>
+           <button class="button1" @click="deleteBookShelf(item)">删除</button>
+           <button class="button2" @click="borrowBook(item)">借阅图书</button>
          </div>
        </div>
      </div>
-<!--初始界面-->
-<!--     <div class="bookShelf-tools">-->
-<!--       <el-button type="danger" size="small" @click="deleteMore">批量删除</el-button>-->
-<!--     </div>-->
-<!--     <div class="bookShelf-show">-->
-<!--        <el-table :data="bookShelfData" style="width: 100%" @selection-change="selsChange" class="bookShelf-show"  max-height="1200" :header-cell-style="{background:'#e7a234',color:'#ffffff'}">-->
-<!--          <el-table-column type="selection" width="55" />-->
-<!--              <el-table-column fixed prop="bookStatus" label="图书状态" width="120">-->
-<!--                <template #default="scope">-->
-<!--                  <el-tag class="ml-2" type="success" v-if="scope.bookStatus==='可借阅'" size="small">可借阅</el-tag>-->
-<!--                  <el-tag class="ml-2" type="danger" v-if="scope.bookStatus==='不可借阅'" size="small">不可借阅</el-tag>-->
-<!--                </template>-->
-<!--              </el-table-column>-->
-<!--              <el-table-column fixed prop="bookImage" label="图书图片" width="150">-->
-<!--                <template #default="scope">-->
-<!--                  <el-image  style="width: 80px; height: 100px" :src="scope.row.bookImage" alt="" :fit="fill" ></el-image>-->
-<!--                </template>-->
-<!--              </el-table-column>-->
-<!--              <el-table-column prop="bookName" label="图书名称" width="120" />-->
-<!--              <el-table-column prop="bookAuthor" label="图书作者" width="120" />-->
-<!--              <el-table-column prop="bookType" label="图书种类" width="110" />-->
-<!--              <el-table-column prop="bookLanguage" label="图书语言" width="110" />-->
-<!--              <el-table-column prop="bookCountry" label="图书国家" width="150" />-->
-<!--              <el-table-column prop="bookTags" label="图书标签" width="150">-->
-<!--                <template #default="scope">-->
-<!--                  <div v-if="scope.row.bookTags.length!=0">-->
-<!--                  <el-tag class="ml-2" type="warning" v-for="tag in scope.row.bookTags" :key="tag.tagId" closable @close="deleteTag(tag)">-->
-<!--                    {{tag.tagValue}}-->
-<!--                  </el-tag>-->
-<!--                  </div>-->
-<!--                  <el-button link type="primary" size="small" @click="addTagPage(scope.$index, scope.row)">添加</el-button>-->
-<!--                  &lt;!&ndash;                    @click="addTags(scope.$index, scope.row)"&ndash;&gt;-->
-<!--&lt;!&ndash;                  <el-button link type="primary" size="small" @click="deleteTag(scope.$index, scope.row)">删除</el-button>&ndash;&gt;-->
-<!--                </template>-->
-<!--              </el-table-column>-->
-<!--              <el-table-column prop="bookInfo" label="图书信息" width="600" />-->
-<!--              <el-table-column fixed="right" label="功能" width="150">-->
-<!--                <template #default="scope">-->
-<!--&lt;!&ndash;                  <el-button link type="primary" size="small" @click="leaveMessage(scope.$index, scope.row)">留言</el-button>&ndash;&gt;-->
-<!--                  <el-button link type="primary" size="small" @click="deleteBookShelf(scope.$index, scope.row)">删除</el-button>-->
-<!--                  <el-button link type="primary" size="small" @click="borrowBook(scope.$index, scope.row)">借阅</el-button>-->
-<!--                </template>-->
-<!--              </el-table-column>-->
-<!--            </el-table>-->
-<!--     </div>-->
 <!--     标签添加弹窗-->
      <el-dialog v-model="addTagShow" title="标签添加" width="30%" >
-<!--       <div>{{addTagInfo.bookId}}</div>-->
+       <div>{{addTagShow.bookId}}</div>
        <el-tag class="ml-2" type="warning" v-for="item in addTagInfo.bookTags" :key="item.tagId">
          {{item.tagValue}}
        </el-tag>
@@ -75,7 +53,7 @@
        <template #footer>
         <span class="dialog-footer">
         <el-button @click="dialogVisible = false">Cancel</el-button>
-        <el-button type="primary" @click="addTags">提交</el-button>
+        <el-button type="primary" @click="addTags(item)">提交</el-button>
        </span>
        </template>
      </el-dialog>
@@ -135,9 +113,9 @@ export default {
   },
   methods:{
     //弹窗
-    addTagPage(index,row) {
+    addTagPage(item) {
       this.addTagInfo={};
-      this.addTagInfo=row;
+      this.addTagInfo=item.bookTags;
       this.addTagShow = !this.addTagShow;
     },
     //书架查询
@@ -161,8 +139,8 @@ export default {
        });
      },
     //删除
-    deleteBookShelf(index, row){
-      let ids = [row.bookId];
+    deleteBookShelf(item){
+      let ids = [item.bookId];
       deleteFromBookShelf(ids,this.configs).then((res) =>{
         this.listLoading = true;
         if (res.data.statusCode === 'C200') {
@@ -198,8 +176,8 @@ export default {
     },
 
     //借阅图书
-    borrowBook(index, row){
-      let bookId = row.bookId;
+    borrowBook(item){
+      let bookId = item.bookId;
       bookBorrow(bookId,this.configs).then((res) => {
         this.listLoading = false;
         if (res.data.statusCode === 'C200') {
@@ -279,12 +257,14 @@ body{
   margin-top: 20px;
   margin-left: 20px;
   width: 1000px;
-  max-width: 500px;
+  max-width: 600px;
   height: 250px;
   background-color: #fff;
   border-radius: 25px;
   box-shadow: 0 10px 50px rgba(0,0,0,0.3);
   position: relative;
+  float: left;
+  margin-left: 20px;
 }
 .card{
   /* 弹性布局 垂直居中 */
@@ -332,12 +312,22 @@ body{
   font-size: 20px;
   font-weight: 700;
   margin-bottom: 20px;
+  /*float: left;*/
 }
-.card .text{
+.card .text-wrap{
+  height: 100px;
+  width: 350px;
+  overflow: hidden;
+  margin-top: -10px;
+}
+.card .text-wrap .text{
   font-size: 12px;
   color: #555;
   text-align: justify;
   margin-bottom: 25px;
+  overflow: scroll;
+  height: 116px;
+  width: 366px;
 }
 .button1{
   padding: 13px 20px;
@@ -349,6 +339,7 @@ body{
   font-weight: 600;
   box-shadow: 0 10px 50px rgba(0,0,0,0.2);
   float: right;
+  margin-top: 5px;
 }
 .button2{
   padding: 13px 20px;
@@ -360,6 +351,28 @@ body{
   font-weight: 600;
   box-shadow: 0 10px 50px rgba(0,0,0,0.2);
   float: right;
+  margin-top: 5px;
   margin-right: 10px;
+}
+.more{
+  font-size: 8px;
+  margin-top: 5px;
+  margin-left: -10px;
+  float: left;
+}
+.author{
+  font-size: 10px;
+  font-family: "楷体", "楷体_GB2312";
+}
+.status{
+  float: right;
+}
+.tags{
+  font-family: "楷体", "楷体_GB2312";
+  /*float: left;*/
+}
+.addTags{
+  float: right;
+  color: rgba(126, 146, 161, 0.91);
 }
 </style>

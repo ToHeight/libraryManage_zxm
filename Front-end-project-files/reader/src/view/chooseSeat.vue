@@ -5,7 +5,7 @@
       <div class="floor-tools">
         <el-form :model="choose" label-width="120px" :inline="true">
           <el-form-item label="请选择楼层:">
-            <el-select v-model="choose.floor" placeholder="请选择楼层" :disabled="choose.appTime!=''" clearable>
+            <el-select v-model="choose.floor" placeholder="请选择楼层" :disabled="choose.appTime!='' || !determineReservationDisplay" clearable>
               <el-option v-for="item in floors" :key="item.coding" :label="item.value" :value="item.coding"
                          @click="appTime=item.timeStart,endTime=item.timeEnd"/>
             </el-select>
@@ -33,13 +33,14 @@
     </header>
     <div v-if="determineReservationDisplay">
       <div class="seat" v-if="seatShow">
-        <div class="screenArea"><h1>图书馆{{ choose.floor }}层{{ choose.areaId }}区</h1>
+        <div class="screenArea"><h1>图书馆<span>{{ choose.floor }}</span>层<span>{{ choose.areaId }}</span>区</h1>
           <div class="userList">
             <div class="onlineNumber">
               在线人数:<span>{{userInformationList.length}}</span>人
             </div>
-            <div class="userImageList" v-for="item in userInformationList" :key="item.id" >
-              <img :src="item.userImage"/>
+            <div class="userImageList" v-for="(item,index) in userInformationList" :key="index" >
+              <img :src="item.userImage" v-if="index<5"/>
+              <span v-if="index>=5" class="moreImage">...</span>
             </div>
           </div>
           <el-divider class="line" />
@@ -65,10 +66,18 @@
       </div>
       <div id="hint"></div>
     </div>
-    <div v-if="!determineReservationDisplay">
-      <div class="box">
-
-      </div>
+    <div v-if="!determineReservationDisplay" class="AppointmentHistory">
+        <div class="Appointmenttitle"><h1>历史预约</h1></div>
+        <div class="AppointmentInfo">
+          <el-table :data="historyList" style="width: 100%" :header-cell-style="{'text-align':'center'}">
+            <el-table-column prop="appointmentId" label="预约编号" width="100" align="center"/>
+            <el-table-column prop="floorName" label="楼层名称" width="100" align="center"/>
+            <el-table-column prop="appointmentsStatus" label="预约当前状态" width="180" align="center">
+            </el-table-column>
+            <el-table-column prop="appointmentTime" label="预约时间" width="250" align="center"/>
+            <el-table-column prop="appointmentsCreateTime" label="预约创建时间" width="250" align="center"/>
+          </el-table>
+        </div>
     </div>
   </section>
 </template>
@@ -129,6 +138,10 @@
 .screenArea h1 {
   /*position: absolute;*/
   margin-left: -20px;
+  font-family: "楷体","楷体_GB2312";
+}
+.screenArea span{
+  color: crimson;
 }
 .line{
   margin-left: -300px;
@@ -145,13 +158,35 @@
   float: right;
   position: absolute;
 }
+.onlineNumber{
+  font-family: "楷体","楷体_GB2312";
+}
 .onlineNumber span{
-  font-size: 20px;
+  font-size: 30px;
+  color: crimson;
 }
 .userImageList img{
   height: 40px;
   width: 40px;
   border-radius: 50%;
-  float: right;
+  float: left;
+  margin-left: -10px;
+  margin-top: 5px;
+}
+.moreImage{
+  font-size: 20px;
+  margin-bottom: 10px;
+  margin-left: 20px;
+}
+.AppointmentHistory{
+  margin-left: 180px;
+  margin-right: 220px;
+  /*border: 1px red solid;*/
+}
+.Appointmenttitle{
+  margin-left: 350px;
+}
+.AppointmentInfo{
+  text-align: center;
 }
 </style>

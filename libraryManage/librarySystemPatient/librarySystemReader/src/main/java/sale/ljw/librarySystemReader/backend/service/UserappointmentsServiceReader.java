@@ -1,6 +1,7 @@
 package sale.ljw.librarySystemReader.backend.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.github.pagehelper.PageInfo;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import sale.ljw.backend.form.InitializationReserveSeatTime;
 import sale.ljw.backend.form.ReserveSeatForm;
@@ -32,4 +33,8 @@ public interface UserappointmentsServiceReader extends IService<Userappointments
     void updateFloorPeopleCount();
 
     ResponseResult<String> determineReservationConditions(String token);
+
+    ResponseResult<PageInfo<Map<String, Object>>> findAllAppointmentsByUser(Integer page, String token);
+
+    ResponseResult<String> cancelAppointment(String appointmentId,String token);
 }

@@ -226,3 +226,13 @@ SELECT  2,2,'2022-10-29 12:00:00',NOW(),'E-2'
 FROM DUAL WHERE EXISTS 
 (SELECT floor_id FROM libraryManage.Open WHERE floor_id=3 AND people_count!=0)
 
+# 查询历史预约
+SELECT Appointment_id appointmentId,Open.floor_name floorName,DATE_FORMAT(appointment_time, '%Y年%m月%d日 %H时%i分') appointmentTime,
+	DATE_FORMAT(appointments_createTime, '%Y年%m月%d日 %H时%i分') appointmentsCreateTime,Constant.value appointmentsStatus
+FROM UserAppointments
+INNER JOIN libraryManage.Open ON Open.floor_id=UserAppointments.user_id
+INNER JOIN Constant ON appointments_status=coding
+WHERE UserAppointments.user_id=1
+
+# 撤销预约
+UPDATE UserAppointments SET appointments_status='AS003' WHERE appointment_id=1 AND appointments_status IN ('AS001','AS004') AND user_id=1

@@ -3,6 +3,8 @@ package sale.ljw.librarySystemReader.backend.service.impl;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -139,6 +141,25 @@ public class UserappointmentsServiceImplReader extends ServiceImpl<Userappointme
             return ResponseResult.getErrorResult("当前不可预约,显示预约详情界面",StatusCode.NOT_FOUND,null);
         }
         return ResponseResult.getSuccessResult(null,"可预约");
+    }
+
+    @Override
+    public ResponseResult<PageInfo<Map<String, Object>>> findAllAppointmentsByUser(Integer page, String token) {
+        int userId = Integer.parseInt(JwtUtils.parseJWT(token));
+        PageHelper.startPage(page,10);
+        ArrayList<Map<String,Object>> userappointment=userappointmentsMapper.findAllAppointmentsByUser(userId);
+        PageInfo<Map<String,Object>> pageInfo=new PageInfo<Map<String,Object>>(userappointment);
+        return ResponseResult.getSuccessResult(pageInfo,"查询成功");
+    }
+
+    @Override
+    public ResponseResult<String> cancelAppointment(String appointmentId,String token) {
+        int userId = Integer.parseInt(JwtUtils.parseJWT(token));
+        Integer cancelAppointment=userappointmentsMapper.updateCancelAppointment(appointmentId,userId);
+        if(cancelAppointment==0){
+            return ResponseResult.getErrorResult("撤销失败", StatusCode.NOT_FOUND, null);
+        }
+        return ResponseResult.getSuccessResult(null,"撤销成功");
     }
 
 }

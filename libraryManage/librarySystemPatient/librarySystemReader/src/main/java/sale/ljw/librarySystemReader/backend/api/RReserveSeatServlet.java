@@ -1,5 +1,6 @@
 package sale.ljw.librarySystemReader.backend.api;
 
+import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -14,6 +15,7 @@ import sale.ljw.librarySystemReader.backend.service.UserappointmentsServiceReade
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import javax.ws.rs.Path;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -89,4 +91,21 @@ public class RReserveSeatServlet {
         return userappointmentsServiceReader.determineReservationConditions(token);
     }
 
+    /**
+     * 查询当前预约记录
+     * @param page
+     * @param token
+     * @return
+     */
+    @ApiOperation(value = "查询当前预约记录")
+    @GetMapping("/findAllAppointmentsByUser")
+    public ResponseResult<PageInfo<Map<String,Object>>> findAllAppointmentsByUser(@RequestParam(value = "page") Integer page,@RequestHeader(name = "token") String token){
+        return userappointmentsServiceReader.findAllAppointmentsByUser(page,token);
+    }
+
+    @ApiOperation(value = "撤销预约")
+    @GetMapping("/cancelAppointment/{appointmentId}")
+    public ResponseResult<String> cancelAppointment(@PathVariable(value = "appointmentId") String appointmentId,@RequestHeader(name = "token") String token){
+        return userappointmentsServiceReader.cancelAppointment(appointmentId,token);
+    }
 }

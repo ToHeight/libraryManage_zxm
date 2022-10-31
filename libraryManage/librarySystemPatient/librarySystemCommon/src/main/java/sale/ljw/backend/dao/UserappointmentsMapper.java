@@ -1,9 +1,13 @@
 package sale.ljw.backend.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.MapKey;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 import sale.ljw.backend.pojo.Userappointments;
+
+import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * @author 86155
@@ -14,7 +18,10 @@ import sale.ljw.backend.pojo.Userappointments;
 @Mapper
 @Repository
 public interface UserappointmentsMapper extends BaseMapper<Userappointments> {
+    @MapKey(value = "appointmentId")
+    ArrayList<Map<String, Object>> findAllAppointmentsByUser(int userId);
 
+    Integer updateCancelAppointment(String appointmentId, int userId);
 }
 
 

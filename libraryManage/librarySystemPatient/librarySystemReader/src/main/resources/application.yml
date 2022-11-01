@@ -45,10 +45,10 @@ spring:
       enabled: true
       file-size-threshold: 10MB
   datasource:
-    username: libraryManage
+    username: ***
     driver-class-name: com.mysql.cj.jdbc.Driver
-    password: oN1jyw3r53806o5NcrNT
-    url: jdbc:mysql://123.57.20.244:3306/libraryManage?serverTimezone=Asia/Shanghai&characterEncoding=utf-8
+    password: ***
+    url: jdbc:mysql://***/libraryManage?serverTimezone=Asia/Shanghai&characterEncoding=utf-8
     #    ip数据库
     #    url: jdbc:mysql://123.57.20.244:3306/neusoftTest?serverTimezone=Asia/Shanghai&characterEncoding=utf-8
     hikari:
@@ -65,9 +65,9 @@ spring:
     timeout: 1000
   rabbitmq:
     port: 5672
-    host: 123.57.20.244
-    username: ljw
-    password: BKYFE76c4R
+    host: ***
+    username: ***
+    password: ****
     virtual-host: /
 mybatis-plus:
   #配置MyBatis映射文件

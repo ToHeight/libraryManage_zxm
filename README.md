@@ -14,6 +14,5 @@
 
 预约座位功能展示
 
-
-https://user-images.githubusercontent.com/87918586/199138520-c9ae36d4-9132-4181-90d2-e99608cb6def.mp4
+https://user-images.githubusercontent.com/87918586/199138575-aba05ead-17a3-4074-bbbb-f50bda92841c.mp4
 

@@ -24,11 +24,11 @@
         activityAge,activityStatus,activityDelete
     </sql>
     <select id="queryActivity" resultType="java.util.Map">
-        SELECT  activity.activityId,activity.activityName,activityInfo,activityOrganizer,
+        SELECT DISTINCT  activity.activityId,activity.activityName,activityInfo,activityOrganizer,
                 DATE_FORMAT(activityDate, '%Y年%m月%d日') activityDate,DATE_FORMAT(activityApplication, '%Y年%m月%d日 %H时%i分') activityApplication,activity.activityAge,
                 Constant.value activityStatus,activityType.activityTypeName
         <if test="findActivity.itself">
-            ,appCon.value applicationStatus
+            ,appCon.value applicationStatus,application.applicationId
         </if>
         FROM activity
                  INNER JOIN Constant ON Constant.coding=activity.activityStatus
@@ -59,6 +59,7 @@
                 #{notShowActivity}
             </foreach>
         </if>
+        GROUP BY activity.activityId
     </select>
     <update id="checkActivityExpired">
         UPDATE activity SET activityStatus=(

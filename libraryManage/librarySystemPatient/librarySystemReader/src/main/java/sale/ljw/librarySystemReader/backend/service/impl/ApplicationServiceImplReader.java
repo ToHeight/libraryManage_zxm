@@ -1,7 +1,6 @@
 package sale.ljw.librarySystemReader.backend.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.netflix.discovery.converters.Auto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sale.ljw.backend.dao.ApplicationMapper;
@@ -25,11 +24,11 @@ public class ApplicationServiceImplReader extends ServiceImpl<ApplicationMapper,
     @Override
     public ResponseResult<String> cancellationApplication(Long applicationId, String token) {
         int userId = Integer.parseInt(JwtUtils.parseJWT(token));
-       Integer result= applicationMapper.cancellationApplication(applicationId,userId);
-       if(result==0){
-           return ResponseResult.getErrorResult("活动取消报名失败，可能活动的已经开始或结束", StatusCode.NOT_FOUND, null);
-       }
-        return ResponseResult.getSuccessResult(null,"撤销报名成功");
+        Integer result = applicationMapper.cancellationApplication(applicationId, userId);
+        if (result == 0) {
+            return ResponseResult.getErrorResult("活动取消报名失败，可能活动的已经开始或结束", StatusCode.NOT_FOUND, null);
+        }
+        return ResponseResult.getSuccessResult(null, "撤销报名成功");
     }
 }
 

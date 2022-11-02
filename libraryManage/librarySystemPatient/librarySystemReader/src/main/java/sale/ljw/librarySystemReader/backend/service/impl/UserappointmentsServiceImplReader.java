@@ -161,9 +161,4 @@ public class UserappointmentsServiceImplReader extends ServiceImpl<Userappointme
         }
         return ResponseResult.getSuccessResult(null,"撤销成功");
     }
-
 }
-
-
-
-

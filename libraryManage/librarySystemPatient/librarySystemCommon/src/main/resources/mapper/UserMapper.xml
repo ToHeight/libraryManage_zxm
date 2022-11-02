@@ -34,7 +34,7 @@
         WHERE User.user_id=#{userId}
     </select>
     <select id="findUserInformationLogin" resultType="java.util.HashMap">
-        SELECT User.user_id id,User.user_name userName,conGen.value gender,user_address userAddress,user_email userEmail,user_age age
+        SELECT User.user_id id,User.user_name userName,conGen.value gender,user_address userAddress,user_email userEmail,user_age age,User.user_image userImage
         FROM libraryManage.User
                  INNER JOIN Constant conGen ON conGen.coding=User.user_gender
         WHERE User.user_id=#{userId}

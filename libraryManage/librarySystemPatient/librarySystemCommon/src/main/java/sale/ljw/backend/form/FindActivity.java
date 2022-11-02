@@ -30,7 +30,6 @@ public class FindActivity {
     @Pattern(regexp = "^[0-9]*$", message = "活动种类id编码格式错误")
     private String activityTypeId;
 
-
     @ApiModelProperty(value = "活动当前状态")
     @Pattern(regexp = "^ACS[0-9]{2}$", message = "活动当前状态编码格式错误")
     private String activityStatus;

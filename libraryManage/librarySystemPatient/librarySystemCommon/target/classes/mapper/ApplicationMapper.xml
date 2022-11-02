@@ -5,7 +5,7 @@
 <mapper namespace="sale.ljw.backend.dao.ApplicationMapper">
 
     <resultMap id="BaseResultMap" type="sale.ljw.backend.pojo.Application">
-        <result property="applicationid" column="applicationId" jdbcType="BIGINT"/>
+        <result property="applicationid" column="applicationId" jdbcType="VARCHAR"/>
         <result property="userid" column="userId" jdbcType="INTEGER"/>
         <result property="applicationstatus" column="applicationStatus" jdbcType="CHAR"/>
         <result property="activityid" column="activityId" jdbcType="INTEGER"/>

@@ -232,7 +232,16 @@ SELECT Appointment_id appointmentId,Open.floor_name floorName,DATE_FORMAT(appoin
 FROM UserAppointments
 INNER JOIN libraryManage.Open ON Open.floor_id=UserAppointments.user_id
 INNER JOIN Constant ON appointments_status=coding
-WHERE UserAppointments.user_id=1
+WHERE UserAppointments.user_id=2
 
 # 撤销预约
 UPDATE UserAppointments SET appointments_status='AS003' WHERE appointment_id=1 AND appointments_status IN ('AS001','AS004') AND user_id=1
+
+
+
+SELECT Appointment_id appointmentId,Open.floor_name floorName,DATE_FORMAT(appointment_time, '%Y年%m月%d日 %H时%i分') appointmentTime, DATE_FORMAT(appointments_createTime, '%Y年%m月%d日 %H时%i分') appointmentsCreateTime,Constant.value appointmentsStatus,UserAppointments.seatName seatName 
+FROM UserAppointments 
+INNER JOIN libraryManage.Open ON Open.floor_id=UserAppointments.user_id 
+INNER JOIN Constant ON appointments_status=coding 
+WHERE UserAppointments.user_id=1
+

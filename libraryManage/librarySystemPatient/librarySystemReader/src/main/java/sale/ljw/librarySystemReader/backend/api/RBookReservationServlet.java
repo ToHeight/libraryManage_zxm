@@ -50,7 +50,7 @@ public class RBookReservationServlet {
      */
     @ApiOperation(value = "修改预定书籍")
     @GetMapping("/amendBookReservations/{bookId}")
-    public ResponseResult<String> amendBookReservations(@PathVariable(value = "bookId") Integer bookId,@RequestParam(value = "bookName") String bookName, @RequestHeader(name = "token") String token){
+    public ResponseResult<String> amendBookReservations(@PathVariable(value = "bookId") String bookId,@RequestParam(value = "bookName") String bookName, @RequestHeader(name = "token") String token){
         return scheduledServiceReader.amendBookReservations(bookId,bookName,token);
     }
 }

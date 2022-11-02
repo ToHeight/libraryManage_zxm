@@ -19,7 +19,7 @@ public class Scheduled implements Serializable {
      * 预定id
      */
     @TableId(value = "scheduled_id")
-    private Long scheduledId;
+    private String scheduledId;
     /**
      * 用户id
      */

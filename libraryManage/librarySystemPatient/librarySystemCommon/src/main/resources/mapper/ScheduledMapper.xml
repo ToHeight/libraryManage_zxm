@@ -5,7 +5,7 @@
 <mapper namespace="sale.ljw.backend.dao.ScheduledMapper">
 
     <resultMap id="BaseResultMap" type="sale.ljw.backend.pojo.Scheduled">
-        <id property="scheduledId" column="scheduled_id" jdbcType="BIGINT"/>
+        <id property="scheduledId" column="scheduled_id" jdbcType="VARCHAR"/>
         <result property="userId" column="user_id" jdbcType="INTEGER"/>
         <result property="bookName" column="book_name" jdbcType="VARCHAR"/>
         <result property="scheduledStatus" column="scheduled_status" jdbcType="CHAR"/>
@@ -21,10 +21,10 @@
         FROM Scheduled
                  INNER JOIN Constant ON Scheduled.scheduled_status=Constant.coding
         WHERE Scheduled.user_id=1
-        <if test="bookName != null">
+        <if test="bookName != ''">
             AND Scheduled.book_name LIKE CONCAT('%',#{bookName},'%')
         </if>
-        <if test="bookType != null">
+        <if test="bookType != ''">
             AND Scheduled.scheduled_status = #{bookType}
         </if>
     </select>

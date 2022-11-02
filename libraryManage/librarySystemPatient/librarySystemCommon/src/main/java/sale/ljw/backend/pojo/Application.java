@@ -21,7 +21,7 @@ public class Application implements Serializable {
      * 报名id
      */
     @TableId(value = "applicationId")
-    private long applicationid;
+    private String applicationid;
     /**
      * 用户Id
      */

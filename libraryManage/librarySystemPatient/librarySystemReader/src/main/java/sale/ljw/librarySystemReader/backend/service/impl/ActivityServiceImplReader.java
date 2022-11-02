@@ -33,11 +33,11 @@ public class ActivityServiceImplReader extends ServiceImpl<ActivityMapper, Activ
     private ApplicationMapper applicationMapper;
     @Override
     public ResponseResult<PageInfo<Map<String, Object>>> queryActivity(FindActivity findActivity,String token) {
-        String userId = JwtUtils.parseJWT(token);
-        PageHelper.startPage(findActivity.getPage(), findActivity.getPageSize());
-        ArrayList<Map<String, Object>> arrayList = activityMapper.queryActivity(findActivity,Integer.parseInt(userId));
-        PageInfo<Map<String,Object>> pageInfo=new PageInfo<>(arrayList);
-        return ResponseResult.getSuccessResult(pageInfo,"查询成功");
+           String userId = JwtUtils.parseJWT(token);
+           PageHelper.startPage(findActivity.getPage(), findActivity.getPageSize());
+           ArrayList<Map<String, Object>> arrayList = activityMapper.queryActivity(findActivity,Integer.parseInt(userId));
+           PageInfo<Map<String,Object>> pageInfo=new PageInfo<>(arrayList);
+           return ResponseResult.getSuccessResult(pageInfo,"查询成功");
     }
 
     @Override
@@ -57,7 +57,7 @@ public class ActivityServiceImplReader extends ServiceImpl<ActivityMapper, Activ
         }
         IdWorker idWorker=new IdWorker();
         Application application=new Application();
-        application.setApplicationid(idWorker.nextId());
+        application.setApplicationid(idWorker.nextId()+"");
         application.setActivityid(activityId);
         application.setUserid(userId);
         if(applicationMapper.insert(application)==0){
@@ -65,7 +65,6 @@ public class ActivityServiceImplReader extends ServiceImpl<ActivityMapper, Activ
         }
         return ResponseResult.getSuccessResult(null, "报名成功！");
     }
-
 
 }
 

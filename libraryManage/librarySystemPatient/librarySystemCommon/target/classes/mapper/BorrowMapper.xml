@@ -23,7 +23,7 @@
     <select id="findBorrowedBooks" resultType="java.util.Map">
         SELECT Borrow.borrow_id borrowId,Constant.value borrowStatus,Book.book_name bookName,Book.book_author bookAuthor,Book.book_image bookImage,User.leaseRenewalNumber,
                DATE_FORMAT(Borrow.return_time, '%Y年%m月%d日 %H时%i分') returnTime,DATE_FORMAT(Borrow.borrow_time, '%Y年%m月%d日 %H时%i分') borrowTime,User.leaseRenewalNumber,
-               User.borrowing_number borrowingNumber,Comments.comments_info commentdInfo,Comments.comments_id commentsId
+               User.borrowing_number borrowingNumber,Comments.comments_info commentdInfo,Comments.comments_id commentsId,Book.book_id bookId+nullif()
         FROM Borrow
                  INNER JOIN Book ON Borrow.book_id=Book.book_id
                  INNER JOIN Constant ON Borrow.borrow_tatus=Constant.coding

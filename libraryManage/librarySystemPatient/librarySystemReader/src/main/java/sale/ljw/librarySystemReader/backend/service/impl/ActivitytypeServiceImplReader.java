@@ -3,7 +3,6 @@ package sale.ljw.librarySystemReader.backend.service.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import sale.ljw.backend.dao.ActivityMapper;
 import sale.ljw.backend.dao.ActivitytypeMapper;
 import sale.ljw.backend.pojo.Activitytype;
 import sale.ljw.common.common.http.ResponseResult;
@@ -25,8 +24,8 @@ public class ActivitytypeServiceImplReader extends ServiceImpl<ActivitytypeMappe
 
     @Override
     public ResponseResult<ArrayList<Map<String, Object>>> getEventCategory() {
-        ArrayList<Map<String, Object>> activity= activitytypeMapper.getEventCategory();
-        return ResponseResult.getSuccessResult(activity,"查询成功");
+        ArrayList<Map<String, Object>> activity = activitytypeMapper.getEventCategory();
+        return ResponseResult.getSuccessResult(activity, "查询成功");
     }
 }
 

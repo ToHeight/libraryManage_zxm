@@ -44,16 +44,16 @@
        </div>
      </div>
 <!--     标签添加弹窗-->
-     <el-dialog v-model="addTagShow" title="标签添加" width="30%" >
-       <div>{{addTagShow.bookId}}</div>
+     <el-dialog v-model="addTagShow" title="标签添加" width="30%">
+       <div>{{addTagInfo.bookId}}</div>
        <el-tag class="ml-2" type="warning" v-for="item in addTagInfo.bookTags" :key="item.tagId">
          {{item.tagValue}}
        </el-tag>
          <el-input v-model="tagInput.tagValue" placeholder="输入标签名称" label="添加标签:"/>
        <template #footer>
         <span class="dialog-footer">
-        <el-button @click="dialogVisible = false">Cancel</el-button>
-        <el-button type="primary" @click="addTags(item)">提交</el-button>
+        <el-button @click="addTagShow = false">Cancel</el-button>
+        <el-button type="primary" @click="addTags">提交</el-button>
        </span>
        </template>
      </el-dialog>
@@ -302,7 +302,7 @@ body{
   padding: 0 30px 0 35px;
   position: relative;
   /* 默认偏右一点 */
-  left: 5px;
+  /*left: 3px;*/
   /* 文本内容默认隐藏 */
   /*opacity: 0;*/
   /* 过渡效果 */
@@ -326,11 +326,11 @@ body{
   text-align: justify;
   margin-bottom: 25px;
   overflow: scroll;
-  height: 116px;
-  width: 366px;
+  height: 117px;
+  width: 367px;
 }
 .button1{
-  padding: 13px 20px;
+  padding: 10px 17px;
   background-color: #000;
   color: #fff;
   text-decoration: none;
@@ -339,10 +339,10 @@ body{
   font-weight: 600;
   box-shadow: 0 10px 50px rgba(0,0,0,0.2);
   float: right;
-  margin-top: 5px;
+  margin-top: 10px;
 }
 .button2{
-  padding: 13px 20px;
+  padding: 10px 17px;
   background-color: #5b84b7;
   color: #fff;
   text-decoration: none;
@@ -351,12 +351,12 @@ body{
   font-weight: 600;
   box-shadow: 0 10px 50px rgba(0,0,0,0.2);
   float: right;
-  margin-top: 5px;
+  margin-top: 10px;
   margin-right: 10px;
 }
 .more{
   font-size: 8px;
-  margin-top: 5px;
+  margin-top: 10px;
   margin-left: -10px;
   float: left;
 }

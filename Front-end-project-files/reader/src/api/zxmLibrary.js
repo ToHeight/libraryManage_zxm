@@ -51,6 +51,8 @@ export const returnBook = (params, configs) => {
 export const deleteBorrow = (params, configs) => {
     return axios.delete(`${basezxm}/bookBorrowByReader/deleteBorrowingRecord/` + params, configs);
 };
+
+//座位预约
 export const getFloors = (configs) => {
     return axios.get(`${basezxm}/dropdownListData/getFloor`, configs);
 };
@@ -66,3 +68,39 @@ export const determineReservationConditions = (configs) => {
 export const historyAppointment = (page, configs) => {
     return axios.get(`${basezxm}/reserveSeatByReader/findAllAppointmentsByUser?page=` + page, configs);
 }
+export const cancelAppointment = (appointmentId,configs) => {
+    return axios.get(`${basezxm}/reserveSeatByReader/cancelAppointment/`+appointmentId, configs);
+};
+//图书预定
+export const bookScheduled = (configs) => {
+    return axios.get(`${basezxm}/dropdownListData/getPreOrderBookStatus`,configs);
+};
+// axios.get('/user?ID='+12345)
+export const findReservation = (bookName,bookType,configs) => {
+    return axios.get(`${basezxm}/bookReservationByReader/findBookReservation?bookName=`+bookName+'&bookType='+bookType,configs);
+};
+export const addReservation = (bookName,configs) => {
+    return axios.get(`${basezxm}/bookReservationByReader/bookReservationByBookName?bookName=`+bookName,configs);
+};
+export const updateBookReservation = (bookId,bookName,configs) => {
+    return axios.get(`${basezxm}/bookReservationByReader/amendBookReservations/`+bookId+ "?bookName=" + bookName, configs);
+};
+
+//活动中心
+export const findActivity = (params, configs) => {
+    return axios.post(`${basezxm}/activityByReader/queryActivity`, params, configs);
+};
+export const activityRegistration = (activityId,configs) => {
+    return axios.get(`${basezxm}/activityByReader/participateInRegistration/`+activityId, configs);
+};
+export const registrationCanel = (applicationId,configs) => {
+    return axios.get(`${basezxm}/activityByReader/cancellationApplication/`+applicationId, configs);
+};
+export const getActivityType = (configs) => {
+    return axios.get(`${basezxm}/dropdownListData/getEventCategory`, configs);
+};
+export const getActivityStatus = (configs) => {
+    return axios.get(`${basezxm}/dropdownListData/getActivityStatus`, configs);
+};
+
+

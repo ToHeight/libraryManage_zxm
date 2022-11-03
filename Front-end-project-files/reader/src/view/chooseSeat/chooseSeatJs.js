@@ -2,6 +2,7 @@ import SockJS from 'sockjs-client';
 import {Stomp} from "@stomp/stompjs";
 import {bookingSet, determineReservationConditions, findSeat, getFloors, historyAppointment} from "@/api/zxmLibrary";
 import {ElMessage} from "element-plus";
+import {privateKey} from "@/api/keyJSEncrypt";
 
 export default {
     data() {
@@ -16,7 +17,7 @@ export default {
             seatShow: false,
             userImage: undefined,
             userName: undefined,
-            userId: JSON.parse(localStorage.getItem("userInformation")).id,
+            userId: '',
             floorId: '',
             areaId: '',
             SeatNumber: '',
@@ -374,6 +375,8 @@ export default {
 
     },
     mounted() {
+        //对个人信息解密
+        this.userId=JSON.parse(privateKey(localStorage.getItem("userInformation"))).id;
         this.determineReservationCondition();
         this.floorList();
         this.apponitmentHistory();

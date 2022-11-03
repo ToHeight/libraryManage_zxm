@@ -33,6 +33,13 @@ const routes = [
                 }
             },
             {
+                path: '/bookReservation',
+                name: "bookReservation",
+                components: {
+                    table: () => import ("@/view/bookReservation/bookReservation"),
+                },
+            },
+            {
                 path: '/bookRecommend',
                 name: "bookRecommend",
                 components: {
@@ -58,6 +65,20 @@ const routes = [
                 name: "chooseSeat",
                 components: {
                     table: () => import ("@/view/chooseSeat"),
+                },
+            },
+            {
+                path: '/appointmentInformation',
+                name: "appointmentInformation",
+                components: {
+                    table: () => import ("@/view/appointmentInformation/appointmentInformation"),
+                },
+            },
+            {
+                path: '/activityCenter',
+                name: "activityCenter",
+                components: {
+                    table: () => import ("@/view/activityCenter/activityCenter"),
                 },
             },
            ]

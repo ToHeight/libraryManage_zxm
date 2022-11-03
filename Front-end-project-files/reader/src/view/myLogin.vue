@@ -29,7 +29,9 @@
 <script>
 import {loginByReader} from "@/api/zxmLibrary";
 import {ElMessage} from "element-plus";
-
+import { JSEncrypt } from 'jsencrypt'
+import {publicKsy} from '@/api/keyJSEncrypt';
+import {privateKey} from '@/api/keyJSEncrypt';
 export default {
   data(){
     return{
@@ -51,6 +53,12 @@ export default {
           },
         ],
       },
+      userList:[],
+      userName:undefined,
+      age:undefined,
+      gender:undefined,
+      userAddress:undefined,
+      userEmail:undefined,
     }
   },
   methods:{
@@ -69,9 +77,15 @@ export default {
               // localStorage.setItem("admin", JSON.stringify(res.data.result.adminInformation));
               localStorage.setItem("loginTime", new Date().getFullYear() + "-" + (new Date().getMonth() + 1) + '-' + new Date().getDate() + '  ' + new Date().getHours() + ':' + new Date().getMinutes() + ':' + new Date().getSeconds())
               //存储用户信息
-              localStorage.setItem("userInformation",JSON.stringify(res.data.result))
+              let PRdata=publicKsy(JSON.stringify(res.data.result))
+              let userImage = res.data.result.userImage;
+              localStorage.setItem("userInformationImg",userImage)
+              res.data.result.userImage=null;
+              //  解密
+              // let PUdata=privateKey(PRdata)
+              localStorage.setItem("userInformation",publicKsy(JSON.stringify(res.data.result)))
               // 前端页面不要写绝对地址，上线很容易出错，更改1
-              window.location.href = 'http://'+window.location.host+'/#/home';
+               window.location.href = 'http://'+window.location.host+'/#/home';
             } else {
               ElMessage.error(res.data.message);
             }

@@ -13,9 +13,7 @@ import sale.ljw.backend.form.SeatReservationOnlineStaff;
 import sale.ljw.common.common.http.ResponseResult;
 import sale.ljw.librarySystemReader.backend.service.UserappointmentsServiceReader;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import javax.ws.rs.Path;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -29,6 +27,7 @@ public class RReserveSeatServlet {
 
     /**
      * 修改选择状态
+     *
      * @param staff
      * @param accessor
      */
@@ -38,7 +37,7 @@ public class RReserveSeatServlet {
     }
 
     /**
-     *  十分钟发送一次消息，和初始化才调用此地址
+     * 十分钟发送一次消息，和初始化才调用此地址
      */
     @Scheduled(cron = "0 10 * * * ?")
     @MessageMapping("/reserveSeat/modifyDataFormByUserInitialization")
@@ -51,7 +50,7 @@ public class RReserveSeatServlet {
      * 更新用户预约表
      */
     @Scheduled(cron = "0 0 * * *  ?")
-    public void updateUserAppointments(){
+    public void updateUserAppointments() {
         userappointmentsServiceReader.updateUserAppointments();
     }
 
@@ -59,11 +58,13 @@ public class RReserveSeatServlet {
      * 每天凌晨一点更新楼层预约数量
      */
     @Scheduled(cron = "0 0 1 * * ?")
-    public void updateFloorPeopleCount(){
+    public void updateFloorPeopleCount() {
         userappointmentsServiceReader.updateFloorPeopleCount();
     }
+
     /**
      * 初始化当前预约的
+     *
      * @param time
      * @return
      */
@@ -75,37 +76,39 @@ public class RReserveSeatServlet {
 
     /**
      * 预约座位
+     *
      * @param reserveSeat
      * @param token
      * @return
      */
     @ApiOperation(value = "预约座位")
     @PostMapping("/reserveSeat")
-    public ResponseResult<String> reserveSeat(@Valid @RequestBody ReserveSeatForm reserveSeat,  @RequestHeader(name = "token") String token){
-        return userappointmentsServiceReader.reserveSeat(reserveSeat,token);
+    public ResponseResult<String> reserveSeat(@Valid @RequestBody ReserveSeatForm reserveSeat, @RequestHeader(name = "token") String token) {
+        return userappointmentsServiceReader.reserveSeat(reserveSeat, token);
     }
 
     @ApiOperation(value = "判断是否具备预约条件")
     @GetMapping("/determineReservationConditions")
-    public ResponseResult<String> determineReservationConditions(@RequestHeader(name = "token") String token){
+    public ResponseResult<String> determineReservationConditions(@RequestHeader(name = "token") String token) {
         return userappointmentsServiceReader.determineReservationConditions(token);
     }
 
     /**
      * 查询当前预约记录
+     *
      * @param page
      * @param token
      * @return
      */
     @ApiOperation(value = "查询当前预约记录")
     @GetMapping("/findAllAppointmentsByUser")
-    public ResponseResult<PageInfo<Map<String,Object>>> findAllAppointmentsByUser(@RequestParam(value = "page") Integer page,@RequestHeader(name = "token") String token){
-        return userappointmentsServiceReader.findAllAppointmentsByUser(page,token);
+    public ResponseResult<PageInfo<Map<String, Object>>> findAllAppointmentsByUser(@RequestParam(value = "page") Integer page, @RequestHeader(name = "token") String token) {
+        return userappointmentsServiceReader.findAllAppointmentsByUser(page, token);
     }
 
     @ApiOperation(value = "撤销预约")
     @GetMapping("/cancelAppointment/{appointmentId}")
-    public ResponseResult<String> cancelAppointment(@PathVariable(value = "appointmentId") String appointmentId,@RequestHeader(name = "token") String token){
-        return userappointmentsServiceReader.cancelAppointment(appointmentId,token);
+    public ResponseResult<String> cancelAppointment(@PathVariable(value = "appointmentId") String appointmentId, @RequestHeader(name = "token") String token) {
+        return userappointmentsServiceReader.cancelAppointment(appointmentId, token);
     }
 }

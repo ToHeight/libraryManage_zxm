@@ -4,6 +4,7 @@ import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import sale.ljw.backend.form.BookDetailsInformation;
 import sale.ljw.backend.form.FindBookByCriteria;
 import sale.ljw.common.common.http.ResponseResult;
 import sale.ljw.librarySystemReader.backend.service.BookServiceReader;
@@ -41,5 +42,27 @@ public class RBookServlet {
         return bookServiceReader.addBookshelves(bookId, token);
     }
 
+    /**
+     * 图书详情信息
+     * @param bookId
+     * @return
+     */
+    @ApiOperation(value = "图书详情信息")
+    @GetMapping("/getBookDetails")
+    public ResponseResult<BookDetailsInformation> getBookDetails(@RequestParam(value = "bookId") String bookId){
+        return bookServiceReader.getBookDetails(bookId);
+    }
+
+    /**
+     * 推荐图书获取
+     * @param bookId
+     * @param page
+     * @return
+     */
+    @ApiOperation(value = "推荐图书")
+    @GetMapping("/recommendedBooks")
+    public ResponseResult<PageInfo<Map<String,Object>>> recommendedBooks(@RequestParam(value = "bookId") String bookId,@RequestParam(value = "page") Integer page){
+        return bookServiceReader.recommendedBooks(bookId,page);
+    }
 
 }

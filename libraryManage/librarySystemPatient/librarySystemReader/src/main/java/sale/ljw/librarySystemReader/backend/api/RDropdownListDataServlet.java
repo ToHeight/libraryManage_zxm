@@ -94,4 +94,14 @@ public class RDropdownListDataServlet {
     public ResponseResult<ArrayList<Map<String,Object>>> getFloor(){
         return constantServiceReader.getFloor();
     }
+
+    /**
+     * 获取性别
+     * @return
+     */
+    @ApiOperation(value = "获取性别")
+    @GetMapping("/getGender")
+    public ResponseResult<ArrayList<Map<String,Object>>> getGender(){
+        return constantServiceReader.getGender();
+    }
 }

@@ -25,4 +25,6 @@ public interface ConstantServiceReader extends IService<Constant> {
     ResponseResult<ArrayList<Map<String, Object>>> getActivityStatus();
 
     ResponseResult<ArrayList<Map<String, Object>>> getFloor();
+
+    ResponseResult<ArrayList<Map<String, Object>>> getGender();
 }

@@ -27,6 +27,7 @@
                  INNER JOIN libraryManage.Open ON Open.floor_id=UserAppointments.floor_id
                  INNER JOIN Constant ON appointments_status=coding
         WHERE UserAppointments.user_id=#{userId}
+        ORDER BY Constant.coding DESC
     </select>
 
     <update id="updateCancelAppointment">

@@ -2,6 +2,7 @@ package sale.ljw.librarySystemReader.backend.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.github.pagehelper.PageInfo;
+import sale.ljw.backend.form.BookDetailsInformation;
 import sale.ljw.backend.form.FindBookByCriteria;
 import sale.ljw.backend.pojo.Book;
 import sale.ljw.common.common.http.ResponseResult;
@@ -21,4 +22,8 @@ public interface BookServiceReader extends IService<Book> {
     ResponseResult<PageInfo<Map<String,Object>>> findBookByCriteria(FindBookByCriteria findBookByCriteria);
 
     ResponseResult<String> addBookshelves(String bookId, String token);
+
+    ResponseResult<BookDetailsInformation> getBookDetails(String bookId);
+
+    ResponseResult<PageInfo<Map<String, Object>>> recommendedBooks(String bookId, Integer page);
 }

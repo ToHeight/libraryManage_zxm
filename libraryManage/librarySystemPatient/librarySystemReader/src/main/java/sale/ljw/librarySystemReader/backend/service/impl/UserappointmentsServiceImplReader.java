@@ -146,7 +146,7 @@ public class UserappointmentsServiceImplReader extends ServiceImpl<Userappointme
     @Override
     public ResponseResult<PageInfo<Map<String, Object>>> findAllAppointmentsByUser(Integer page, String token) {
         int userId = Integer.parseInt(JwtUtils.parseJWT(token));
-        PageHelper.startPage(page,10);
+        PageHelper.startPage(page,5);
         ArrayList<Map<String,Object>> userappointment=userappointmentsMapper.findAllAppointmentsByUser(userId);
         PageInfo<Map<String,Object>> pageInfo=new PageInfo<Map<String,Object>>(userappointment);
         return ResponseResult.getSuccessResult(pageInfo,"查询成功");

@@ -20,6 +20,8 @@ import java.util.Map;
 public interface BooktapMapper extends BaseMapper<Booktap> {
     @MapKey(value = "id")
     ArrayList<Map<String,Object>> queryBookmarksByBookId(String userId,String bookId);
+    @MapKey(value = "tagId")
+    ArrayList<Map<String,Object>> queryBookDetailsTag(String bookId);
 }
 
 

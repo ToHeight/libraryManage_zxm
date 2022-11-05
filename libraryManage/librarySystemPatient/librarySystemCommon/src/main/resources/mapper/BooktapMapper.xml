@@ -19,4 +19,17 @@
         FROM bookTap,bookTag
         WHERE bookTap.bookId=#{bookId} AND bookTag.tag_delete=0 AND bookTap.tapId=bookTag.tag_id AND (bookTap.userId IS NULL OR bookTap.userId=bookTag.user_id=#{userId})
     </select>
+    <select id="queryBookDetailsTag" resultType="java.util.Map">
+        SELECT bookTag.tag_value tagName,bookTag.tag_id tagId
+        FROM bookTag
+        WHERE bookTag.tag_delete=0 AND bookTag.user_id IS NULL AND bookTag.tag_id IN (
+            SELECT
+                bookTap.tapId
+            FROM
+                bookTap
+            WHERE
+                bookTap.bookId=#{bookId} AND bookTap.userId IS NULL
+        )
+    </select>
+
 </mapper>

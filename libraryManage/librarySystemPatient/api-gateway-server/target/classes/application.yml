@@ -6,6 +6,17 @@ logging:
 spring:
   application:
     name: api-gateway-server
+  cache:
+    type: redis
+    redis:
+      time-to-live: 20000
+      cache-null-values: false
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+      enabled: true
+      file-size-threshold: 10MB
   cloud:
     # 网关配置
     gateway:

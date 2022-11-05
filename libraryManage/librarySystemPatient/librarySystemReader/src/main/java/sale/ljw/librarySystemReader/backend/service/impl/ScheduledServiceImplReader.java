@@ -1,5 +1,6 @@
 package sale.ljw.librarySystemReader.backend.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -88,6 +89,18 @@ public class ScheduledServiceImplReader extends ServiceImpl<ScheduledMapper, Sch
         }
         return ResponseResult.getSuccessResult(null, "修改成功");
     }
+
+    @Override
+    public ResponseResult<String> cancelReservation(String reserveId, String token) {
+        UpdateWrapper<Scheduled> updateWrapper_0=new UpdateWrapper<>();
+        updateWrapper_0.eq("scheduled_id", reserveId).eq("user_id", Integer.parseInt(JwtUtils.parseJWT(token))).in("scheduled_status","RS001","RS003").set("scheduled_status","RS004");
+        if(scheduledMapper.update(null, updateWrapper_0)==0){
+            return ResponseResult.getErrorResult("取消失败，请检查当前图书状态", StatusCode.NOT_FOUND, null);
+
+        }
+        return ResponseResult.getSuccessResult(null, "取消预约成功");
+    }
+
 }
 
 

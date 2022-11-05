@@ -45,4 +45,9 @@
             INNER JOIN AppointmentsTime ON Open.time_id=AppointmentsTime.time_id
         WHERE floor_status='FS001' AND people_count!=0
     </select>
+    <select id="getGender" resultType="java.util.Map">
+        SELECT Constant.coding,Constant.value
+        FROM Constant
+        WHERE Constant.coding LIKE 'GM___'
+    </select>
 </mapper>

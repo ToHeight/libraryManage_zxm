@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.MapKey;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 import sale.ljw.backend.pojo.User;
+import sale.ljw.common.common.http.ResponseResult;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,6 +23,8 @@ public interface UserMapper extends BaseMapper<User> {
     HashMap<String, Object> getInformationById(Integer userId);
 
     HashMap<String, Object> findUserInformationLogin(Integer userId);
+
+    HashMap<String, Object> getUserInformation(Integer userId);
 }
 
 

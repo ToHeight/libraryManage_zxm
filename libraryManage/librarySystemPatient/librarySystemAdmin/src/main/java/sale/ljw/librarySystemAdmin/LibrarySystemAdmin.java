@@ -20,7 +20,7 @@ import org.springframework.context.annotation.PropertySource;
 @EnableHystrixDashboard // 开启Hystrix仪表盘监控功能
 @PropertySource(value = {"classpath:/token.properties", "classpath:/snowflake.properties"})
 @MapperScan(basePackages = ("sale.ljw.backend.dao"))
-@ComponentScan({"sale.ljw.librarySystemReader", "sale.ljw"})
+@ComponentScan({"sale.ljw.librarySystemAdmin", "sale.ljw"})
 public class LibrarySystemAdmin {
     public static void main(String[] args) {
         SpringApplication.run(LibrarySystemAdmin.class, args);

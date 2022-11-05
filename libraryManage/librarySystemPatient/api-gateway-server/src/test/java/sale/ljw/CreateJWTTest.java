@@ -54,5 +54,4 @@ public class CreateJWTTest {
         System.out.println(claims);
     }
 
-
 }

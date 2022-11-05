@@ -19,4 +19,6 @@ public interface ScheduledServiceReader extends IService<Scheduled> {
     ResponseResult<ArrayList<Map<String,Object>>> findBookReservation(String bookName, String bookType, String token);
 
     ResponseResult<String> amendBookReservations(String bookId, String bookName, String token);
+
+    ResponseResult<String> cancelReservation(String reserveId, String token);
 }

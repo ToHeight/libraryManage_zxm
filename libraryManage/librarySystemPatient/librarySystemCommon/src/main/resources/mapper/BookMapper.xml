@@ -67,4 +67,48 @@
             DESC
         </if>
     </select>
+
+    <resultMap id="bookDetailsInformation" type="sale.ljw.backend.form.BookDetailsInformation">
+        <id property="bookId" column="bookId" jdbcType="VARCHAR"/>
+        <id property="bookName" column="bookName" jdbcType="VARCHAR"/>
+        <id property="author" column="author" jdbcType="VARCHAR"/>
+        <id property="address" column="address" jdbcType="VARCHAR"/>
+        <id property="bookInfo" column="bookInfo" jdbcType="VARCHAR"/>
+        <id property="typeName" column="typeName" jdbcType="VARCHAR"/>
+        <id property="country" column="country" jdbcType="VARCHAR"/>
+        <id property="bookStatus" column="bookStatus" jdbcType="VARCHAR"/>
+        <id property="bookLanguage" column="bookLanguage" jdbcType="VARCHAR"/>
+        <id property="bookCount" column="bookCount" jdbcType="VARCHAR"/>
+        <id property="bookStar" column="bookStar" jdbcType="DOUBLE"/>
+        <collection property="tagList"
+                    javaType="arrayList"
+                    ofType="map"
+                    column="bookId"
+                    select="sale.ljw.backend.dao.BooktapMapper.queryBookDetailsTag"/>
+    </resultMap>
+
+    <select id="getBookDetails" resultMap="bookDetailsInformation">
+        SELECT  Book.book_id bookId,Book.book_name bookName,Book.book_author author,Book.book_address address,bookType.type_name typeName,country.value country,
+                bookLanguage.value bookLanguage,Book.book_count bookCount,bookStatus.value bookStatus,book_star bookStar,Book.book_info bookInfo
+        FROM Book
+                 INNER JOIN libraryManage.Type bookType ON bookType.type_id=Book.type_id
+                 INNER JOIN Constant country ON country.coding=Book.author_country
+                 INNER JOIN Constant bookLanguage ON bookLanguage.coding=Book.book_language
+                 INNER JOIN Constant bookStatus ON bookStatus.coding=Book.book_status
+        WHERE Book.book_delete=0 AND Book.book_id=#{bookId}
+    </select>
+
+    <select id="recommendedBooks" resultType="map">
+        SELECT book_id bookId,book_name bookName,Type.type_name typeName,book_star bookStar,book_image bookImage
+        FROM
+            Book
+                INNER JOIN libraryManage.Type ON Type.type_id=Book.type_id
+        ORDER BY (
+                     CASE
+                         WHEN Book.type_id=(
+                             SELECT bookType.type_id
+                             FROM Book bookType
+                             WHERE bookType.book_id=#{bookId}
+                         ) THEN 1 ELSE 4 END ),book_star DESC
+    </select>
 </mapper>

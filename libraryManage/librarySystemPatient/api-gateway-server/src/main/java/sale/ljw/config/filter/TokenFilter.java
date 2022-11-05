@@ -29,7 +29,13 @@ public class TokenFilter implements GlobalFilter, Ordered {
     private static final List<String> jumpOverPath = new ArrayList<>();
 
     static {
-        Collections.addAll(jumpOverPath, "/librarySystemReader/readerLogin/login");
+        Collections.addAll(jumpOverPath,
+                "/librarySystemReader/readerLogin/login",
+                "/librarySystemReader/userInformationByReader/uploadAvatarByReader",
+                "/librarySystemReader/userInformationByReader/emailVerificationCode",
+                "/librarySystemReader/bookByReader/getBookDetails",
+                "/librarySystemReader/bookByReader/recommendedBooks"
+        );
     }
 
     @Override

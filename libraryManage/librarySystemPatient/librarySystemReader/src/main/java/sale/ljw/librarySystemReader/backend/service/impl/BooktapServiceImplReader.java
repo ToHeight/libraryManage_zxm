@@ -64,7 +64,7 @@ public class BooktapServiceImplReader extends ServiceImpl<BooktapMapper, Booktap
         if(booktapMapper.insert(bookTap)==0){
             return ResponseResult.getErrorResult("为图书添加书签出错", StatusCode.NOT_MODIFIED,null);
         }
-        return ResponseResult.getSuccessResult(null, newTag?"当前添加书签不存在，以为您自动添加值为："+value+"的书签，书签添加成功":"书签添加成功");
+        return ResponseResult.getSuccessResult(bookTap.getTapid().toString(), newTag?"当前添加书签不存在，以为您自动添加值为："+value+"的书签，书签添加成功":"书签添加成功");
     }
 }
 

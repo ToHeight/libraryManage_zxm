@@ -1,5 +1,7 @@
 package sale.ljw.librarySystemReader.backend.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -52,6 +54,12 @@ public class ActivityServiceImplReader extends ServiceImpl<ActivityMapper, Activ
     public ResponseResult<String> participateInRegistration(Integer activityId, String token) {
         //检测当前用户的年龄是否达标
         int userId = Integer.parseInt(JwtUtils.parseJWT(token));
+        //检测当前用户是否已经报名过
+        QueryWrapper<Application> queryWrapper_0=new QueryWrapper<>();
+        queryWrapper_0.eq("userId", userId).eq("activityId", activityId).in("applicationStatus", "APS01","APS02","APS04");
+        if(applicationMapper.selectCount(queryWrapper_0)!=0){
+            return ResponseResult.getErrorResult("当前已经报名", StatusCode.NOT_FOUND, null);
+        }
         if(activityMapper.detectAge(activityId,userId)==0){
             return ResponseResult.getErrorResult("不满足报名条件", StatusCode.NOT_FOUND, null);
         }

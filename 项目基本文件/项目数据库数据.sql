@@ -32,6 +32,7 @@ INSERT INTO Constant(coding,VALUE) VALUES
  ('RS001','未加入图书库')
 ,('RS002','已加入图书库')
 ,('RS003','未找到')
+,('RS004','取消预订')
 # 预约时间编号
 INSERT INTO Constant(coding,VALUE) VALUES
  ('RT001','上午')
@@ -237,11 +238,48 @@ WHERE UserAppointments.user_id=2
 # 撤销预约
 UPDATE UserAppointments SET appointments_status='AS003' WHERE appointment_id=1 AND appointments_status IN ('AS001','AS004') AND user_id=1
 
+# 获取用户基本信息
+SELECT user_id userId,user_name userName,user_idcard userIdcard,user_telephone telephone,user_address address,user_email email,user_image image,user_birth brithday,user_gender gender
+FROM libraryManage.User
+WHERE User.user_id=1
+
+# 获取性别下拉框
+SELECT Constant.coding,Constant.value
+FROM Constant
+WHERE Constant.coding LIKE 'GM___'
+
+# 图书详情信息
+SELECT  Book.book_id bookId,Book.book_name bookName,Book.book_author author,Book.book_address address,bookType.type_name typeName,country.value country,
+	bookLanguage.value bookLanguage,Book.book_count bookCount,bookStatus.value bookStatus,book_star bookStar,Book.book_info bookInfo
+FROM Book
+INNER JOIN libraryManage.Type bookType ON bookType.type_id=Book.type_id
+INNER JOIN Constant country ON country.coding=Book.author_country
+INNER JOIN Constant bookLanguage ON bookLanguage.coding=Book.book_language
+INNER JOIN Constant bookStatus ON bookStatus.coding=Book.book_status
+WHERE Book.book_delete=0
+
+# 图书标签查询
+SELECT bookTag.tag_value tagName,bookTag.tag_id tagId
+FROM bookTag
+WHERE bookTag.tag_delete=0 AND bookTag.user_id IS NULL AND bookTag.tag_id IN (
+	SELECT
+		bookTap.tapId
+	FROM 
+		bookTap
+	WHERE
+		bookTap.bookId=8 AND bookTap.userId IS NULL
+)
 
 
-SELECT Appointment_id appointmentId,Open.floor_name floorName,DATE_FORMAT(appointment_time, '%Y年%m月%d日 %H时%i分') appointmentTime, DATE_FORMAT(appointments_createTime, '%Y年%m月%d日 %H时%i分') appointmentsCreateTime,Constant.value appointmentsStatus,UserAppointments.seatName seatName 
-FROM UserAppointments 
-INNER JOIN libraryManage.Open ON Open.floor_id=UserAppointments.user_id 
-INNER JOIN Constant ON appointments_status=coding 
-WHERE UserAppointments.user_id=1
-
+# 推荐图书信息
+SELECT book_id bookId,book_name bookName,Type.type_name typeName,book_star bookStar,book_image bookImage
+FROM 
+	Book
+INNER JOIN libraryManage.Type ON Type.type_id=Book.type_id
+ORDER BY (
+    CASE
+     WHEN Book.type_id=(
+SELECT bookType.type_id
+FROM Book bookType
+WHERE bookType.book_id=19    
+     ) THEN 1 ELSE 4 END),book_star DESC;

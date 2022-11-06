@@ -28,4 +28,8 @@ public class RLoginServlet {
     public ResponseResult<Map<String,Object>> login(@RequestBody @Valid LoginCredentials loginCredentials, HttpServletResponse response){
         return userloginServiceReader.login(loginCredentials,response);
     }
+
+//    @ApiOperation(value = "修改登录名和密码")
+//    @PostMapping("")
+
 }

@@ -43,6 +43,7 @@ public class ReaderInformation {
 
     @ApiModelProperty(value = "电子邮件码")
     @Length(min = 5,max = 5)
+    @NotBlank(message = "邮箱验证码不得为空")
     private String emailCode;
 
     @ApiModelProperty(value = "头像地址")

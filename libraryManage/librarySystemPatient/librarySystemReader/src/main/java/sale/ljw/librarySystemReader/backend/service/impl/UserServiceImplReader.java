@@ -1,5 +1,7 @@
 package sale.ljw.librarySystemReader.backend.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,11 +63,24 @@ public class UserServiceImplReader extends ServiceImpl<UserMapper, User>
 
     @Override
     public ResponseResult<String> modifyReaderInformation(ReaderInformation readerInformation, String token) {
+        //检测邮箱是否已经存在
+        int userId = Integer.parseInt(JwtUtils.parseJWT(token));
+        QueryWrapper<User> queryWrapper_0=new QueryWrapper<>();
+        queryWrapper_0.notIn("user_id", userId).and(q->{
+            q.eq("user_idcard", readerInformation.getIdCard()).or().eq("user_email", readerInformation.getEmail());
+        });
+        if(userMapper.selectCount(queryWrapper_0)!=0){
+            return ResponseResult.getErrorResult("当前身份证号或邮箱已被注册", StatusCode.NOT_FOUND, null);
+        }
         //验证电子邮件是否通过
-        if (!readerInformation.getEmailCode().equals(redisTemplate.boundValueOps(readerInformation.getEmail()).get() == null ? "" : redisTemplate.boundValueOps(readerInformation.getEmail()).get())) {
+        String code = (String)redisTemplate.boundValueOps(readerInformation.getEmail()).get();
+        try{
+            if (!readerInformation.getEmailCode().equalsIgnoreCase(code)) {
+                return ResponseResult.getErrorResult("邮箱验证失败", StatusCode.FORBIDDEN, null);
+            }
+        }catch (NullPointerException e){
             return ResponseResult.getErrorResult("邮箱验证失败", StatusCode.FORBIDDEN, null);
         }
-        int userId = Integer.parseInt(JwtUtils.parseJWT(token));
         //电子邮件通过验证,修改用户信息
         UpdateWrapper<User> updateWrapper_0 = new UpdateWrapper<>();
         updateWrapper_0.eq("user_id", userId)
@@ -89,7 +104,7 @@ public class UserServiceImplReader extends ServiceImpl<UserMapper, User>
         //生成五位验证码,和邮箱一起发送
         String s = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWYZ0123456789";
         Random sc = new Random();
-        StringBuilder code = new StringBuilder(" ");
+        StringBuilder code = new StringBuilder("");
         for (int i = 0; i < 5; i++) {
             int ax = sc.nextInt(s.length());
             char c = s.charAt(ax);
@@ -102,7 +117,7 @@ public class UserServiceImplReader extends ServiceImpl<UserMapper, User>
             throw new RuntimeException(e);
         }
         //将邮箱和验证码保存至redis中,并设置了两分钟过期
-        redisTemplate.boundValueOps(email).set(code.toString(), 2, TimeUnit.MINUTES);
+        redisTemplate.boundValueOps(email).set(code, 2, TimeUnit.MINUTES);
         return ResponseResult.getSuccessResult(null, "邮件发送成功");
     }
 }

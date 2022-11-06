@@ -80,6 +80,7 @@
         <id property="bookLanguage" column="bookLanguage" jdbcType="VARCHAR"/>
         <id property="bookCount" column="bookCount" jdbcType="VARCHAR"/>
         <id property="bookStar" column="bookStar" jdbcType="DOUBLE"/>
+        <id property="bookImage" column="bookImage" jdbcType="VARCHAR"/>
         <collection property="tagList"
                     javaType="arrayList"
                     ofType="map"
@@ -89,7 +90,7 @@
 
     <select id="getBookDetails" resultMap="bookDetailsInformation">
         SELECT  Book.book_id bookId,Book.book_name bookName,Book.book_author author,Book.book_address address,bookType.type_name typeName,country.value country,
-                bookLanguage.value bookLanguage,Book.book_count bookCount,bookStatus.value bookStatus,book_star bookStar,Book.book_info bookInfo
+                bookLanguage.value bookLanguage,Book.book_count bookCount,bookStatus.value bookStatus,book_star bookStar,Book.book_info bookInfo,Book.book_image bookImage
         FROM Book
                  INNER JOIN libraryManage.Type bookType ON bookType.type_id=Book.type_id
                  INNER JOIN Constant country ON country.coding=Book.author_country
@@ -103,6 +104,7 @@
         FROM
             Book
                 INNER JOIN libraryManage.Type ON Type.type_id=Book.type_id
+        WHERE Book.book_delete=0
         ORDER BY (
                      CASE
                          WHEN Book.type_id=(
@@ -110,5 +112,40 @@
                              FROM Book bookType
                              WHERE bookType.book_id=#{bookId}
                          ) THEN 1 ELSE 4 END ),book_star DESC
+    </select>
+    <select id="homeRecommendedBooks" resultType="java.util.Map">
+        SELECT book_id bookId,book_name bookName,Type.type_name typeName,book_star bookStar,book_image bookImage
+        FROM
+            Book
+                INNER JOIN libraryManage.Type ON Type.type_id=Book.type_id
+        WHERE Book.book_delete=0
+        ORDER BY (
+                     CASE
+                         WHEN Book.type_id IN (
+                             (SELECT  DISTINCT
+                                  BookBorrow.type_id
+                              FROM
+                                  Borrow
+                                      INNER JOIN Book BookBorrow ON BookBorrow.book_id=Borrow.book_id
+                              WHERE
+                                  Borrow.user_id=#{userId}
+                              UNION
+                              SELECT DISTINCT
+                                  BookBookShelf.type_id
+                              FROM
+                                  BookShelf
+                                      INNER JOIN Book BookBookShelf ON BookBookShelf.book_id=BookShelf.book_id
+                              WHERE
+                                  BookShelf.user_id=#{userId})
+                         ) THEN 1 ELSE 4 END),book_star DESC
+    </select>
+    <select id="getBookReviews" resultType="java.util.Map">
+        SELECT
+            User.user_name userName,User.User_image userImage,Comments.comments_info commentsInfo
+        FROM
+            Comments
+                INNER JOIN libraryManage.User ON User.user_id=Comments.user_id
+        WHERE
+            Comments.book_id=#{bookId} AND delete_comments=0
     </select>
 </mapper>

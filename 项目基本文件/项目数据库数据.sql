@@ -270,7 +270,6 @@ WHERE bookTag.tag_delete=0 AND bookTag.user_id IS NULL AND bookTag.tag_id IN (
 		bookTap.bookId=8 AND bookTap.userId IS NULL
 )
 
-
 # 推荐图书信息
 SELECT book_id bookId,book_name bookName,Type.type_name typeName,book_star bookStar,book_image bookImage
 FROM 
@@ -283,3 +282,38 @@ SELECT bookType.type_id
 FROM Book bookType
 WHERE bookType.book_id=19    
      ) THEN 1 ELSE 4 END),book_star DESC;
+     
+# 首页推荐图书
+SELECT book_id bookId,book_name bookName,Type.type_name typeName,book_star bookStar,book_image bookImage
+FROM 
+	Book
+INNER JOIN libraryManage.Type ON Type.type_id=Book.type_id
+ORDER BY (
+    CASE
+     WHEN Book.type_id IN (
+	(SELECT  DISTINCT    
+		BookBorrow.type_id
+	FROM 
+		Borrow
+	INNER JOIN Book BookBorrow ON BookBorrow.book_id=Borrow.book_id
+	WHERE 
+		Borrow.user_id=8
+	UNION 
+	SELECT DISTINCT 
+		BookBookShelf.type_id
+	FROM 
+		BookShelf
+	INNER JOIN Book BookBookShelf ON BookBookShelf.book_id=BookShelf.book_id
+	WHERE
+		BookShelf.user_id=8)
+     ) THEN 1 ELSE 4 END),book_star DESC;
+     
+     
+# 查询图书评论
+SELECT 
+	User.user_name userName,User.User_image userImage,Comments.comments_info commentsInfo
+FROM 
+	Comments
+INNER JOIN libraryManage.User ON User.user_id=Comments.user_id
+WHERE
+	Comments.book_id=8 AND delete_comments=0

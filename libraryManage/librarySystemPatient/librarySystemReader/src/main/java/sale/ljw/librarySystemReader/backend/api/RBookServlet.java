@@ -44,25 +44,45 @@ public class RBookServlet {
 
     /**
      * 图书详情信息
+     *
      * @param bookId
      * @return
      */
     @ApiOperation(value = "图书详情信息")
     @GetMapping("/getBookDetails")
-    public ResponseResult<BookDetailsInformation> getBookDetails(@RequestParam(value = "bookId") String bookId){
+    public ResponseResult<BookDetailsInformation> getBookDetails(@RequestParam(value = "bookId") String bookId) {
         return bookServiceReader.getBookDetails(bookId);
     }
 
     /**
      * 推荐图书获取
+     *
      * @param bookId
      * @param page
      * @return
      */
     @ApiOperation(value = "推荐图书")
     @GetMapping("/recommendedBooks")
-    public ResponseResult<PageInfo<Map<String,Object>>> recommendedBooks(@RequestParam(value = "bookId") String bookId,@RequestParam(value = "page") Integer page){
-        return bookServiceReader.recommendedBooks(bookId,page);
+    public ResponseResult<PageInfo<Map<String, Object>>> recommendedBooks(@RequestParam(value = "bookId") String bookId, @RequestParam(value = "page") Integer page) {
+        return bookServiceReader.recommendedBooks(bookId, page);
     }
 
+    @ApiOperation(value = "首页推荐图书")
+    @GetMapping("/homeRecommendedBooks/{pageSize}")
+    public ResponseResult<PageInfo<Map<String, Object>>> homeRecommendedBooks(@PathVariable(value = "pageSize") Integer pageSize, @RequestHeader(name = "token") String token) {
+        return bookServiceReader.homeRecommendedBooks(pageSize, token);
+    }
+
+    /**
+     * 图书详情界面图书评论获取
+     *
+     * @param page
+     * @param bookId
+     * @return
+     */
+    @ApiOperation(value = "图书详情界面图书评论获取")
+    @GetMapping("/getBookReviews")
+    public ResponseResult<PageInfo<Map<String, Object>>> getBookReviews(@RequestParam(value = "page") Integer page, @RequestParam(value = "bookId") String bookId) {
+        return bookServiceReader.getBookReviews(page, bookId);
+    }
 }

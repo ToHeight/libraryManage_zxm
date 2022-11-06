@@ -26,4 +26,8 @@ public interface BookServiceReader extends IService<Book> {
     ResponseResult<BookDetailsInformation> getBookDetails(String bookId);
 
     ResponseResult<PageInfo<Map<String, Object>>> recommendedBooks(String bookId, Integer page);
+
+    ResponseResult<PageInfo<Map<String, Object>>> homeRecommendedBooks(Integer pageSize, String token);
+
+    ResponseResult<PageInfo<Map<String, Object>>> getBookReviews(Integer page, String bookId);
 }

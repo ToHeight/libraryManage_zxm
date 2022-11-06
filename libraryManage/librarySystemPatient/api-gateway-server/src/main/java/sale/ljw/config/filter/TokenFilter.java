@@ -34,7 +34,8 @@ public class TokenFilter implements GlobalFilter, Ordered {
                 "/librarySystemReader/userInformationByReader/uploadAvatarByReader",
                 "/librarySystemReader/userInformationByReader/emailVerificationCode",
                 "/librarySystemReader/bookByReader/getBookDetails",
-                "/librarySystemReader/bookByReader/recommendedBooks"
+                "/librarySystemReader/bookByReader/recommendedBooks",
+                "/librarySystemReader/bookByReader/getBookReviews"
         );
     }
 

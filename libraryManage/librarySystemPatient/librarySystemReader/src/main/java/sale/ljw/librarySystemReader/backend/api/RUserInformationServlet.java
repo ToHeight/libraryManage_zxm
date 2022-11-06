@@ -51,7 +51,7 @@ public class RUserInformationServlet {
      */
     @ApiOperation(value = "修改个人信息")
     @PostMapping("/modifyReaderInformation")
-    public ResponseResult<String> modifyReaderInformation(@RequestBody ReaderInformation readerInformation, @RequestHeader(name = "token") String token){
+    public ResponseResult<String> modifyReaderInformation(@RequestBody @Valid ReaderInformation readerInformation, @RequestHeader(name = "token") String token){
         return userServiceReader.modifyReaderInformation(readerInformation,token);
     }
 

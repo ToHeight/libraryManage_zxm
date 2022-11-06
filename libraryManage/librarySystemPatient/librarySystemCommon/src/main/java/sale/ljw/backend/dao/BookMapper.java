@@ -8,6 +8,7 @@ import sale.ljw.backend.form.BookDetailsInformation;
 import sale.ljw.backend.form.FindBookByCriteria;
 import sale.ljw.backend.pojo.Book;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -23,10 +24,15 @@ public interface BookMapper extends BaseMapper<Book> {
     @MapKey(value = "bookId")
     public List<Map<String,Object>> findBookByCriteria(FindBookByCriteria bookByCriteria);
     @MapKey(value = "bookId")
-    public List<Map<String,Object>> recommendedBooks(String bookId);
+    public ArrayList<Map<String,Object>> recommendedBooks(String bookId);
 
 
     BookDetailsInformation getBookDetails(String bookId);
+    @MapKey(value = "bookId")
+    ArrayList<Map<String, Object>> homeRecommendedBooks(int userId);
+
+    @MapKey(value = "userName")
+    ArrayList<Map<String, Object>> getBookReviews(String bookId);
 }
 
 

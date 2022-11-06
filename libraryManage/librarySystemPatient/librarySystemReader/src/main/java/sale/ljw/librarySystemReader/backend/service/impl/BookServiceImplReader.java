@@ -17,6 +17,7 @@ import sale.ljw.common.common.http.StatusCode;
 import sale.ljw.common.utils.JwtUtils;
 import sale.ljw.librarySystemReader.backend.service.BookServiceReader;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -83,9 +84,28 @@ public class BookServiceImplReader extends ServiceImpl<BookMapper, Book>
     @Override
     public ResponseResult<PageInfo<Map<String, Object>>> recommendedBooks(String bookId, Integer page) {
         PageHelper.startPage(page,10);
-        List<Map<String, Object>> recommendedBooks = bookMapper.recommendedBooks(bookId);
+        ArrayList<Map<String, Object>> recommendedBooks = bookMapper.recommendedBooks(bookId);
         PageInfo<Map<String,Object>> pageInfo=new PageInfo<>(recommendedBooks);
         return ResponseResult.getSuccessResult(pageInfo,"推荐图书获取成功");
+    }
+
+    @Override
+    public ResponseResult<PageInfo<Map<String, Object>>> homeRecommendedBooks(Integer pageSize, String token) {
+        //首页推荐图书流程
+        //根据借阅图书相同种类+书架图书种类+五星图书进行推荐。若为新用户则推荐五星图书
+        int userId = Integer.parseInt(JwtUtils.parseJWT(token));
+        PageHelper.startPage(1,pageSize);
+        ArrayList<Map<String, Object>> recommendedBooks = bookMapper.homeRecommendedBooks(userId);
+        PageInfo<Map<String,Object>> pageInfo=new PageInfo<>(recommendedBooks);
+        return ResponseResult.getSuccessResult(pageInfo,"推荐图书查询成功");
+    }
+
+    @Override
+    public ResponseResult<PageInfo<Map<String, Object>>> getBookReviews(Integer page, String bookId) {
+        PageHelper.startPage(page,3);
+        ArrayList<Map<String, Object>> bookReviews = bookMapper.getBookReviews(bookId);
+        PageInfo<Map<String,Object>> pageInfo=new PageInfo<Map<String,Object>>(bookReviews);
+        return ResponseResult.getSuccessResult(pageInfo,"查询成功");
     }
 
 }

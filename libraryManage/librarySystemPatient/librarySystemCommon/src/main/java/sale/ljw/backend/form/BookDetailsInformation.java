@@ -32,6 +32,8 @@ public class BookDetailsInformation {
     private Double bookStar;
     @ApiModelProperty(value = "图书详情")
     private String bookInfo;
+    @ApiModelProperty(value = "图书图片")
+    private String bookImage;
     @ApiModelProperty(value = "图书标签")
     private ArrayList<Map<String,Object>> tagList;
 

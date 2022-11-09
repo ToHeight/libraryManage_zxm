@@ -67,6 +67,12 @@ public class RBookServlet {
         return bookServiceReader.recommendedBooks(bookId, page);
     }
 
+    /**
+     * 首页推荐图书
+     * @param pageSize
+     * @param token
+     * @return
+     */
     @ApiOperation(value = "首页推荐图书")
     @GetMapping("/homeRecommendedBooks/{pageSize}")
     public ResponseResult<PageInfo<Map<String, Object>>> homeRecommendedBooks(@PathVariable(value = "pageSize") Integer pageSize, @RequestHeader(name = "token") String token) {

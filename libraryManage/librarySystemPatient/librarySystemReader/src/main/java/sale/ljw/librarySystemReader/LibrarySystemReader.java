@@ -20,7 +20,7 @@ import org.springframework.web.socket.config.annotation.EnableWebSocket;
 @EnableFeignClients
 @EnableDiscoveryClient
 @EnableHystrixDashboard // 开启Hystrix仪表盘监控功能
-@PropertySource(value = {"classpath:/token.properties", "classpath:/snowflake.properties","classpath:/obsHuaWei.properties"})
+@PropertySource(value = {"classpath:/token.properties", "classpath:/snowflake.properties","classpath:/obsHuaWei.properties","classpath:/frontEndInterface.properties"})
 @MapperScan(basePackages = ("sale.ljw.backend.dao"))
 @ComponentScan({"sale.ljw.librarySystemReader", "sale.ljw"})
 @EnableScheduling

@@ -23,8 +23,11 @@ public interface UserMapper extends BaseMapper<User> {
     HashMap<String, Object> getInformationById(Integer userId);
 
     HashMap<String, Object> findUserInformationLogin(Integer userId);
+    HashMap<String, Object> findUserInformationLoginByEnail(String email);
 
     HashMap<String, Object> getUserInformation(Integer userId);
+
+    int updateLeaseRenewalNumber(int userId);
 }
 
 

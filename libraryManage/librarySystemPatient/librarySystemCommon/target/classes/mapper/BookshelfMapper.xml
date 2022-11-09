@@ -61,4 +61,9 @@
             AND Book.type_id = #{bookType}
         </if>
     </select>
+    <select id="searchSameBook" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM BookShelf
+        WHERE user_id=#{userId} AND book_id=#{bookId} AND book_delete=0
+    </select>
 </mapper>

@@ -20,7 +20,7 @@
         SELECT Scheduled.scheduled_id scheduledId,Scheduled.book_name bookName,Constant.value bookStatus
         FROM Scheduled
                  INNER JOIN Constant ON Scheduled.scheduled_status=Constant.coding
-        WHERE Scheduled.user_id=1
+        WHERE Scheduled.user_id=#{userId}
         <if test="bookName != ''">
             AND Scheduled.book_name LIKE CONCAT('%',#{bookName},'%')
         </if>

@@ -3,6 +3,8 @@ package sale.ljw.librarySystemReader.backend.api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import sale.ljw.backend.form.ChangePasswordForm;
+import sale.ljw.backend.form.EmailLoginCredentials;
 import sale.ljw.backend.form.LoginCredentials;
 import sale.ljw.common.common.http.ResponseResult;
 import sale.ljw.librarySystemReader.backend.service.UserloginServiceReader;
@@ -14,6 +16,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/readerLogin")
 public class RLoginServlet {
+
     @Autowired
     private UserloginServiceReader userloginServiceReader;
 
@@ -29,7 +32,32 @@ public class RLoginServlet {
         return userloginServiceReader.login(loginCredentials,response);
     }
 
-//    @ApiOperation(value = "修改登录名和密码")
-//    @PostMapping("")
+    /**
+     * 邮件验证码登录
+     * @param emailLoginCredentials
+     * @return
+     */
+    @ApiOperation(value = "邮件验证码登录")
+    @PostMapping("/emailLogin")
+    public ResponseResult<Map<String,Object>> emailLogin(@RequestBody @Valid EmailLoginCredentials emailLoginCredentials, HttpServletResponse response){
+        return userloginServiceReader.emailLogin(emailLoginCredentials,response);
+    }
 
+    /**
+     * 忘记密码
+     * @param email
+     * @return
+     */
+    @ApiOperation(value = "忘记密码")
+    @GetMapping("/forgotPassword")
+    public ResponseResult<String> forgotPassword(@RequestParam(value = "email") String email){
+        return userloginServiceReader.forgotPassword(email);
+    }
+
+
+    @ApiOperation(value = "修改密码")
+    @PostMapping("/changePasswordByEmail")
+    public ResponseResult<String> changePasswordByEmail(@RequestBody @Valid ChangePasswordForm changePassword){
+        return userloginServiceReader.changePasswordByEmail(changePassword);
+    }
 }

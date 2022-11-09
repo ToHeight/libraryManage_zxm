@@ -58,6 +58,10 @@ public class BorrowServiceImplReader extends ServiceImpl<BorrowMapper, Borrow>
     @Transactional
     public ResponseResult<String> borrowBook(String bookId, String token) {
         String userId = JwtUtils.parseJWT(token);
+        //检测当前是否借阅过图书
+        if(borrowMapper.searchSameBook(Integer.parseInt(userId),bookId)!=0){
+            return ResponseResult.getErrorResult("请查询当前图书是否已经借阅过并未归还", StatusCode.NOT_FOUND, null);
+        }
         //查询读者租赁次数是否为0
         QueryWrapper<User> queryWrapper_borrowNumber = new QueryWrapper<>();
         queryWrapper_borrowNumber.eq("user_id", Integer.valueOf(userId)).eq("status", "ASU01").select("borrowing_number");
@@ -220,6 +224,26 @@ public class BorrowServiceImplReader extends ServiceImpl<BorrowMapper, Borrow>
         for (Borrow borrow : borrows) {
             booksNotReturnedOverTime(borrow.getBorrowId());
         }
+    }
+    @Transactional
+    @Override
+    public ResponseResult<String> renewBook(String borrowId, String token) {
+        //检测续租次数是否到期
+        //续租次数减一
+        int userId = Integer.parseInt(JwtUtils.parseJWT(token));
+        if(userMapper.updateLeaseRenewalNumber(userId)==0){
+            return ResponseResult.getErrorResult("当前无续租名额或账号未激活", StatusCode.ACCEPTED, null);
+        }
+        //延长归还日期和借阅状态
+        QueryWrapper<Borrow> queryWrapper_borrow=new QueryWrapper<>();
+        queryWrapper_borrow.eq("borrow_id", borrowId).select("return_time");
+        Date returnDate = new Date(borrowMapper.selectOne(queryWrapper_borrow).getReturnTime().getTime() + (long) 30 * 24 * 60 * 60 * 1000);
+        UpdateWrapper<Borrow> updateWrapper_borrow=new UpdateWrapper<>();
+        updateWrapper_borrow.eq("borrow_id", borrowId).eq("user_id", userId).in("borrow_tatus", "BWS01").set("return_time", returnDate);
+        if(borrowMapper.update(null,updateWrapper_borrow)==0){
+            return ResponseResult.getErrorResult("续租失败,请检查图书状态", StatusCode.NO_CONTENT, null);
+        }
+        return ResponseResult.getSuccessResult(null,"续租成功，当前续租次数清零");
     }
 }
 

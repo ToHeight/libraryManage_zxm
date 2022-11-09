@@ -60,10 +60,14 @@ public class BookServiceImplReader extends ServiceImpl<BookMapper, Book>
         if (book == null || book.getBookCount() == 0) {
             return ResponseResult.getErrorResult("图书数量异常！", StatusCode.NOT_MODIFIED, null);
         }
+        String userId = JwtUtils.parseJWT(token);
+        //检测当前书架是否存在此书
+        if(bookshelfMapper.searchSameBook(Integer.parseInt(userId),bookId)!=0){
+            return ResponseResult.getErrorResult("当前书架已存在此书!", StatusCode.NOT_MODIFIED, null);
+        }
         //将图书添加到书架中
         synchronized (this) {
             //获取用户id
-            String userId = JwtUtils.parseJWT(token);
             //表中添加图书
             Bookshelf bookShelf = new Bookshelf();
             bookShelf.setAddTime(new Date());

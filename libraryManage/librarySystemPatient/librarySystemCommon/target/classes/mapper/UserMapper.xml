@@ -28,6 +28,12 @@
         user_email,user_image,user_age,
         user_birth,leaseRenewalNumber,user_delete,status
     </sql>
+    <update id="updateLeaseRenewalNumber">
+        UPDATE libraryManage.User
+        SET
+            leaseRenewalNumber=leaseRenewalNumber-1
+        WHERE leaseRenewalNumber!=0 AND user_delete=0 AND STATUS = 'ASU01' AND user_id=#{userId}
+    </update>
     <select id="getInformationById" resultType="java.util.HashMap">
         SELECT User.user_id id,user_name userName,user_image userImage
         FROM User
@@ -36,11 +42,16 @@
     <select id="findUserInformationLogin" resultType="java.util.HashMap">
         SELECT User.user_id id,User.user_name userName,User.user_image userImage
         FROM libraryManage.User
-        WHERE User.user_id=#{userId}
+        WHERE User.user_id=#{userId} AND User.status='ASU01'
     </select>
     <select id="getUserInformation" resultType="java.util.Map">
         SELECT user_id userId,user_name userName,user_idcard userIdcard,user_telephone telephone,user_address address,user_email email,user_image image,user_birth brithday,user_gender gender
         FROM libraryManage.User
         WHERE User.user_id=#{userId}
+    </select>
+    <select id="findUserInformationLoginByEnail" resultType="java.util.HashMap">
+        SELECT User.user_id id,User.user_name userName,User.user_image userImage
+        FROM libraryManage.User
+        WHERE User.user_email=#{email} AND User.status='ASU01'
     </select>
 </mapper>

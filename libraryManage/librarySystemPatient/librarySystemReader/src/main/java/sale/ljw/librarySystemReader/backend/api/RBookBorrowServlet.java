@@ -101,4 +101,16 @@ public class RBookBorrowServlet {
     public ResponseResult<String> deleteBorrowingRecord(@PathVariable(value = "borrowId") String borrowId,@RequestHeader(name = "token") String token){
         return borrowServiceReader.deleteBorrowingRecord(borrowId,token);
     }
+
+    /**
+     * 续租
+     * @param borrowId
+     * @param token
+     * @return
+     */
+    @ApiOperation(value = "续租")
+    @GetMapping("/renewBook/{borrowId}")
+    public ResponseResult<String> renewBook(@PathVariable(value = "borrowId") String borrowId,@RequestHeader(name = "token") String token){
+        return borrowServiceReader.renewBook(borrowId,token);
+    }
 }

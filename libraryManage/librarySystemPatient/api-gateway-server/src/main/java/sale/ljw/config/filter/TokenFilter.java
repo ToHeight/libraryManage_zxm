@@ -31,11 +31,17 @@ public class TokenFilter implements GlobalFilter, Ordered {
     static {
         Collections.addAll(jumpOverPath,
                 "/librarySystemReader/readerLogin/login",
+                "/librarySystemReader/readerLogin/emailLogin",
+                "/librarySystemReader/readerLogin/forgotPassword",
+                "/librarySystemReader/readerLogin/changePasswordByEmail",
                 "/librarySystemReader/userInformationByReader/uploadAvatarByReader",
                 "/librarySystemReader/userInformationByReader/emailVerificationCode",
                 "/librarySystemReader/bookByReader/getBookDetails",
                 "/librarySystemReader/bookByReader/recommendedBooks",
-                "/librarySystemReader/bookByReader/getBookReviews"
+                "/librarySystemReader/bookByReader/getBookReviews",
+                "/librarySystemReader/userInformationByReader/registeredUser",
+                "/librarySystemReader/userInformationByReader/detectLoginUsername",
+                "/librarySystemReader/userInformationByReader/activateAccount"
         );
     }
 

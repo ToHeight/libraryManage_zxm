@@ -1,6 +1,8 @@
 package sale.ljw.librarySystemReader.backend.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import sale.ljw.backend.form.ChangePasswordForm;
+import sale.ljw.backend.form.EmailLoginCredentials;
 import sale.ljw.backend.form.LoginCredentials;
 import sale.ljw.backend.pojo.Userlogin;
 import sale.ljw.common.common.http.ResponseResult;
@@ -16,4 +18,10 @@ import java.util.Map;
 public interface UserloginServiceReader extends IService<Userlogin> {
 
     ResponseResult<Map<String,Object>> login(LoginCredentials loginCredentials, HttpServletResponse response);
+
+    ResponseResult<Map<String, Object>> emailLogin(EmailLoginCredentials emailLoginCredentials, HttpServletResponse response);
+
+    ResponseResult<String> forgotPassword(String email);
+
+    ResponseResult<String> changePasswordByEmail(ChangePasswordForm changePassword);
 }

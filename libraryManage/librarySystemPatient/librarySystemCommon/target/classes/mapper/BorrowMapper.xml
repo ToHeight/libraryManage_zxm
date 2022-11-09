@@ -37,4 +37,9 @@
             AND Borrow.borrow_tatus = #{findBorrowedBooks.borrowStatus}
         </if>
     </select>
+    <select id="searchSameBook" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM Borrow
+        WHERE user_id=#{userId} AND book_id=#{bookId} AND borrow_tatus NOT IN ('BWS02');
+    </select>
 </mapper>

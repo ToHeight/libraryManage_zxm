@@ -317,3 +317,18 @@ FROM
 INNER JOIN libraryManage.User ON User.user_id=Comments.user_id
 WHERE
 	Comments.book_id=8 AND delete_comments=0
+	
+# 查询书架是否存在相同图书
+SELECT COUNT(*)
+FROM BookShelf
+WHERE user_id=1 AND book_id=8 AND book_delete=0
+
+# 查询借阅图书个数
+SELECT COUNT(*)
+FROM Borrow
+WHERE user_id=2 AND book_id=8 AND borrow_tatus NOT IN ('BWS02');
+
+# 续租用户表更新
+UPDATE libraryManage.User SET leaseRenewalNumber=leaseRenewalNumber-1 WHERE leaseRenewalNumber!=0 AND user_delete=0 AND STATUS = 'ASU01'
+
+# 

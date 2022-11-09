@@ -22,6 +22,8 @@ import java.util.Map;
 public interface BookshelfMapper extends BaseMapper<Bookshelf> {
     @MapKey(value = "bookId")
     List<BookshelvesBooks> queryBookshelvesBooks(QueryBookshelves bookshelves);
+
+    int searchSameBook(int userId, String bookId);
 }
 
 

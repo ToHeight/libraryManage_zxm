@@ -21,6 +21,8 @@ import java.util.Map;
 public interface BorrowMapper extends BaseMapper<Borrow> {
     @MapKey(value = "borrowId")
     ArrayList<Map<String, Object>> findBorrowedBooks(FindBorrowedBooks findBorrowedBooks, String userId);
+
+    int searchSameBook(int userId, String bookId);
 }
 
 

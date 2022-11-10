@@ -21,8 +21,44 @@
 2、前端运行前需要 npm i --legacy-peer-deps 命令
 3、后端使用redis和mysql、RabbitMQ，修改application.yml中的参数文件，修改mysql、RabbitMQ 地址和密码
 
+读者端界面展示
+登录页面
+<img width="913" alt="登录" src="https://user-images.githubusercontent.com/87918586/200991646-6c11576b-9afe-4a2d-8482-53384d269069.png">
+
+忘记密码
+![忘记密码](https://user-images.githubusercontent.com/87918586/200991760-5c81cc02-b739-4920-a977-49201f03129b.png)
+
+修改密码
+<img width="896" alt="修改密码" src="https://user-images.githubusercontent.com/87918586/200991795-64169fab-dffa-4d98-b39f-1436f191c17b.png">
+
+忘记密码邮件
+<img width="803" alt="邮件" src="https://user-images.githubusercontent.com/87918586/200991824-d465d33d-c697-46bc-af3f-ae5828b608e4.png">
+
+图书大全
+<img width="916" alt="图书大全" src="https://user-images.githubusercontent.com/87918586/200991881-5fde37ba-ca94-49f8-b03c-dfa10955d612.png">
+
+图书详情
+<img width="861" alt="图书详情" src="https://user-images.githubusercontent.com/87918586/200991914-d93fbb0a-e5dc-42b4-9e12-7568819bfaf3.png">
+
+书架
+<img width="932" alt="书架" src="https://user-images.githubusercontent.com/87918586/200991939-5ffdb75a-878d-4c22-8b75-831a3da06148.png">
+
+首页图书智能推荐
+<img width="920" alt="首页好书推荐" src="https://user-images.githubusercontent.com/87918586/200991971-16e085a7-c5ac-44fa-95bb-5416ff15dcfa.png">
+
+个人信息修改
+<img width="914" alt="个人信息" src="https://user-images.githubusercontent.com/87918586/200991998-bf454579-353e-4dc5-98f7-36e97813dde3.png">
+
+邮箱验证码
+![image](https://user-images.githubusercontent.com/87918586/200992122-b6c950ab-44cb-49a6-986b-d6473d103309.png)
+
+借阅信息
+<img width="947" alt="借阅信息" src="https://user-images.githubusercontent.com/87918586/200992144-862733a1-bfa4-491f-85cb-6154827187ca.png">
+
+
 在线预约座位功能展示
 
-![Larimari1314_libraryManage_zxm](https://user-images.githubusercontent.com/87918586/199652643-999b0ea1-c7b1-415e-8e37-549d182cd8e0.gif)
+![lv_0_20221110113739](https://user-images.githubusercontent.com/87918586/200995200-ac581973-5787-4646-b42e-b1e6bd564f3f.gif)
+
 
 

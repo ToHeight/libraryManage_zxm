@@ -44,8 +44,8 @@ public class RBookBorrowServlet {
      */
     @ApiOperation(value = "借阅图书")
     @GetMapping("/borrowBook/{bookId}")
-    public ResponseResult<String> borrowBook(@PathVariable String bookId, @RequestHeader(name = "token") String token) {
-        return borrowServiceReader.borrowBook(bookId, token);
+    public ResponseResult<String> borrowBook(@PathVariable String bookId,@RequestParam(value = "shelfId",required = false) Integer shelfId, @RequestHeader(name = "token") String token) {
+        return borrowServiceReader.borrowBook(bookId,shelfId, token);
     }
 
     /**

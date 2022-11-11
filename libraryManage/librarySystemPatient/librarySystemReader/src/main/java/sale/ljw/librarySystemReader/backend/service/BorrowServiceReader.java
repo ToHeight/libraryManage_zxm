@@ -15,7 +15,7 @@ import java.util.Map;
  */
 public interface BorrowServiceReader extends IService<Borrow> {
 
-    ResponseResult<String> borrowBook(String bookId, String token);
+    ResponseResult<String> borrowBook(String bookId,Integer borrowId, String token);
 
     void booksNotReturnedOverTime(Integer borrowId);
 

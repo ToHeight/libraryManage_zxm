@@ -11,5 +11,5 @@ import sale.ljw.common.common.http.ResponseResult;
  */
 public interface BooktagServiceReader extends IService<Booktag> {
 
-    ResponseResult<String> deleteBookTag(Integer tagId, String token);
+    ResponseResult<String> deleteBookTag(Integer tagId, String bookId,String token);
 }

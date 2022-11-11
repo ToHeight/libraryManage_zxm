@@ -37,10 +37,8 @@ public class RBookTapServlet {
      */
     @ApiOperation(value = "删除书签")
     @DeleteMapping("/deleteBookTag/{tagId}")
-    public ResponseResult<String> deleteBookTag(@PathVariable(value = "tagId",required = true) Integer tagId, @RequestHeader(name = "token") String token){
-        return booktagServiceReader.deleteBookTag(tagId,token);
+    public ResponseResult<String> deleteBookTag(@PathVariable(value = "tagId",required = true) Integer tagId,@RequestParam(value = "bookId") String bookId, @RequestHeader(name = "token") String token){
+        return booktagServiceReader.deleteBookTag(tagId,bookId,token);
     }
-
-
 
 }

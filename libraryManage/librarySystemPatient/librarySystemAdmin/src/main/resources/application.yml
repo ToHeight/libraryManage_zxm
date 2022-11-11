@@ -26,8 +26,8 @@ logging:
     sale.ljw: debug
 spring:
   mail:
-    username: ***
-    password: ***
+    username: *** # 需修改
+    password: *** # 需修改
     host: smtp.qq.com
     default-encoding: utf-8
   application:
@@ -46,10 +46,10 @@ spring:
       enabled: true
       file-size-threshold: 10MB
   datasource:
-    username: ***
+    username: *** # 需修改
     driver-class-name: com.mysql.cj.jdbc.Driver
-    password: ****
-    url: jdbc:mysql://****/libraryManage?serverTimezone=Asia/Shanghai&characterEncoding=utf-8
+    password: **** # 需修改
+    url: jdbc:mysql://****/libraryManage?serverTimezone=Asia/Shanghai&characterEncoding=utf-8 # 需修改
     #    ip数据库
     #    url: jdbc:mysql://123.57.20.244:3306/neusoftTest?serverTimezone=Asia/Shanghai&characterEncoding=utf-8
     hikari:

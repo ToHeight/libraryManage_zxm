@@ -12,6 +12,7 @@ import java.util.Map;
 @Data
 @ApiModel(value = "书架图书")
 public class BookshelvesBooks {
+    private Integer shelfId;
     private String bookName;
     private String bookImage;
     private String bookAuthor;

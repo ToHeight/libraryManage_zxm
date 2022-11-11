@@ -1,6 +1,5 @@
 package sale.ljw.librarySystemReader.backend.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -11,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
+import org.springframework.transaction.support.TransactionTemplate;
 import sale.ljw.backend.dao.BookMapper;
+import sale.ljw.backend.dao.BookshelfMapper;
 import sale.ljw.backend.dao.BorrowMapper;
 import sale.ljw.backend.dao.UserMapper;
 import sale.ljw.backend.form.FindBorrowedBooks;
@@ -53,13 +54,17 @@ public class BorrowServiceImplReader extends ServiceImpl<BorrowMapper, Borrow>
 
     @Autowired
     private EmailUtils emailUtils;
+    @Autowired
+    private BookshelfMapper bookshelfMapper;
+    @Autowired
+    private TransactionTemplate transactionTemplate;
 
     @Override
     @Transactional
-    public ResponseResult<String> borrowBook(String bookId, String token) {
+    public ResponseResult<String> borrowBook(String bookId, Integer shelfId,String token) {
         String userId = JwtUtils.parseJWT(token);
         //检测当前是否借阅过图书
-        if(borrowMapper.searchSameBook(Integer.parseInt(userId),bookId)!=0){
+        if (borrowMapper.searchSameBook(Integer.parseInt(userId), bookId) != 0) {
             return ResponseResult.getErrorResult("请查询当前图书是否已经借阅过并未归还", StatusCode.NOT_FOUND, null);
         }
         //查询读者租赁次数是否为0
@@ -76,42 +81,52 @@ public class BorrowServiceImplReader extends ServiceImpl<BorrowMapper, Borrow>
         if (book == null || book.getBookCount() == 0) {
             return ResponseResult.getErrorResult("图书当前暂无库存", StatusCode.NOT_FOUND, null);
         }
-        //创建回滚点
-        Object savePoint = TransactionAspectSupport.currentTransactionStatus().createSavepoint();
-        //图书库存减一
-        UpdateWrapper<Book> updateWrapper_newBook = new UpdateWrapper<>();
-        updateWrapper_newBook.eq("book_id", bookId).set("book_count", book.getBookCount() - 1).set("borrow_number", book.getBorrowNumber() + 1);
-        if (bookMapper.update(null, updateWrapper_newBook) == 0) {
-            return ResponseResult.getErrorResult("图书数量更新失败，请稍后重试", StatusCode.NOT_MODIFIED, null);
-        }
-        //借阅
-        Borrow borrow = new Borrow();
-        borrow.setUserId(Integer.valueOf(userId));
-        borrow.setBookId(bookId);
-        borrow.setBorrowTime(new Date());
-        borrow.setReturnTime(new Date((new Date().getTime() + (long) 30 * 24 * 60 * 60 * 1000)));
-        if (borrowMapper.insert(borrow) == 0) {
-            //回滚事务
-            TransactionAspectSupport.currentTransactionStatus().rollbackToSavepoint(savePoint);
-            return ResponseResult.getErrorResult("借阅失败，请稍后重试", StatusCode.NOT_MODIFIED, null);
-        }
-        //可借阅数量减一
-        UpdateWrapper<User> updateWrapper_userBorrowNumber = new UpdateWrapper<>();
-        updateWrapper_userBorrowNumber.eq("user_id", userId).set("borrowing_number", user.getBorrowingNumber() - 1);
-        if (userMapper.update(null, updateWrapper_userBorrowNumber) == 0) {
-            //回滚事务
-            TransactionAspectSupport.currentTransactionStatus().rollbackToSavepoint(savePoint);
-            return ResponseResult.getErrorResult("读者借阅次数更新失败，请稍后重试", StatusCode.NOT_MODIFIED, null);
-        }
-        //向rabbitmq发送借阅消息
-        //librarySystemReaderBorrowDev ：时间一天
-        //librarySystemReaderBorrow ：时间十秒测试使用
-        //librarySystemReaderBorrowCallable ：事件回滚失败，重新回滚
-        //librarySystemReader-exchange-timeOut ：死信交换机
-        //librarySystemReaderBorrowTimeOut ：死信队列
-        //rabbitTemplate.convertAndSend("","librarySystemReaderBorrowDev",borrow.getBorrowId());
-        return ResponseResult.getSuccessResult(null, "借阅成功！");
+        //局部事务管理
+        return transactionTemplate.execute(transactionStatus -> {
+            //创建回滚点
+            Object savePoint = TransactionAspectSupport.currentTransactionStatus().createSavepoint();
+            //图书库存减一
+            UpdateWrapper<Book> updateWrapper_newBook = new UpdateWrapper<>();
+            updateWrapper_newBook.eq("book_id", bookId).set("book_count", book.getBookCount() - 1).set("borrow_number", book.getBorrowNumber() + 1);
+            if (bookMapper.update(null, updateWrapper_newBook) == 0) {
+                return ResponseResult.getErrorResult("图书数量更新失败，请稍后重试", StatusCode.NOT_MODIFIED, null);
+            }
+            //借阅
+            Borrow borrow = new Borrow();
+            borrow.setUserId(Integer.valueOf(userId));
+            borrow.setBookId(bookId);
+            borrow.setBorrowTime(new Date());
+            borrow.setReturnTime(new Date((new Date().getTime() + (long) 30 * 24 * 60 * 60 * 1000)));
+            if (borrowMapper.insert(borrow) == 0) {
+                //回滚事务
+                TransactionAspectSupport.currentTransactionStatus().rollbackToSavepoint(savePoint);
+                return ResponseResult.getErrorResult("借阅失败，请稍后重试", StatusCode.NOT_MODIFIED, null);
+            }
+            //可借阅数量减一
+            UpdateWrapper<User> updateWrapper_userBorrowNumber = new UpdateWrapper<>();
+            updateWrapper_userBorrowNumber.eq("user_id", userId).set("borrowing_number", user.getBorrowingNumber() - 1);
+            if (userMapper.update(null, updateWrapper_userBorrowNumber) == 0) {
+                //回滚事务
+                TransactionAspectSupport.currentTransactionStatus().rollbackToSavepoint(savePoint);
+                return ResponseResult.getErrorResult("读者借阅次数更新失败，请稍后重试", StatusCode.NOT_MODIFIED, null);
+            }
+            //删除书架图书
+            if(shelfId!=null){
+                if(bookshelfMapper.deleteById(shelfId)==0){
+                    return ResponseResult.getErrorResult("书架更新失败！", StatusCode.NOT_MODIFIED, null);
+                }
+            }
+            //向rabbitmq发送借阅消息
+            //librarySystemReaderBorrowDev ：时间一天
+            //librarySystemReaderBorrow ：时间十秒测试使用
+            //librarySystemReaderBorrowCallable ：事件回滚失败，重新回滚
+            //librarySystemReader-exchange-timeOut ：死信交换机
+            //librarySystemReaderBorrowTimeOut ：死信队列
+            //rabbitTemplate.convertAndSend("","librarySystemReaderBorrowDev",borrow.getBorrowId());
+            return ResponseResult.getSuccessResult(null, "借阅成功！");
+        });
     }
+
 
     /**
      * 用户超时未归还图书
@@ -151,9 +166,9 @@ public class BorrowServiceImplReader extends ServiceImpl<BorrowMapper, Borrow>
             QueryWrapper<Book> queryWrapper_book = new QueryWrapper<>();
             queryWrapper_book.eq("book_id", borrow.getBookId()).select("book_name");
             Book book = bookMapper.selectOne(queryWrapper_book);
-            QueryWrapper<User> queryWrapper_user=new QueryWrapper<>();
+            QueryWrapper<User> queryWrapper_user = new QueryWrapper<>();
             queryWrapper_user.eq("user_id", borrow.getUserId()).select("user_email");
-            emailUtils.unpaidBookEmail(simpleDateFormat.format(borrow.getBorrowTime()), book.getBookName(),userMapper.selectOne(queryWrapper_user).getUserEmail());
+            emailUtils.unpaidBookEmail(simpleDateFormat.format(borrow.getBorrowTime()), book.getBookName(), userMapper.selectOne(queryWrapper_user).getUserEmail());
         } catch (MessagingException e) {
             throw new RuntimeException(e);
         }
@@ -180,11 +195,11 @@ public class BorrowServiceImplReader extends ServiceImpl<BorrowMapper, Borrow>
         //创建回滚点
         Object savePoint = TransactionAspectSupport.currentTransactionStatus().createSavepoint();
         //更新读者信息
-        QueryWrapper<User> queryWrapper_1=new QueryWrapper<>();
+        QueryWrapper<User> queryWrapper_1 = new QueryWrapper<>();
         queryWrapper_1.eq("user_id", userId).select("borrowing_number");
         User user = userMapper.selectOne(queryWrapper_1);
-        UpdateWrapper<User> updateWrapper_1=new UpdateWrapper<>();
-        updateWrapper_1.eq("user_id", userId).set("borrowing_number", user.getBorrowingNumber()+1);
+        UpdateWrapper<User> updateWrapper_1 = new UpdateWrapper<>();
+        updateWrapper_1.eq("user_id", userId).set("borrowing_number", user.getBorrowingNumber() + 1);
         if (userMapper.update(null, updateWrapper_1) == 0) {
             return ResponseResult.getErrorResult("修改失败！", StatusCode.NOT_MODIFIED, null);
         }
@@ -219,31 +234,32 @@ public class BorrowServiceImplReader extends ServiceImpl<BorrowMapper, Borrow>
     public void booksNotReturnedOver() {
         //查询当前延期得数据
         QueryWrapper<Borrow> queryWrapper_0 = new QueryWrapper<>();
-        queryWrapper_0.in("borrow_tatus", "BWS01", "BWS04").eq("borrow_delete", 0).ltSql("return_time", "borrow_time").select("borrow_id","user_id","book_id");
+        queryWrapper_0.in("borrow_tatus", "BWS01", "BWS04").eq("borrow_delete", 0).ltSql("return_time", "borrow_time").select("borrow_id", "user_id", "book_id");
         List<Borrow> borrows = borrowMapper.selectList(queryWrapper_0);
         for (Borrow borrow : borrows) {
             booksNotReturnedOverTime(borrow.getBorrowId());
         }
     }
+
     @Transactional
     @Override
     public ResponseResult<String> renewBook(String borrowId, String token) {
         //检测续租次数是否到期
         //续租次数减一
         int userId = Integer.parseInt(JwtUtils.parseJWT(token));
-        if(userMapper.updateLeaseRenewalNumber(userId)==0){
+        if (userMapper.updateLeaseRenewalNumber(userId) == 0) {
             return ResponseResult.getErrorResult("当前无续租名额或账号未激活", StatusCode.ACCEPTED, null);
         }
         //延长归还日期和借阅状态
-        QueryWrapper<Borrow> queryWrapper_borrow=new QueryWrapper<>();
+        QueryWrapper<Borrow> queryWrapper_borrow = new QueryWrapper<>();
         queryWrapper_borrow.eq("borrow_id", borrowId).select("return_time");
         Date returnDate = new Date(borrowMapper.selectOne(queryWrapper_borrow).getReturnTime().getTime() + (long) 30 * 24 * 60 * 60 * 1000);
-        UpdateWrapper<Borrow> updateWrapper_borrow=new UpdateWrapper<>();
+        UpdateWrapper<Borrow> updateWrapper_borrow = new UpdateWrapper<>();
         updateWrapper_borrow.eq("borrow_id", borrowId).eq("user_id", userId).in("borrow_tatus", "BWS01").set("return_time", returnDate);
-        if(borrowMapper.update(null,updateWrapper_borrow)==0){
+        if (borrowMapper.update(null, updateWrapper_borrow) == 0) {
             return ResponseResult.getErrorResult("续租失败,请检查图书状态", StatusCode.NO_CONTENT, null);
         }
-        return ResponseResult.getSuccessResult(null,"续租成功，当前续租次数清零");
+        return ResponseResult.getSuccessResult(null, "续租成功，当前续租次数清零");
     }
 }
 

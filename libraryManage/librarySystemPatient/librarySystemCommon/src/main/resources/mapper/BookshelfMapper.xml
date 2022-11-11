@@ -39,7 +39,7 @@
         add_time,book_star
     </sql>
     <select id="queryBookshelvesBooks" resultMap="BaseResultBookshelf">
-        SELECT DISTINCT book_name bookName,book_image bookImage,book_author bookAuthor,
+        SELECT DISTINCT BookShelf.shelf_id shelfId,book_name bookName,book_image bookImage,book_author bookAuthor,
                         book_info bookInfo,book_address bookAddress,BookShelf.book_star bookStar,
                         Constant.value bookStatus,Book_type.type_name bookType,
                         Book_Constant_language.value bookLanguage,Book_Constant_country.value bookCountry,

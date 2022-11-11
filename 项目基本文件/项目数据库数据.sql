@@ -331,4 +331,17 @@ WHERE user_id=2 AND book_id=8 AND borrow_tatus NOT IN ('BWS02');
 # 续租用户表更新
 UPDATE libraryManage.User SET leaseRenewalNumber=leaseRenewalNumber-1 WHERE leaseRenewalNumber!=0 AND user_delete=0 AND STATUS = 'ASU01'
 
-# 
+# 权限人员表
+CREATE TABLE roleInfo(
+	role_id INT PRIMARY KEY AUTO_INCREMENT,
+	 NAME VARCHAR(50) NOT NULL
+);
+CREATE TABLE roleModule(
+	role_id INT NOT NULL,
+	module_id INT(4) NOT NULL
+);
+CREATE TABLE moduleInfo(
+	module_id INT NOT NULL,
+	NAME VARCHAR(50) NOT NULL
+);
+

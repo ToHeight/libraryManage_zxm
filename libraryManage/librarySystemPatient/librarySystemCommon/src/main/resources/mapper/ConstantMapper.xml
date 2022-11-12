@@ -50,4 +50,9 @@
         FROM Constant
         WHERE Constant.coding LIKE 'GM___'
     </select>
+    <select id="getBookStatus" resultType="java.util.Map">
+        SELECT Constant.coding,Constant.value
+        FROM Constant
+        WHERE Constant.coding LIKE 'BS___'
+    </select>
 </mapper>

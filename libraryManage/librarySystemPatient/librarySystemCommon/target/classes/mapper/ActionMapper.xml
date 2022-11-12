@@ -5,12 +5,24 @@
 <mapper namespace="sale.ljw.backend.dao.ActionMapper">
 
     <resultMap id="BaseResultMap" type="sale.ljw.backend.pojo.Action">
-        <id property="actionId" column="action_id" jdbcType="INTEGER"/>
         <result property="actionName" column="action_name" jdbcType="VARCHAR"/>
+        <result property="actionId" column="action_id" jdbcType="INTEGER"/>
     </resultMap>
 
     <sql id="Base_Column_List">
         action_id
         ,action_name
     </sql>
+    <select id="checkPermissions" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM libraryManage.Action
+        WHERE action_id IN (
+            SELECT
+                module_id
+            FROM
+                roleModule
+            WHERE
+                role_id=#{permission}
+        ) AND action_name=#{requestURI}
+    </select>
 </mapper>

@@ -12,15 +12,17 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 @EnableEurekaClient
 @SpringBootApplication
 @EnableFeignClients
 @EnableDiscoveryClient
 @EnableHystrixDashboard // 开启Hystrix仪表盘监控功能
-@PropertySource(value = {"classpath:/token.properties", "classpath:/snowflake.properties"})
+@PropertySource(value = {"classpath:/token.properties", "classpath:/snowflake.properties","classpath:/obsHuaWei.properties","classpath:/frontEndInterface.properties"})
 @MapperScan(basePackages = ("sale.ljw.backend.dao"))
 @ComponentScan({"sale.ljw.librarySystemAdmin", "sale.ljw"})
+@EnableScheduling
 public class LibrarySystemAdmin {
     public static void main(String[] args) {
         SpringApplication.run(LibrarySystemAdmin.class, args);

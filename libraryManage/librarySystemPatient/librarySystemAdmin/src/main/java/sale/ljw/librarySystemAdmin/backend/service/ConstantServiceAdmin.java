@@ -2,6 +2,10 @@ package sale.ljw.librarySystemAdmin.backend.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import sale.ljw.backend.pojo.Constant;
+import sale.ljw.common.common.http.ResponseResult;
+
+import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * @author 86155
@@ -9,5 +13,7 @@ import sale.ljw.backend.pojo.Constant;
  * @createDate 2022-10-17 16:27:38
  */
 public interface ConstantServiceAdmin extends IService<Constant> {
+
+    ResponseResult<ArrayList<Map<String, Object>>> getBookStatus();
 
 }

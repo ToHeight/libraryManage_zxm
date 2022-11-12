@@ -4,8 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.MapKey;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
-import sale.ljw.backend.form.BookDetailsInformation;
-import sale.ljw.backend.form.FindBookByCriteria;
+import sale.ljw.backend.form.*;
 import sale.ljw.backend.pojo.Book;
 
 import java.util.ArrayList;
@@ -33,6 +32,12 @@ public interface BookMapper extends BaseMapper<Book> {
 
     @MapKey(value = "userName")
     ArrayList<Map<String, Object>> getBookReviews(String bookId);
+    @MapKey(value = "bookId")
+    ArrayList<Map<String, Object>> queryAllBooksByAdmin(QueryAllBooksByAdmin booksByAdmin);
+
+    Integer editBookInformation(EditBookInformationByAdmin editBookInformation);
+
+    Integer addBook(AddBook addBook, String bookId);
 }
 
 

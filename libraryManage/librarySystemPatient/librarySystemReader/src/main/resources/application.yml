@@ -72,7 +72,7 @@ spring:
 mybatis-plus:
   #配置MyBatis映射文件
   mapper-locations: classpath:/mapper/*.xml
-  #配置MyBatis返回类型别名
+  #配置MyBatis返回类型别名 
   type-aliases-package: sale.ljw.backend.pojo
   configuration:
     map-underscore-to-camel-case: true

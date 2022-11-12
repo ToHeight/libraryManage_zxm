@@ -148,4 +148,42 @@
         WHERE
             Comments.book_id=#{bookId} AND delete_comments=0
     </select>
+    <select id="queryAllBooksByAdmin" resultType="java.util.Map">
+        SELECT Book.book_id bookId,Type.type_name typeName,Book.book_author author,Book.book_name bookName,Book.book_info bookInfo,Book.book_image image,Book.book_address address,constantStatus.value bookStatus,
+               Book.book_count bookCount,constanrLanguage.value bookLanguage,constanrCountry.value authorCountry
+        FROM Book
+                 INNER JOIN libraryManage.Type ON Book.type_id=Type.type_id
+                 INNER JOIN Constant constantStatus ON constantStatus.coding =Book.book_status
+                 INNER JOIN Constant constanrLanguage ON constanrLanguage.coding=Book.book_language
+                 INNER JOIN Constant constanrCountry ON constanrCountry.coding=Book.author_country
+        WHERE Book.book_delete=0
+                <if test="info!=null">
+                    AND (
+                        Book.book_name LIKE CONCAT('%',#{info},'%') OR Book.book_author LIKE CONCAT('%',#{info},'%') OR Book.book_info LIKE CONCAT('%',#{info},'%')
+                        )
+                </if>
+                <if test="typeId!=null">
+                    AND Book.type_id=#{typeId}
+                </if>
+                <if test="bookStatus!=null">
+                    AND Book.book_status=#{bookStatus}
+                </if>
+                <if test="bookLanguageCoding!=null">
+                    AND Book.book_language=#{bookLanguageCoding}
+                </if>
+                <if test="authorCountry!=null">
+                    AND Book.author_country=#{authorCountry}
+                </if>
+    </select>
+    <update id="editBookInformation">
+        UPDATE Book SET
+            type_id=#{typeId},book_name=#{bookName},book_author=#{bookAuthor},book_info=#{bookInfo},book_image=#{bookImage},book_address=#{bookAddress},book_status=#{bookStatus},book_language=#{bookLanguageCoding},author_country=#{authorCountry}
+        WHERE Book.book_id=#{bookId} AND book_delete=0
+    </update>
+    <insert id="addBook">
+        INSERT INTO Book(book_id,type_id,book_name,book_author,book_info,book_image,book_address,book_status,book_count,book_language,author_country,book_star)
+            VALUES(
+            #{bookId},#{addBook.typeId},#{addBook.bookName},#{addBook.bookAuthor},#{addBook.bookInfo},#{addBook.bookImage},#{addBook.bookAddress},#{addBook.bookStatus},#{addBook.bookCount},#{addBook.bookLanguageCoding},#{addBook.authorCountry},#{addBook.bookStar}
+            )
+    </insert>
 </mapper>

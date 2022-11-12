@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sale.ljw.backend.dao.RolemoduleMapper">
+
+    <resultMap id="BaseResultMap" type="sale.ljw.backend.pojo.Rolemodule">
+            <result property="roleId" column="role_id" jdbcType="INTEGER"/>
+            <result property="moduleId" column="module_id" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        role_id,module_id
+    </sql>
+</mapper>

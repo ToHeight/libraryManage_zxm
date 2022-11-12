@@ -18,7 +18,6 @@ public class Action implements Serializable {
     /**
      * 权限id
      */
-    @TableId
     private Integer actionId;
     /**
      * 权限名称

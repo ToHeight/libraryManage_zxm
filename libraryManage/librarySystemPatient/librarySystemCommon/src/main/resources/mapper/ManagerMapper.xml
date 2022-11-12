@@ -20,4 +20,9 @@
         manager_gender,manager_telephone,manager_address,
         manager_delete
     </sql>
+    <select id="findUserInformationLogin" resultType="java.util.Map">
+        SELECT manager_id managerId,manager_name managerName,manager_age managerAge
+        FROM Manager
+        WHERE manager_id=#{managerId} AND manager_delete=0
+    </select>
 </mapper>

@@ -1,6 +1,8 @@
 package sale.ljw.backend.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 import sale.ljw.backend.pojo.Action;
 
 /**
@@ -9,8 +11,11 @@ import sale.ljw.backend.pojo.Action;
  * @createDate 2022-10-17 15:29:15
  * @Entity generator.pojo.Action
  */
+@Mapper
+@Repository
 public interface ActionMapper extends BaseMapper<Action> {
 
+    int checkPermissions(String requestURI, String permission);
 }
 
 

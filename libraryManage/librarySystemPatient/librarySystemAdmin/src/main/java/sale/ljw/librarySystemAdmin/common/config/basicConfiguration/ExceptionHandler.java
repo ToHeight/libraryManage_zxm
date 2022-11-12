@@ -1,4 +1,4 @@
-package sale.ljw.librarySystemAdmin.common.config;
+package sale.ljw.librarySystemAdmin.common.config.basicConfiguration;
 
 import com.alibaba.fastjson.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +16,8 @@ import sale.ljw.common.common.http.StatusCode;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -45,7 +47,8 @@ public class ExceptionHandler {
     @ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
     @org.springframework.web.bind.annotation.ExceptionHandler(Exception.class)
     public String exceptionHandler(Exception e) {
-        emailSending(e);
+        System.out.println(getExceptionAllInfo(e));
+//        emailSending(e);
         return JSON.toJSONString(ResponseResult.getErrorResult(StatusCode.ERROR, "500", e.getMessage()));
     }
 
@@ -60,5 +63,24 @@ public class ExceptionHandler {
         mailMessage.setTo("1362468712@qq.com");
         mailMessage.setFrom("sale.iove@qq.com");
         mailSender.send(mailMessage);
+    }
+    public String getExceptionAllInfo(Exception ex) {
+        ByteArrayOutputStream out = null;
+        PrintStream pout = null;
+        String ret = "";
+        try {
+            out = new ByteArrayOutputStream();
+            pout = new PrintStream(out);
+            ex.printStackTrace(pout);
+            ret = new String(out.toByteArray());
+            out.close();
+        } catch (Exception e) {
+            return ex.getMessage();
+        } finally {
+            if (pout != null) {
+                pout.close();
+            }
+        }
+        return ret;
     }
 }

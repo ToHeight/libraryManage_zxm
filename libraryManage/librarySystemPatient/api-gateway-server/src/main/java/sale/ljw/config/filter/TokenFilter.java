@@ -21,6 +21,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 @Component
 public class TokenFilter implements GlobalFilter, Ordered {
@@ -30,18 +31,20 @@ public class TokenFilter implements GlobalFilter, Ordered {
 
     static {
         Collections.addAll(jumpOverPath,
-                "/librarySystemReader/readerLogin/login",
-                "/librarySystemReader/readerLogin/emailLogin",
-                "/librarySystemReader/readerLogin/forgotPassword",
-                "/librarySystemReader/readerLogin/changePasswordByEmail",
-                "/librarySystemReader/userInformationByReader/uploadAvatarByReader",
-                "/librarySystemReader/userInformationByReader/emailVerificationCode",
-                "/librarySystemReader/bookByReader/getBookDetails",
-                "/librarySystemReader/bookByReader/recommendedBooks",
-                "/librarySystemReader/bookByReader/getBookReviews",
-                "/librarySystemReader/userInformationByReader/registeredUser",
-                "/librarySystemReader/userInformationByReader/detectLoginUsername",
-                "/librarySystemReader/userInformationByReader/activateAccount"
+                "/librarySystemReader/readerLogin/emailLogin",  //用户邮件登录
+                "/librarySystemReader/readerLogin/login",  //用户登录
+                "/librarySystemReader/readerLogin/forgotPassword",  //忘记密码
+                "/librarySystemReader/readerLogin/changePasswordByEmail",  //通过电子邮件更改密码
+                "/librarySystemReader/userInformationByReader/uploadAvatarByReader",  //上传用户头像
+                "/librarySystemReader/userInformationByReader/emailVerificationCode",  //电子邮件验证码
+                "/librarySystemReader/bookByReader/getBookDetails",  //获取图书详情
+                "/librarySystemReader/bookByReader/recommendedBooks",  //推荐书籍
+                "/librarySystemReader/bookByReader/getBookReviews",  //获取图书评价
+                "/librarySystemReader/userInformationByReader/registeredUser",  //注册用户
+                "/librarySystemReader/userInformationByReader/detectLoginUsername", //登录检测用户名
+                "/librarySystemReader/userInformationByReader/activateAccount",  //用户激活账户
+                "/librarySystemAdmin/loginAdmin/login", //管理员登录
+                "/librarySystemAdmin/bookByAdmin/uploadCoverAddress" //图书封面地址
         );
     }
 
@@ -61,12 +64,21 @@ public class TokenFilter implements GlobalFilter, Ordered {
                 return chain.filter(exchange);
             }
         }
+        AtomicBoolean pathBoolean=new AtomicBoolean(false);
         String pathToken = request.getURI().getPath();
-        for (String jumpPath : jumpOverPath) {
+        jumpOverPath.forEach(j ->{
+            if(j.equals(pathToken)){
+               pathBoolean.compareAndSet(false,true);
+            }
+        });
+        if (pathBoolean.get()){
+            return chain.filter(exchange);
+        }
+       /* for (String jumpPath : jumpOverPath) {
             if (pathToken.equals(jumpPath)) {
                 return chain.filter(exchange);
             }
-        }
+        }*/
         List<String> token = exchange.getRequest().getHeaders().get("token");
         if ((token != null && StringUtils.isNotBlank(token.get(0))) && JwtUtils.verify(token.get(0))) {
             return chain.filter(exchange);

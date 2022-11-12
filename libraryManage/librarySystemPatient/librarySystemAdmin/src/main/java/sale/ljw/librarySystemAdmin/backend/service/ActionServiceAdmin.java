@@ -10,4 +10,5 @@ import sale.ljw.backend.pojo.Action;
  */
 public interface ActionServiceAdmin extends IService<Action> {
 
+    int checkPermissions(String requestURI, String permission);
 }

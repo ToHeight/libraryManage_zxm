@@ -1,4 +1,4 @@
-package sale.ljw.librarySystemAdmin.common.config;
+package sale.ljw.librarySystemAdmin.common.config.basicConfiguration;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

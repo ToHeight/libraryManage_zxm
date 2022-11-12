@@ -1,4 +1,4 @@
-`Open`# 图书语言
+`libraryManage``Open`# 图书语言
 INSERT INTO Constant(coding,VALUE) VALUES('LE001','英文')
 ,('LC002','中文')
 ,('LG003','德语')
@@ -344,4 +344,38 @@ CREATE TABLE moduleInfo(
 	module_id INT NOT NULL,
 	NAME VARCHAR(50) NOT NULL
 );
+
+# 查询图书全部信息  根据图书名称、图书种类、图书作者、图书详情、状态、图书语言、作者国家查询
+SELECT Book.book_id bookId,Type.type_name typeName,Book.book_author author,Book.book_info bookInfo,Book.book_image image,Book.book_address address,constantStatus.value bookStatus,
+	Book.book_count bookCount,constanrLanguage.value bookLanguage,constanrCountry.value authorCountry
+FROM Book
+INNER JOIN libraryManage.Type ON Book.type_id=Type.type_id
+INNER JOIN Constant constantStatus ON constantStatus.coding =Book.book_status
+INNER JOIN Constant constanrLanguage ON constanrLanguage.coding=Book.book_language
+INNER JOIN Constant constanrCountry ON constanrCountry.coding=Book.author_country
+WHERE Book.book_delete=0 AND ( Book.book_name LIKE CONCAT('%','w','%') OR Book.book_author LIKE CONCAT('%','','%') OR Book.book_info LIKE CONCAT('%','w','%'))
+
+# 查询权限
+SELECT COUNT(*)
+FROM libraryManage.Action
+WHERE action_id IN (
+	SELECT 
+		module_id
+	FROM
+		roleModule
+	WHERE
+		role_id=2
+) AND action_name='/librarySystemAdmin/dropdownListData/getBookType'
+
+# 管理员信息查询
+SELECT manager_id managerId,manager_name managerName,manager_age managerAge
+FROM Manager
+WHERE manager_id=1 AND manager_delete=0
+
+# 更新图书信息
+UPDATE Book SET type_id=1,book_name='test',book_author='test',book_info='test',book_image='test',book_address='test',book_status='test',book_language='test',author_country='test' WHERE Book.book_id='test';
+
+# 添加图书
+INSERT INTO Book(book_id,type_id,book_name,book_author,book_info,book_image,book_address,book_status,book_count,book_language,author_country,book_star) 
+VALUES(1212,1,1,1,1,1,1,1,1,1,1,1)
 

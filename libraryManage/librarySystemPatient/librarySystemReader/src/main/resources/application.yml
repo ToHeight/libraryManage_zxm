@@ -50,7 +50,7 @@ spring:
     password: *** # 需修改
     url: jdbc:mysql://***/libraryManage?serverTimezone=Asia/Shanghai&characterEncoding=utf-8
     #    ip数据库
-    #    url: jdbc:mysql://123.57.20.244:3306/neusoftTest?serverTimezone=Asia/Shanghai&characterEncoding=utf-8
+    #    url: jdbc:mysql://***Test?serverTimezone=Asia/Shanghai&characterEncoding=utf-8
     hikari:
       maximum-pool-size: 50
       minimum-idle: 10

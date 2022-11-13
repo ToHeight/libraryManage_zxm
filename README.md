@@ -28,7 +28,7 @@
 ## 运行
 1、下载前端和后端文件  
 2、前端运行前需要 npm i --legacy-peer-deps 命令  
-3、后端使用redis和mysql、RabbitMQ，修改application.yml中的参数文件，修改mysql、RabbitMQ、电子邮件 地址和密码  
+3、后端使用redis和mysql、RabbitMQ、邮箱服务、华为对象存储服务等，需修改application.yml中的参数文件，修改mysql、RabbitMQ、电子邮件 地址和密码，修改obsHuaWei.properties中的华为对象存储Access Key ID和Secret Access Key。  
 
 读者端界面展示
 

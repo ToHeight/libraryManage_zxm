@@ -14,6 +14,7 @@
         bookId
         ,tapId,userId
     </sql>
+
     <select id="queryBookmarksByBookId" resultType="java.util.Map">
         SELECT bookTap.id tapId,bookTag.tag_value tagValue,bookTag.tag_id tagId
         FROM bookTap,bookTag
@@ -31,5 +32,19 @@
                 bookTap.bookId=#{bookId} AND bookTap.userId IS NULL
         )
     </select>
-
+    <select id="queryBookTapByTapId" resultType="java.util.Map">
+        SELECT
+            bookTap.tapId,bookTap.bookId,bookTap.tapId,Book.book_name bookName,Book.book_id bookId
+        FROM
+            bookTap
+                INNER JOIN Book ON Book.book_id=bookTap.bookId
+        WHERE
+            bookTap.tapId=#{tapId} AND userId IS NULL
+    </select>
+    <insert id="addTapByBookList">
+        INSERT INTO bookTap(bookId,tapId) VALUES
+        <foreach collection="bookId" separator="," item="book" >
+            (#{book},#{tagId})
+        </foreach>
+    </insert>
 </mapper>

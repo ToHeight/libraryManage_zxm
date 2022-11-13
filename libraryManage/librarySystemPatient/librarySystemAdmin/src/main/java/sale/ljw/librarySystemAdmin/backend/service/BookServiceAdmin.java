@@ -9,6 +9,7 @@ import sale.ljw.backend.form.QueryAllBooksByAdmin;
 import sale.ljw.backend.pojo.Book;
 import sale.ljw.common.common.http.ResponseResult;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -27,4 +28,6 @@ public interface BookServiceAdmin extends IService<Book> {
     ResponseResult<String> addBook(AddBook addBook);
 
     ResponseResult<String> deleteBookById(String bookId);
+
+    ResponseResult<List<Map<String, Object>>> searchBookTitlesRemotely(String bookName);
 }

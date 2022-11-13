@@ -22,6 +22,7 @@ import sale.ljw.librarySystemAdmin.backend.service.BookServiceAdmin;
 import sale.ljw.librarySystemAdmin.common.sercurity.utils.ObsUtil;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -98,6 +99,14 @@ public class BookServiceImplAdmin extends ServiceImpl<BookMapper, Book>
             return ResponseResult.getErrorResult("图书删除失败",StatusCode.NO_CONTENT,null);
         }
         return ResponseResult.getSuccessResult(null,"删除成功");
+    }
+
+    @Override
+    public ResponseResult<List<Map<String, Object>>> searchBookTitlesRemotely(String bookName) {
+        QueryWrapper<Book> queryWrapper_0=new QueryWrapper<>();
+        queryWrapper_0.like("book_name", bookName).select("book_id","book_name");
+        List<Map<String, Object>> maps = bookMapper.selectMaps(queryWrapper_0);
+        return ResponseResult.getSuccessResult(maps,"查询成功");
     }
 
 }

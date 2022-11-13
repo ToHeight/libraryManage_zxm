@@ -22,6 +22,10 @@ public interface BooktapMapper extends BaseMapper<Booktap> {
     ArrayList<Map<String,Object>> queryBookmarksByBookId(String userId,String bookId);
     @MapKey(value = "tagId")
     ArrayList<Map<String,Object>> queryBookDetailsTag(String bookId);
+    @MapKey(value = "tapId")
+    ArrayList<Map<String,Object>> queryBookTapByTapId(Integer tapId);
+
+    Integer addTapByBookList(Integer tagId, ArrayList<Integer> bookId);
 }
 
 

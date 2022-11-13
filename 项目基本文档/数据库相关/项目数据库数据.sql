@@ -379,3 +379,48 @@ UPDATE Book SET type_id=1,book_name='test',book_author='test',book_info='test',b
 INSERT INTO Book(book_id,type_id,book_name,book_author,book_info,book_image,book_address,book_status,book_count,book_language,author_country,book_star) 
 VALUES(1212,1,1,1,1,1,1,1,1,1,1,1)
 
+# 查询书签
+SELECT 
+	bookTag.tag_id tagId,bookTag.tag_value tagValue,User.user_name userName
+FROM 
+	bookTag
+LEFT JOIN libraryManage.User ON User.user_id=bookTag.user_id
+WHERE
+	bookTag.tag_delete=0 AND bookTag.tag_value LIKE CONCAT()
+
+# 查询书签图书
+SELECT 
+	bookTap.tapId,bookTap.bookId,bookTap.tapId,Book.book_name bookName,Book.book_id bookId
+FROM 
+	bookTap
+INNER JOIN Book ON Book.book_id=bookTap.bookId
+WHERE
+	bookTap.tapId=1 AND userId IS NOT NULL
+
+#添加书签
+INSERT INTO bookTap(bookId,tapId) VALUES (1,2)
+
+# 查询图书留言
+SELECT
+	Comments.comments_id,Book.book_name bookName,Book.book_image bookImage,User.user_id userId,User.user_name userName,Comments.comments_info commentsInfo
+FROM
+	Comments
+INNER JOIN Book ON Book.book_id=Comments.book_id
+INNER JOIN libraryManage.User ON User.user_id=Comments.user_id
+WHERE Comments.delete_comments=0 AND (Book.book_name LIKE CONCAT('%','','%') OR Comments.comments_info LIKE CONCAT('%','','%'))
+
+# 查询留言下用户信息
+SELECT
+	SUBSTRING(Comments.comments_info,1,5) commentsInfo,User.user_name userName,User.user_email userEmail,Book.book_name bookName
+FROM 
+	Comments
+INNER JOIN libraryManage.User ON User.user_id=Comments.user_id
+INNER JOIN Book ON Book.book_id=Comments.book_id
+WHERE Comments.comments_id='1584368878876798976'
+
+# 借阅管理
+SELECT Borrow.borrow_id borrowId,DATE_FORMAT(Borrow.borrow_time, '%Y年%m月%d日 %H时%i分') borrowTime,DATE_FORMAT(Borrow.return_time, '%Y年%m月%d日 %H时%i分') returnTime,
+FROM 
+	Borrow
+WHERE
+	

@@ -56,7 +56,7 @@ public class CommentsServiceImplReader extends ServiceImpl<CommentsMapper, Comme
         //添加
         //生成id
         IdWorker idWorker=new IdWorker();
-        Comments comments=new Comments(idWorker.nextId(),Integer.parseInt(userId),bookMessage.getBookId(),bookMessage.getMessage());
+        Comments comments=new Comments(idWorker.nextId()+"",Integer.parseInt(userId),bookMessage.getBookId(),bookMessage.getMessage());
         if(commentsMapper.insert(comments)==0){
             return ResponseResult.getErrorResult("添加评论失败！", StatusCode.NOT_MODIFIED, null);
         }

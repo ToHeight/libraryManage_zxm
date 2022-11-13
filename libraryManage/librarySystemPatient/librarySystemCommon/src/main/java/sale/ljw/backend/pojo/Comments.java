@@ -20,7 +20,7 @@ public class Comments implements Serializable {
      * 留言id
      */
     @TableId(value = "comments_id")
-    private Long commentsId;
+    private String commentsId;
     /**
      * 用户id
      */
@@ -42,7 +42,7 @@ public class Comments implements Serializable {
     @TableLogic(value = "delete_comments")
     private Integer deleteComments;
 
-    public Comments(Long commentsId, Integer userId, String bookId, String commentsInfo) {
+    public Comments(String commentsId, Integer userId, String bookId, String commentsInfo) {
         this.commentsId = commentsId;
         this.userId = userId;
         this.bookId = bookId;

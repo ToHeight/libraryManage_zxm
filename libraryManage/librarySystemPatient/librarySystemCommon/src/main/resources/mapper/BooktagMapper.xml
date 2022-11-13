@@ -16,4 +16,26 @@
         ,tag_value,user_id,
         tag_delete
     </sql>
+    <resultMap id="bookTags" type="sale.ljw.backend.form.BookTagList">
+        <id property="tagId" column="tagId" jdbcType="INTEGER"/>
+        <id property="tagValue" column="tagValue" jdbcType="VARCHAR"/>
+        <id property="userName" column="userName" jdbcType="VARCHAR"/>
+        <collection property="tapList"
+                    javaType="arrayList"
+                    ofType="map"
+                    column="tagId"
+                    select="sale.ljw.backend.dao.BooktapMapper.queryBookTapByTapId"/>
+    </resultMap>
+    <select id="findAllBookTag" resultMap="bookTags">
+        SELECT
+            bookTag.tag_id tagId,bookTag.tag_value tagValue,User.user_name userName
+        FROM
+            bookTag
+                LEFT JOIN libraryManage.User ON User.user_id=bookTag.user_id
+        WHERE
+            bookTag.tag_delete=0
+        <if test="tagValue!=null">
+            AND bookTag.tag_value LIKE CONCAT('%',#{tagValue},'%')
+        </if>
+    </select>
 </mapper>

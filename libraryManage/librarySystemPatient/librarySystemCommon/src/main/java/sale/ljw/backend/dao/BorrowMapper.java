@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.MapKey;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 import sale.ljw.backend.form.FindBorrowedBooks;
+import sale.ljw.backend.form.QueryAllBorrow;
 import sale.ljw.backend.pojo.Borrow;
 
 import java.util.ArrayList;
@@ -23,6 +24,8 @@ public interface BorrowMapper extends BaseMapper<Borrow> {
     ArrayList<Map<String, Object>> findBorrowedBooks(FindBorrowedBooks findBorrowedBooks, String userId);
 
     int searchSameBook(int userId, String bookId);
+    @MapKey(value = "borrowId")
+    ArrayList<Map<String, Object>> queryAllBorrowingInformation(QueryAllBorrow queryAllBorrow);
 }
 
 

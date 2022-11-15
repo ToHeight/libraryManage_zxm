@@ -1,6 +1,9 @@
 package sale.ljw.librarySystemAdmin.backend.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.github.pagehelper.PageInfo;
+import sale.ljw.backend.form.EditConstant;
+import sale.ljw.backend.form.QueryMessages;
 import sale.ljw.backend.pojo.Constant;
 import sale.ljw.common.common.http.ResponseResult;
 
@@ -15,5 +18,9 @@ import java.util.Map;
 public interface ConstantServiceAdmin extends IService<Constant> {
 
     ResponseResult<ArrayList<Map<String, Object>>> getBookStatus();
+
+    ResponseResult<PageInfo<Map<String, Object>>> findAllConstant(QueryMessages page);
+
+    ResponseResult<String> editConstant(EditConstant editConstant);
 
 }

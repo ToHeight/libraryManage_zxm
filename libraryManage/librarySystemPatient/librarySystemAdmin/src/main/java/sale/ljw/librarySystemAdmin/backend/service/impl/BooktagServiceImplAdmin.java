@@ -53,13 +53,13 @@ public class BooktagServiceImplAdmin extends ServiceImpl<BooktagMapper, Booktag>
         //添加标签内容
         QueryWrapper<Booktap> queryWrapper_deleteTap=new QueryWrapper<>();
         queryWrapper_deleteTap.eq("tapId", bookTag.getTagId());
-        if(booktapMapper.delete(queryWrapper_deleteTap)==0){
-            return ResponseResult.getErrorResult("删除书签失败", StatusCode.NO_CONTENT, null);
-        }
+        booktapMapper.delete(queryWrapper_deleteTap);
         //添加新的书签
-        Integer result=booktapMapper.addTapByBookList(bookTag.getTagId(),bookTag.getBookId());
-        if(result!= bookTag.getBookId().size()){
-            return ResponseResult.getErrorResult("图书添加失败", StatusCode.NO_CONTENT, null);
+        if(bookTag.getBookId()!=null && bookTag.getBookId().size()!=0){
+            Integer result=booktapMapper.addTapByBookList(bookTag.getTagId(),bookTag.getBookId());
+            if(result!= bookTag.getBookId().size()){
+                return ResponseResult.getErrorResult("图书添加失败", StatusCode.NO_CONTENT, null);
+            }
         }
         return ResponseResult.getSuccessResult(null,"修改成功");
     }

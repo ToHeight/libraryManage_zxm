@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import sale.ljw.backend.pojo.Booktap;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Map;
 
 /**
@@ -25,7 +26,7 @@ public interface BooktapMapper extends BaseMapper<Booktap> {
     @MapKey(value = "tapId")
     ArrayList<Map<String,Object>> queryBookTapByTapId(Integer tapId);
 
-    Integer addTapByBookList(Integer tagId, ArrayList<Integer> bookId);
+    Integer addTapByBookList(Integer tagId, HashSet<Integer> bookId);
 }
 
 

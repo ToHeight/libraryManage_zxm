@@ -23,24 +23,30 @@
         activityInfo,activityOrganizer,activityDate,activityApplication,
         activityAge,activityStatus,activityDelete
     </sql>
+    <delete id="deleteActivity">
+        UPDATE activity
+        SET activityDelete=1
+        WHERE activityId = #{activityId}
+    </delete>
     <select id="queryActivity" resultType="java.util.Map">
-        SELECT DISTINCT  activity.activityId,activity.activityName,activityInfo,activityOrganizer,
-                DATE_FORMAT(activityDate, '%Y年%m月%d日') activityDate,DATE_FORMAT(activityApplication, '%Y年%m月%d日 %H时%i分') activityApplication,activity.activityAge,
-                Constant.value activityStatus,activityType.activityTypeName
+        SELECT DISTINCT activity.activityId,activity.activityName,activityInfo,activityOrganizer,
+        DATE_FORMAT(activityDate, '%Y年%m月%d日') activityDate,DATE_FORMAT(activityApplication, '%Y年%m月%d日 %H时%i分')
+        activityApplication,activity.activityAge,
+        Constant.value activityStatus,activityType.activityTypeName
         <if test="findActivity.itself">
             ,appCon.value applicationStatus,application.applicationId
         </if>
         FROM activity
-                 INNER JOIN Constant ON Constant.coding=activity.activityStatus
-                 INNER JOIN activityType ON activityType.activityTypeId=activity.activityTypeId
+        INNER JOIN Constant ON Constant.coding=activity.activityStatus
+        INNER JOIN activityType ON activityType.activityTypeId=activity.activityTypeId
         <if test="findActivity.itself">
             INNER JOIN application ON application.userId=#{userId}
             INNER JOIN Constant appCon ON application.applicationStatus=appCon.coding
         </if>
         WHERE activity.activityDelete=0
-          <if test="findActivity.itself">
-              AND activity.activityId IN (SELECT app.activityId FROM application app WHERE app.userId=#{userId})
-          </if>
+        <if test="findActivity.itself">
+            AND activity.activityId IN (SELECT app.activityId FROM application app WHERE app.userId=#{userId})
+        </if>
         <if test="findActivity.activityName != null">
             AND activity.activityName LIKE CONCAT('%',#{findActivity.activityName},'%')
         </if>
@@ -55,27 +61,59 @@
         </if>
         <if test="findActivity.notShowActivityId!=null &amp;&amp; findActivity.notShowActivityId.size!=0">
             AND activity.activityId NOT IN
-            <foreach collection="findActivity.notShowActivityId" open="(" close=")" item="notShowActivity" separator="," index="index">
+            <foreach collection="findActivity.notShowActivityId" open="(" close=")" item="notShowActivity" separator=","
+                     index="index">
                 #{notShowActivity}
             </foreach>
         </if>
         GROUP BY activity.activityId
     </select>
     <update id="checkActivityExpired">
-        UPDATE activity SET activityStatus=(
-            CASE WHEN NOW()>activityDate
-            THEN 'ACS03'
-            ELSE (
-             CASE WHEN (NOW()>activityApplication AND activityDate>NOW())
-             THEN 'ACS02' ELSE 'ACS01' END) END)
-        WHERE activityStatus IN ('ACS01','ACS02') AND activityDelete=0
+        UPDATE activity
+        SET activityStatus=(
+            CASE
+                WHEN NOW() > activityDate
+                    THEN 'ACS03'
+                ELSE (
+                    CASE
+                        WHEN (NOW() > activityApplication AND activityDate > NOW())
+                            THEN 'ACS02'
+                        ELSE 'ACS01' END) END)
+        WHERE activityStatus IN ('ACS01', 'ACS02')
+          AND activityDelete = 0
     </update>
 
     <select id="detectAge" resultType="java.lang.Integer">
         SELECT COUNT(user.user_id)
         FROM User user
-        INNER JOIN activity ON activity.activityId=#{activityId}
-        WHERE user.user_id=#{userId} AND user.user_age>activity.activityAge AND activity.activityApplication>NOW()
+        INNER JOIN activity
+        ON activity.activityId=#{activityId}
+        WHERE user.user_id=#{userId} AND user.user_age >activity.activityAge AND activity.activityApplication >NOW()
     </select>
-
+    <select id="findAllActivity" resultType="java.util.Map">
+        SELECT
+        activity.activityId,activity.activityName,activity.activityInfo,activity.activityOrganizer,activity.activityDate,activityApplication,activityAge,activityType.activityTypeName,
+        activity.activityTypeId,Constant.value activityStatus,activity.activityStatus activityStatusCoding
+        FROM
+        activity
+        INNER JOIN activityType ON activityType.activityTypeId=activity.activityTypeId
+        INNER JOIN Constant ON Constant.coding=activity.activityStatus
+        WHERE
+        activityDelete=0
+        <if test="activityName">
+            AND activity.activityName LIKE CONCAT('%',#{activityName},'%')
+        </if>
+        <if test="typeId">
+            AND activity.activityTypeId=#{typeId}
+        </if>
+        <if test="activityStatus">
+            AND activity.activityStatus =#{activityStatus}
+        </if>
+    </select>
+    <insert id="addActivity" useGeneratedKeys="true" keyProperty="activityId">
+        INSERT INTO activity(activityName, activityTypeId, activityInfo, activityOrganizer, activityDate,
+                             activityApplication, activityAge)
+        VALUES (#{activityName}, #{activityTypeId}, #{activityInfo}, #{activityOrganizer}, #{activityDate},
+                #{activityApplication}, #{activityAge})
+    </insert>
 </mapper>

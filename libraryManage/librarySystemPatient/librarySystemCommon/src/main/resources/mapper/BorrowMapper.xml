@@ -42,4 +42,22 @@
         FROM Borrow
         WHERE user_id=#{userId} AND book_id=#{bookId} AND borrow_tatus NOT IN ('BWS02');
     </select>
+    <select id="queryAllBorrowingInformation" resultType="java.util.Map">
+        SELECT Borrow.borrow_id borrowId,DATE_FORMAT(Borrow.borrow_time, '%Y年%m月%d日 %H时%i分') borrowTime,DATE_FORMAT(Borrow.return_time, '%Y年%m月%d日 %H时%i分') returnTime,
+               User.user_name userName,Book.book_name bookName,Constant.value borrowStatus
+        FROM
+            Borrow
+                INNER JOIN libraryManage.User ON User.user_id=Borrow.user_id
+                INNER JOIN Book ON Book.book_id=Borrow.book_id
+                INNER JOIN Constant ON Constant.coding=borrow_tatus
+        WHERE
+            borrow_delete=0
+        <if test="userName!=null">
+           AND User.user_name LIKE CONCAT('%',#{userName},'%')
+        </if>
+        <if test="borrowStatus!=null">
+            borrow_tatus=#{borrowStatus}
+        </if>
+        ORDER BY borrow_tatus DESC
+    </select>
 </mapper>

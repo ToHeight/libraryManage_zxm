@@ -104,7 +104,7 @@ public class BookServiceImplAdmin extends ServiceImpl<BookMapper, Book>
     @Override
     public ResponseResult<List<Map<String, Object>>> searchBookTitlesRemotely(String bookName) {
         QueryWrapper<Book> queryWrapper_0=new QueryWrapper<>();
-        queryWrapper_0.like("book_name", bookName).select("book_id","book_name");
+        queryWrapper_0.like("book_name", bookName).select("book_id bookId","book_name bookName");
         List<Map<String, Object>> maps = bookMapper.selectMaps(queryWrapper_0);
         return ResponseResult.getSuccessResult(maps,"查询成功");
     }

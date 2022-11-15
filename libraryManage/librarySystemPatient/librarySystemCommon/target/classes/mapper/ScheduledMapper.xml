@@ -28,4 +28,18 @@
             AND Scheduled.scheduled_status = #{bookType}
         </if>
     </select>
+    <select id="getAllPreOrderedBook" resultType="java.util.Map">
+        SELECT scheduled_id scheduledId,book_name,Constant.value scheduledStatus,User.user_name userName,Constant.coding scheduledStatusCoding
+        FROM Scheduled
+                 INNER JOIN Constant ON Constant.coding=scheduled_status
+                 INNER JOIN libraryManage.User ON User.user_id=Scheduled.user_id
+        <where>
+            <if test="reserveStatus!=null">
+                scheduled_status=#{reserveStatus}
+            </if>
+            <if test="bookName!=null">
+                book_name LIKE CONCAT('%',#{bookName},'%')
+            </if>
+        </where>
+    </select>
 </mapper>

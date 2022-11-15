@@ -17,7 +17,8 @@ public class WebConfig implements WebMvcConfigurer {
         // 添加拦截器，配置拦截地址
         registry.addInterceptor(interceptor).addPathPatterns("/**").excludePathPatterns(
                 "/loginAdmin/login", //管理员登录
-                "/bookByAdmin/uploadCoverAddress" //图片上传地址
+                "/bookByAdmin/uploadCoverAddress", //图片上传地址
+                "/error"
         );
     }
 }

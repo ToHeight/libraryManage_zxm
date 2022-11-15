@@ -6,6 +6,7 @@ import lombok.Data;
 
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 @Data
 @ApiModel(value = "修改图书标签")
@@ -19,5 +20,5 @@ public class EditBookTag {
     private String tagValue;
 
     @ApiModelProperty(value = "图书id")
-    private ArrayList<Integer> bookId;
+    private HashSet<Integer> bookId;
 }

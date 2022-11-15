@@ -420,7 +420,40 @@ WHERE Comments.comments_id='1584368878876798976'
 
 # 借阅管理
 SELECT Borrow.borrow_id borrowId,DATE_FORMAT(Borrow.borrow_time, '%Y年%m月%d日 %H时%i分') borrowTime,DATE_FORMAT(Borrow.return_time, '%Y年%m月%d日 %H时%i分') returnTime,
+	User.user_name userName,Book.book_name bookName,Constant.value borrowStatus
 FROM 
 	Borrow
+INNER JOIN libraryManage.User ON User.user_id=Borrow.user_id
+INNER JOIN Book ON Book.book_id=Borrow.book_id
+INNER JOIN Constant ON Constant.coding=borrow_tatus
 WHERE
-	
+	borrow_delete=0
+ORDER BY borrow_tatus DESC
+# 预约图书管理
+SELECT scheduled_id scheduledId,book_name,Constant.value scheduledStatus,User.user_name userName
+FROM Scheduled
+INNER JOIN Constant ON Constant.coding=scheduled_status
+INNER JOIN libraryManage.User ON User.user_id=Scheduled.user_id
+
+# 活动发布、取消、删除
+SELECT 
+	activity.activityId,activity.activityName,activity.activityInfo,activity.activityOrganizer,activity.activityDate,activityApplication,activityAge,activityType.activityTypeName,
+	activity.activityTypeId,Constant.value activityStatus,activity.activityStatus activityStatusCoding
+FROM
+	activity
+INNER JOIN activityType ON activityType.activityTypeId=activity.activityTypeId
+INNER JOIN Constant ON Constant.coding=activity.activityStatus
+WHERE
+	activityDelete=0 AND 
+		
+# 发布活动
+
+# 楼层管理
+
+# 预定管理
+
+# 权限管理
+
+# 用户管理
+
+# 管理员管理

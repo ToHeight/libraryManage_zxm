@@ -4,7 +4,9 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.MapKey;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
+import sale.ljw.backend.form.AddActivity;
 import sale.ljw.backend.form.FindActivity;
+import sale.ljw.backend.form.QueryAllActivity;
 import sale.ljw.backend.pojo.Activity;
 
 import java.util.ArrayList;
@@ -25,6 +27,12 @@ public interface ActivityMapper extends BaseMapper<Activity> {
     Integer checkActivityExpired();
 
     Integer detectAge(Integer activityId, int userId);
+    @MapKey(value = "activityId")
+    ArrayList<Map<String,Object>> findAllActivity(QueryAllActivity queryAllActivity);
+
+    Integer addActivity(AddActivity addActivity);
+
+    Integer deleteActivity(Integer activityId);
 }
 
 

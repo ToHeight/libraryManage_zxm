@@ -55,4 +55,13 @@
         FROM Constant
         WHERE Constant.coding LIKE 'BS___'
     </select>
+    <select id="findAllConstant" resultType="java.util.Map">
+        SELECT Constant.coding,Constant.value
+        FROM Constant
+        <where>
+            <if test="value!=null">
+                Constant.value LIKE CONCAT('%',#{value},'%')
+            </if>
+        </where>
+    </select>
 </mapper>

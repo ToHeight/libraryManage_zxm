@@ -1,7 +1,12 @@
 package sale.ljw.librarySystemAdmin.backend.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.github.pagehelper.PageInfo;
+import sale.ljw.backend.form.QueryAllBorrow;
 import sale.ljw.backend.pojo.Borrow;
+import sale.ljw.common.common.http.ResponseResult;
+
+import java.util.Map;
 
 /**
  * @author 86155
@@ -10,4 +15,7 @@ import sale.ljw.backend.pojo.Borrow;
  */
 public interface BorrowServiceAdmin extends IService<Borrow> {
 
+    ResponseResult<PageInfo<Map<String, Object>>> queryAllBorrowingInformation(QueryAllBorrow queryAllBorrow);
+
+    ResponseResult<String> confirmReturnBooks(Integer borrowId);
 }

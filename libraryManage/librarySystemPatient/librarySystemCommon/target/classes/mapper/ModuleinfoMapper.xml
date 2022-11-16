@@ -12,4 +12,19 @@
     <sql id="Base_Column_List">
         module_id,name
     </sql>
+    <select id="findAllRoleModule" resultType="java.util.Map">
+        SELECT
+            moduleInfo.module_id moduleId,moduleInfo.name
+        FROM
+            moduleInfo
+        WHERE
+                moduleInfo.module_id IN (
+                SELECT
+                    roleModule.module_id
+                FROM
+                    roleModule
+                WHERE
+                    roleModule.role_id=#{roleId}
+            )
+    </select>
 </mapper>

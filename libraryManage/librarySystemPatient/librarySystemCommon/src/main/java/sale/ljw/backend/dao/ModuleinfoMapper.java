@@ -3,6 +3,9 @@ package sale.ljw.backend.dao;
 import sale.ljw.backend.pojo.Moduleinfo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
+import java.util.ArrayList;
+import java.util.Map;
+
 /**
 * @author 86155
 * @description 针对表【moduleInfo】的数据库操作Mapper
@@ -10,7 +13,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 * @Entity sale.ljw.backend.pojo.Moduleinfo
 */
 public interface ModuleinfoMapper extends BaseMapper<Moduleinfo> {
-
+    ArrayList<Map<String,Object>> findAllRoleModule(Integer roleId);
 }
 
 

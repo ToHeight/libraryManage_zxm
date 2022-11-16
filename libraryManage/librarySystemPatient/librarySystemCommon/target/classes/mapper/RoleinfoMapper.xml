@@ -12,4 +12,26 @@
     <sql id="Base_Column_List">
         role_id,name
     </sql>
+    <insert id="addModule">
+        INSERT INTO roleModule VALUES
+        <foreach collection="moduleId" separator="," item="module" >
+            (#{roleId},#{module})
+        </foreach>
+
+    </insert>
+    <resultMap id="roleInfoData" type="sale.ljw.backend.form.RoleInfoData">
+        <id column="roleId" property="roleId" jdbcType="INTEGER"/>
+        <result column="name" property="roleInfo" jdbcType="VARCHAR"/>
+        <collection property="module"
+                    javaType="arrayList"
+                    ofType="map"
+                    column="roleId"
+                    select="sale.ljw.backend.dao.ModuleinfoMapper.findAllRoleModule"/>
+    </resultMap>
+    <select id="findAllRoleInfo" resultMap="roleInfoData">
+        SELECT
+            role_id roleId,name
+        FROM
+            roleInfo
+    </select>
 </mapper>

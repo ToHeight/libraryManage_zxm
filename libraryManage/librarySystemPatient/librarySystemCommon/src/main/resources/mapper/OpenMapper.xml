@@ -23,4 +23,13 @@
     <update id="updateFloorPeopleCount">
         UPDATE libraryManage.Open SET people_count=#{number}
     </update>
+    <select id="findAllFloor" resultType="java.util.Map">
+        SELECT
+            Open.floor_id floorId,Open.floor_name floorName,people_count peopleCount,AppointmentsTime.time_start timeStart,AppointmentsTime.time_end timeEnd,
+            Open.time_id timeId,Open.floor_status floorStatusCoding,Constant.value floorStatus
+        FROM
+            libraryManage.Open
+                INNER JOIN Constant ON Open.floor_status=Constant.coding
+                INNER JOIN AppointmentsTime ON Open.time_id=AppointmentsTime.time_id
+    </select>
 </mapper>

@@ -29,10 +29,25 @@
         WHERE UserAppointments.user_id=#{userId}
         ORDER BY Constant.coding DESC
     </select>
-
     <update id="updateCancelAppointment">
         UPDATE UserAppointments SET appointments_status='AS003'
        WHERE
             appointment_id=#{appointmentId} AND appointments_status IN ('AS001','AS005') AND user_id=#{userId}
     </update>
+    <select id="findAllAppointment" resultType="java.util.Map">
+        SELECT
+            UserAppointments.appointment_id appointmentId,Open.floor_name floorName,User.user_name userName,Constant.value appointmentsStatus,
+            UserAppointments.appointments_status appointmentsStatusCoding,appointment_time appointmentTime,appointments_createTime appointmentsCreateTime
+        FROM
+            UserAppointments
+                INNER JOIN libraryManage.Open ON Open.floor_id=UserAppointments.floor_id
+                INNER JOIN libraryManage.User ON User.user_id=UserAppointments.user_id
+                INNER JOIN Constant ON Constant.coding=UserAppointments.appointments_status
+        <where>
+            <if test="info!=null">
+                User.user_name LIKE CONCAT('%',#{info},'%')
+            </if>
+        </where>
+    </select>
+
 </mapper>

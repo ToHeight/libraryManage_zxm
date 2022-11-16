@@ -23,4 +23,6 @@ public interface ConstantServiceAdmin extends IService<Constant> {
 
     ResponseResult<String> editConstant(EditConstant editConstant);
 
+    ResponseResult<ArrayList<Map<String, Object>>> findfloorStatus();
+
 }

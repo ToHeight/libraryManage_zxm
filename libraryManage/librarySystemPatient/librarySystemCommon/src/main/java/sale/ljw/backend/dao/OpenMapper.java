@@ -1,9 +1,13 @@
 package sale.ljw.backend.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.MapKey;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 import sale.ljw.backend.pojo.Open;
+
+import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * @author 86155
@@ -18,6 +22,9 @@ public interface OpenMapper extends BaseMapper<Open> {
     Integer reservePeoperCount(Integer floorId,Integer number);
 
     Integer updateFloorPeopleCount(int number);
+    @MapKey(value = "floorId")
+    ArrayList<Map<String,Object>> findAllFloor();
+
 }
 
 

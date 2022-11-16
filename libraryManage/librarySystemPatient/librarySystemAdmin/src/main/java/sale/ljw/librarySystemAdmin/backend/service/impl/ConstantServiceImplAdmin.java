@@ -52,6 +52,12 @@ public class ConstantServiceImplAdmin extends ServiceImpl<ConstantMapper, Consta
        }
         return ResponseResult.getSuccessResult(null,"修改成功");
     }
+
+    @Override
+    public ResponseResult<ArrayList<Map<String, Object>>> findfloorStatus() {
+        ArrayList<Map<String,Object>> bookStatus=constantMapper.findfloorStatus();
+        return ResponseResult.getSuccessResult(bookStatus,"查询成功");
+    }
 }
 
 

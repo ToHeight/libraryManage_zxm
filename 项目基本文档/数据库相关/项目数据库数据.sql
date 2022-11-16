@@ -445,15 +445,63 @@ INNER JOIN activityType ON activityType.activityTypeId=activity.activityTypeId
 INNER JOIN Constant ON Constant.coding=activity.activityStatus
 WHERE
 	activityDelete=0 AND 
-		
-# 发布活动
 
+# 报名管理
+SELECT
+	applicationId,application.userId,User.user_name userName,User.user_age userAge,application.applicationStatus applicationStatusCoding,
+	Constant.value applicationStatus,activity.activityName,activity.activityInfo
+FROM 
+	application
+INNER JOIN libraryManage.User ON User.user_id=application.userId 
+INNER JOIN libraryManage.activity ON activity.activityId=application.activityId
+INNER JOIN Constant ON Constant.coding=application.applicationStatus
+	
 # 楼层管理
+SELECT 
+	Open.floor_id floorId,Open.floor_name floorName,people_count peopleCount,AppointmentsTime.time_start timeStart,AppointmentsTime.time_end timeEnd,
+	Open.time_id timeId
+FROM 
+	libraryManage.Open
+INNER JOIN Constant ON Open.floor_status=Constant.coding
+INNER JOIN AppointmentsTime ON Open.time_id=AppointmentsTime.time_id
+
+#时间列表查询
+SELECT 
+	time_id timeId,time_start timeStart,time_end timeEnd
+FROM 
+	AppointmentsTime
 
 # 预定管理
-
+SELECT
+	UserAppointments.appointment_id appointmentId,Open.floor_name floorName,User.user_name userName,Constant.value appointmentsStatus,
+	UserAppointments.appointments_status appointmentsStatusCoding,appointment_time appointmentTime,appointments_createTime appointmentsCreateTime
+FROM
+	UserAppointments
+INNER JOIN libraryManage.Open ON Open.floor_id=UserAppointments.floor_id
+INNER JOIN libraryManage.User ON User.user_id=UserAppointments.user_id
+INNER JOIN Constant ON Constant.coding=UserAppointments.appointments_status`Action`
+WHERE
+	
 # 权限管理
+SELECT 
+	role_id roleId,NAME 
+FROM
+	roleInfo
+WHERE
 
+SELECT
+	moduleInfo.module_id moduleId,moduleInfo.name
+FROM 
+	moduleInfo
+WHERE
+	moduleInfo.module_id IN (
+	SELECT
+		roleModule.module_id
+	FROM
+		roleModule
+	WHERE
+		roleModule.role_id=1
+	)
 # 用户管理
 
 # 管理员管理

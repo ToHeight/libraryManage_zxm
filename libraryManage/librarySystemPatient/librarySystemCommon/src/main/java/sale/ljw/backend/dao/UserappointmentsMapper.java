@@ -22,6 +22,8 @@ public interface UserappointmentsMapper extends BaseMapper<Userappointments> {
     ArrayList<Map<String, Object>> findAllAppointmentsByUser(int userId);
 
     Integer updateCancelAppointment(String appointmentId, int userId);
+    @MapKey(value = "appointmentId")
+    ArrayList<Map<String,Object>> findAllAppointment(String info);
 }
 
 

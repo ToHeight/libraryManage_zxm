@@ -9,7 +9,6 @@ import sale.ljw.backend.form.ReserveSeatForm;
 import sale.ljw.backend.pojo.Appointmentstime;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Map;
 
 /**
@@ -25,10 +24,14 @@ public interface AppointmentstimeMapper extends BaseMapper<Appointmentstime> {
     Integer updateUserAppointments();
 
     Integer updateFloor();
+
     @MapKey(value = "appointmentId")
     ArrayList<Map<String, Object>> initializeFixedSeat(InitializationReserveSeatTime time);
 
     Integer reserveSeat(ReserveSeatForm reserveSeat, Integer userId);
+
+    @MapKey(value = "timeId")
+    ArrayList<Map<String, Object>> queryTimeList();
 }
 
 

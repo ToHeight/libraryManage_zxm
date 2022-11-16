@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import sale.ljw.backend.form.AddActivity;
+import sale.ljw.backend.form.ModifyActivity;
 import sale.ljw.backend.form.QueryAllActivity;
 import sale.ljw.common.common.http.ResponseResult;
 import sale.ljw.librarySystemAdmin.backend.service.ActivityServiceAdmin;
@@ -51,5 +52,14 @@ public class AActivityServlet {
         return activityServiceAdmin.deleteActivity(activityId);
     }
 
-
+    /**
+     * 修改活动
+     * @param modifyActivity
+     * @return
+     */
+    @ApiOperation(value = "修改活动")
+    @PostMapping("/modifyActivity")
+    public ResponseResult<String> modifyActivity(@RequestBody @Valid ModifyActivity modifyActivity){
+        return activityServiceAdmin.modifyActivity(modifyActivity);
+    }
 }

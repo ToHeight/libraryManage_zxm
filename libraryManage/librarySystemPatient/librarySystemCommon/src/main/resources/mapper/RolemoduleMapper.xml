@@ -12,4 +12,8 @@
     <sql id="Base_Column_List">
         role_id,module_id
     </sql>
+    <select id="findAllModule" resultType="java.util.Map">
+        SELECT module_id coding,name value
+        FROM moduleInfo
+    </select>
 </mapper>

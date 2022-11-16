@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import sale.ljw.backend.dao.ActivityMapper;
 import sale.ljw.backend.dao.ApplicationMapper;
 import sale.ljw.backend.form.AddActivity;
+import sale.ljw.backend.form.ModifyActivity;
 import sale.ljw.backend.form.QueryAllActivity;
 import sale.ljw.backend.pojo.Activity;
 import sale.ljw.backend.pojo.Application;
@@ -61,6 +62,20 @@ public class ActivityServiceImplAdmin extends ServiceImpl<ActivityMapper, Activi
         }
         activityMapper.deleteActivity(activityId);
         return ResponseResult.getSuccessResult(null, "删除成功");
+    }
+
+    @Override
+    public ResponseResult<String> modifyActivity(ModifyActivity modifyActivity) {
+        //修改活动
+        UpdateWrapper<Activity> updateWrapper_0 = new UpdateWrapper<>();
+        updateWrapper_0.eq("activityId", modifyActivity.getActivityId())
+                .set("activityName", modifyActivity.getActivityName())
+                .set("activityAge", modifyActivity.getActivityAge())
+                .set("activityApplication", modifyActivity.getActivityApplication())
+                .set("activityStatus", modifyActivity.getActivityStatus())
+                .set("activityDate", modifyActivity.getActivityDate());
+        activityMapper.update(null, updateWrapper_0);
+        return ResponseResult.getSuccessResult(null, "修改成功");
     }
 }
 

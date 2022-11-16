@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import sale.ljw.common.common.http.ResponseResult;
+import sale.ljw.librarySystemAdmin.backend.service.AppointmentstimeServiceAdmin;
 import sale.ljw.librarySystemAdmin.backend.service.ConstantServiceAdmin;
 
 import java.util.ArrayList;
@@ -18,6 +19,9 @@ public class ADropdownListDataServlet {
     private sale.ljw.librarySystemAdmin.common.config.librarySystemReaderFeignClient librarySystemReaderFeignClient;
     @Autowired
     private ConstantServiceAdmin constantServiceAdmin;
+    @Autowired
+    private AppointmentstimeServiceAdmin appointmentstimeServiceAdmin;
+
     /**
      * 获取图书类别下拉列表
      *
@@ -31,11 +35,12 @@ public class ADropdownListDataServlet {
 
     /**
      * 获取图书状态下拉列表
+     *
      * @return
      */
     @ApiOperation(value = "获取图书状态下拉列表")
     @GetMapping("/getBookStatus")
-    public ResponseResult<ArrayList<Map<String,Object>>> getBookStatus(){
+    public ResponseResult<ArrayList<Map<String, Object>>> getBookStatus() {
         return constantServiceAdmin.getBookStatus();
     }
 
@@ -115,5 +120,26 @@ public class ADropdownListDataServlet {
     @GetMapping("/getGender")
     public ResponseResult<ArrayList<Map<String, Object>>> getGender() {
         return librarySystemReaderFeignClient.getGender();
+    }
+
+    /**
+     * 查询时间列表
+     *
+     * @return
+     */
+    @ApiOperation(value = "查询时间列表")
+    @GetMapping("/queryTimeList")
+    public ResponseResult<ArrayList<Map<String, Object>>> queryTimeList() {
+        return appointmentstimeServiceAdmin.queryTimeList();
+    }
+
+    /**
+     * 获取楼层状态
+     * @return
+     */
+    @ApiOperation(value = "获取楼层状态")
+    @GetMapping("/findFloorStatus")
+    public ResponseResult<ArrayList<Map<String, Object>>> findfloorStatus() {
+        return constantServiceAdmin.findfloorStatus();
     }
 }

@@ -64,4 +64,9 @@
             </if>
         </where>
     </select>
+    <select id="findfloorStatus" resultType="java.util.Map">
+        SELECT coding,value
+        FROM Constant
+        WHERE coding LIKE 'FS___'
+    </select>
 </mapper>

@@ -48,4 +48,10 @@
         FROM DUAL WHERE EXISTS
                             (SELECT floor_id FROM libraryManage.Open WHERE floor_id=#{reserveSeat.floorId} AND people_count!=0)
     </insert>
+    <select id="queryTimeList" resultType="java.util.Map">
+        SELECT
+            time_id timeId,time_start timeStart,time_end timeEnd
+        FROM
+            AppointmentsTime
+    </select>
 </mapper>

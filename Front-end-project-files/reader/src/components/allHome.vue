@@ -22,9 +22,8 @@ export default {
   }
 }
 </script>
-
 <style scoped>
-/*.main{*/
-/*  height: 1000px;*/
-/*}*/
+.main{
+  height: 600px;
+}
 </style>

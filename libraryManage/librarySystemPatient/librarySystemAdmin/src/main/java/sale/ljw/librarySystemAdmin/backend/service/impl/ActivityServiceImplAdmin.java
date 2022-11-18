@@ -67,14 +67,7 @@ public class ActivityServiceImplAdmin extends ServiceImpl<ActivityMapper, Activi
     @Override
     public ResponseResult<String> modifyActivity(ModifyActivity modifyActivity) {
         //修改活动
-        UpdateWrapper<Activity> updateWrapper_0 = new UpdateWrapper<>();
-        updateWrapper_0.eq("activityId", modifyActivity.getActivityId())
-                .set("activityName", modifyActivity.getActivityName())
-                .set("activityAge", modifyActivity.getActivityAge())
-                .set("activityApplication", modifyActivity.getActivityApplication())
-                .set("activityStatus", modifyActivity.getActivityStatus())
-                .set("activityDate", modifyActivity.getActivityDate());
-        activityMapper.update(null, updateWrapper_0);
+        activityMapper.modifyActivity(modifyActivity);
         return ResponseResult.getSuccessResult(null, "修改成功");
     }
 }

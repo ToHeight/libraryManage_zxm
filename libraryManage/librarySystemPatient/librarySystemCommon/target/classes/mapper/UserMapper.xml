@@ -54,4 +54,24 @@
         FROM libraryManage.User
         WHERE User.user_email=#{email} AND User.status='ASU01'
     </select>
+    <select id="findAllUser" resultType="java.util.Map">
+        SELECT
+            User.user_id userId,User.user_name userName,User.user_idcard userIdcard,User.user_gender userGenderCoding,User.user_telephone userTelephone,User.user_address userAddress,
+            User.user_email userEmail,constantStatus.value userStatus,constantGender.value userGender,User.user_image userImage
+        FROM
+            libraryManage.User
+                INNER JOIN Constant constantStatus ON constantStatus.coding = User.status
+                INNER JOIN Constant constantGender ON constantGender.coding = User.user_gender
+        WHERE
+            User.user_delete=0
+            <if test="email!=null">
+                AND User.user_email LIKE CONCAT('%',#{email},'%')
+            </if>
+            <if test="userName!=null">
+                AND User.user_name LIKE CONCAT('%',#{userName},'%')
+            </if>
+            <if test="gender!=null">
+                AND User.user_gender = #{gender}
+            </if>
+    </select>
 </mapper>

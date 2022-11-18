@@ -34,4 +34,10 @@
         FROM
             roleInfo
     </select>
+    <select id="getRoleInfoList" resultType="java.util.Map">
+        SELECT
+            role_id coding,name value
+        FROM
+            roleInfo
+    </select>
 </mapper>

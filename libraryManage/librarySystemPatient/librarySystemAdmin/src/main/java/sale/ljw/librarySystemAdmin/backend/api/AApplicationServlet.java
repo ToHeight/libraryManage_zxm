@@ -36,7 +36,7 @@ public class AApplicationServlet {
      */
     @ApiOperation(value = "报名成功")
     @GetMapping("/signUpSuccessfully/{applicationId}")
-    public ResponseResult<String> signUpSuccessfully(@PathVariable Integer applicationId){
+    public ResponseResult<String> signUpSuccessfully(@PathVariable String applicationId){
         return applicationServiceAdmin.signUpSuccessfully(applicationId);
     }
 

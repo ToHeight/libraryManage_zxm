@@ -99,12 +99,20 @@ public class ADropdownListDataServlet {
         return librarySystemReaderFeignClient.getEventCategory();
     }
 
+    /**
+     * 获取活动状态
+     * @return
+     */
     @ApiOperation(value = "获取活动状态")
     @GetMapping("/getActivityStatus")
     public ResponseResult<ArrayList<Map<String, Object>>> getActivityStatus() {
         return librarySystemReaderFeignClient.getActivityStatus();
     }
 
+    /**
+     * 获取楼层
+     * @return
+     */
     @ApiOperation(value = "获取楼层")
     @GetMapping("/getFloor")
     public ResponseResult<ArrayList<Map<String, Object>>> getFloor() {

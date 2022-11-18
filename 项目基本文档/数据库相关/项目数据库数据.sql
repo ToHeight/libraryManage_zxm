@@ -502,6 +502,39 @@ WHERE
 	WHERE
 		roleModule.role_id=1
 	)
+	
+INSERT INTO roleModule VALUES(1,9)
+SELECT module_id coding,NAME VALUE
+FROM moduleInfo
 # 用户管理
+SELECT
+	User.user_id userId,User.user_name userName,User.user_idcard userIdcard,User.user_gender userGenderCoding,User.user_telephone userTelephone,User.user_address userAddress,
+	User.user_email userEmail,constantStatus.value userStatus,constantGender.value userGender,User.user_image userImage
+FROM 
+	libraryManage.User
+INNER JOIN Constant constantStatus ON constantStatus.coding = User.status 
+INNER JOIN Constant constantGender ON constantGender.coding = User.user_gender
+WHERE
+	User.user_delete=0
 
 # 管理员管理
+SELECT
+	Manager.manager_id managerId,manager_name managerName,manager_age age,manager_telephone managerTelephone,
+	manager_address managerAddress,manager_gender managerGenderCoding,Constant.value managerGender,ManagerLogin.permission permissionCoding,
+	roleInfo.name
+FROM 
+	Manager
+INNER JOIN Constant ON Constant.coding=manager_gender
+INNER JOIN ManagerLogin ON Manager.manager_id=ManagerLogin.manager_id
+INNER JOIN roleInfo ON ManagerLogin.permission=roleInfo.role_id
+WHERE
+	Manager.manager_delete=0
+	
+	
+SELECT 
+	roleModule.role_id roleId,roleModule.module_id moduleId,moduleInfo.name
+FROM
+	roleModule
+INNER JOIN moduleInfo ON moduleInfo.module_id=roleModule.module_id
+WHERE
+	role_id=1

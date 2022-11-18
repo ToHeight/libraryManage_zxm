@@ -24,4 +24,6 @@ public interface RoleinfoService extends IService<Roleinfo> {
 
     ResponseResult<String> addRole(EditPermission editPermission);
 
+    ResponseResult<ArrayList<Map<String, Object>>> getRoleInfoList();
+
 }

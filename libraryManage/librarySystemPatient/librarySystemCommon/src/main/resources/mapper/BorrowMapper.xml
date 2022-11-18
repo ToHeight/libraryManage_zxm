@@ -56,7 +56,7 @@
            AND User.user_name LIKE CONCAT('%',#{userName},'%')
         </if>
         <if test="borrowStatus!=null">
-            borrow_tatus=#{borrowStatus}
+            AND borrow_tatus=#{borrowStatus}
         </if>
         ORDER BY borrow_tatus DESC
     </select>

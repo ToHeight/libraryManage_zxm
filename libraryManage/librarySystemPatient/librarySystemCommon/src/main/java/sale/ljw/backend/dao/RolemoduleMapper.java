@@ -20,6 +20,8 @@ import java.util.Map;
 public interface RolemoduleMapper extends BaseMapper<Rolemodule> {
     @MapKey(value = "coding")
     ArrayList<Map<String,Object>> findAllModule();
+    @MapKey(value = "moduleId")
+    ArrayList<Map<String,Object>> queryPermission(Integer permissionId);
 }
 
 

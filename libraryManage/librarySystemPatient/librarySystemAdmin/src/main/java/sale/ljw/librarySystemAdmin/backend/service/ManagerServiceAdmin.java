@@ -1,7 +1,8 @@
 package sale.ljw.librarySystemAdmin.backend.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import sale.ljw.backend.form.LoginCredentials;
+import com.github.pagehelper.PageInfo;
+import sale.ljw.backend.form.*;
 import sale.ljw.backend.pojo.Manager;
 import sale.ljw.common.common.http.ResponseResult;
 
@@ -15,6 +16,13 @@ import java.util.Map;
  */
 public interface ManagerServiceAdmin extends IService<Manager> {
 
-    ResponseResult<Map<String, Object>> login(LoginCredentials loginCredentials, HttpServletResponse response);
+    ResponseResult<LoginAdminInformation> login(LoginCredentials loginCredentials, HttpServletResponse response);
 
+    ResponseResult<PageInfo<Map<String, Object>>> findAllManager(QueryMessages queryMessages);
+
+    ResponseResult<String> editManagerInformation(EditManagerInformation managerInformation);
+
+    ResponseResult<String> addManager(AddManager addManager);
+
+    ResponseResult<String> editPassword(LoginCredentials loginCredentials, String token);
 }

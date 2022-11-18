@@ -17,7 +17,7 @@ public interface ApplicationServiceAdmin extends IService<Application> {
 
     ResponseResult<PageInfo<Map<String, Object>>> findAllApplication(QueryMessages queryMessages);
 
-    ResponseResult<String> signUpSuccessfully(Integer applicationId);
+    ResponseResult<String> signUpSuccessfully(String applicationId);
 
     ResponseResult<String> cancelRegistration(Integer applicationId);
 }

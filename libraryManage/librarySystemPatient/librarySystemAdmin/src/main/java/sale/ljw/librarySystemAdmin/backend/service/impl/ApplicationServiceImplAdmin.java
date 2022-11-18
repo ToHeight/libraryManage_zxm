@@ -35,7 +35,7 @@ public class ApplicationServiceImplAdmin extends ServiceImpl<ApplicationMapper, 
     }
 
     @Override
-    public ResponseResult<String> signUpSuccessfully(Integer applicationId) {
+    public ResponseResult<String> signUpSuccessfully(String applicationId) {
         //修改用户状态
         UpdateWrapper<Application> updateWrapper=new UpdateWrapper<>();
         updateWrapper.eq("applicationId", applicationId).set("applicationStatus", "APS02");

@@ -82,6 +82,11 @@
         WHERE activityStatus IN ('ACS01', 'ACS02')
           AND activityDelete = 0
     </update>
+    <update id="modifyActivity">
+        UPDATE activity SET
+                            activityName=#{activityName},activityAge=#{activityAge},activityApplication=#{activityApplication},activityStatus=#{activityStatus},activityDate=#{activityDate}
+                        WHERE activityId=#{activityId} AND activityDelete=0
+    </update>
 
     <select id="detectAge" resultType="java.lang.Integer">
         SELECT COUNT(user.user_id)

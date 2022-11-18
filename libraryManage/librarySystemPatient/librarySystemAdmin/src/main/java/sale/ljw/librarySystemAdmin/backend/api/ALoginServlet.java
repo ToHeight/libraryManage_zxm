@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import sale.ljw.backend.form.LoginAdminInformation;
 import sale.ljw.backend.form.LoginCredentials;
 import sale.ljw.common.common.http.ResponseResult;
 import sale.ljw.librarySystemAdmin.backend.service.ManagerServiceAdmin;
@@ -22,7 +23,7 @@ public class ALoginServlet {
 
     @ApiOperation(value = "管理员登录")
     @PostMapping(path = "/login")
-    public ResponseResult<Map<String, Object>> login(@RequestBody @Valid LoginCredentials loginCredentials, HttpServletResponse response) {
+    public ResponseResult<LoginAdminInformation> login(@RequestBody @Valid LoginCredentials loginCredentials, HttpServletResponse response) {
         return managerServiceAdmin.login(loginCredentials, response);
     }
 }

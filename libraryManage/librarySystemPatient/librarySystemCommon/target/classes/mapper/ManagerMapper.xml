@@ -20,9 +20,37 @@
         manager_gender,manager_telephone,manager_address,
         manager_delete
     </sql>
-    <select id="findUserInformationLogin" resultType="java.util.Map">
-        SELECT manager_id managerId,manager_name managerName,manager_age managerAge
+    <resultMap id="userInformation" type="sale.ljw.backend.form.LoginAdminInformation">
+        <id property="managerId" column="managerId" jdbcType="INTEGER"/>
+        <result property="managerName" column="managerName" jdbcType="VARCHAR"/>
+        <result property="managerAge" column="managerAge" jdbcType="INTEGER"/>
+        <result property="permissionId" column="permissionId" jdbcType="INTEGER"/>
+        <collection property="permissionList"
+                    javaType="arrayList"
+                    ofType="map"
+                    column="permissionId"
+                    select="sale.ljw.backend.dao.RolemoduleMapper.queryPermission"/>
+    </resultMap>
+    <select id="findUserInformationLogin" resultMap="userInformation">
+        SELECT Manager.manager_id managerId,manager_name managerName,manager_age managerAge,ManagerLogin.permission permissionId
         FROM Manager
-        WHERE manager_id=#{managerId} AND manager_delete=0
+        INNER JOIN ManagerLogin ON ManagerLogin.manager_id=Manager.manager_id
+        WHERE Manager.manager_id=#{managerId} AND manager_delete=0
+    </select>
+    <select id="findAllManager" resultType="java.util.Map">
+        SELECT
+            Manager.manager_id managerId,manager_name managerName,manager_age age,manager_telephone managerTelephone,
+            manager_address managerAddress,manager_gender managerGenderCoding,Constant.value managerGender,ManagerLogin.permission permissionCoding,
+            roleInfo.name
+        FROM
+            Manager
+                INNER JOIN Constant ON Constant.coding=manager_gender
+                INNER JOIN ManagerLogin ON Manager.manager_id=ManagerLogin.manager_id
+                INNER JOIN roleInfo ON ManagerLogin.permission=roleInfo.role_id
+        WHERE
+            Manager.manager_delete=0
+        <if test="info!=null">
+           AND manager_name LIKE CONCAT('%',#{info},'%')
+        </if>
     </select>
 </mapper>

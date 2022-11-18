@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 import sale.ljw.backend.form.AddActivity;
 import sale.ljw.backend.form.FindActivity;
+import sale.ljw.backend.form.ModifyActivity;
 import sale.ljw.backend.form.QueryAllActivity;
 import sale.ljw.backend.pojo.Activity;
 
@@ -33,6 +34,8 @@ public interface ActivityMapper extends BaseMapper<Activity> {
     Integer addActivity(AddActivity addActivity);
 
     Integer deleteActivity(Integer activityId);
+
+    Integer modifyActivity(ModifyActivity modifyActivity);
 }
 
 

@@ -1,10 +1,14 @@
 package sale.ljw.backend.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.MapKey;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
+import sale.ljw.backend.form.LoginAdminInformation;
+import sale.ljw.backend.form.QueryMessages;
 import sale.ljw.backend.pojo.Manager;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 /**
@@ -17,7 +21,9 @@ import java.util.Map;
 @Repository
 public interface ManagerMapper extends BaseMapper<Manager> {
 
-    Map<String, Object> findUserInformationLogin(Integer managerId);
+    LoginAdminInformation findUserInformationLogin(Integer managerId);
+    @MapKey(value = "managerId")
+    ArrayList<Map<String, Object>> findAllManager(QueryMessages queryMessages);
 }
 
 

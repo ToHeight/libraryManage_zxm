@@ -61,4 +61,14 @@ public class ARoleInfoServlet {
     public ResponseResult<String> addRole(@RequestBody @Valid EditPermission editPermission){
         return roleinfoService.addRole(editPermission);
     }
+
+    /**
+     * 获取权限下拉列表
+     * @return
+     */
+    @ApiOperation(value = "权限下拉列表")
+    @GetMapping("/getRoleInfoList")
+    public ResponseResult<ArrayList<Map<String,Object>>> getRoleInfoList(){
+        return roleinfoService.getRoleInfoList();
+    }
 }

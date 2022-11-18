@@ -16,4 +16,13 @@
         SELECT module_id coding,name value
         FROM moduleInfo
     </select>
+    <select id="queryPermission" resultType="java.util.Map">
+        SELECT
+            roleModule.module_id moduleId,moduleInfo.name
+        FROM
+            roleModule
+                INNER JOIN moduleInfo ON moduleInfo.module_id=roleModule.module_id
+        WHERE
+            role_id=#{permissionId}
+    </select>
 </mapper>

@@ -59,6 +59,11 @@ public class RoleinfoServiceImpl extends ServiceImpl<RoleinfoMapper, Roleinfo>
         roleinfoMapper.addModule(roleInfo.getRoleId(),editPermission.getModuleId());
         return ResponseResult.getSuccessResult(null, "添加成功");
     }
+
+    @Override
+    public ResponseResult<ArrayList<Map<String, Object>>> getRoleInfoList() {
+        return ResponseResult.getSuccessResult(roleinfoMapper.getRoleInfoList(), null);
+    }
 }
 
 

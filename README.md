@@ -29,7 +29,7 @@
 🎠、页面优化整体测试✅  
 
 #### 注意
-本系统完全由本人（后端）和@Cheng-bei7（前端）开发，现发布github作为技术交流使用，严禁向公众出租、发售该系统。如若违规，本人依法追究民事责任。
+本系统完全由本人（后端）和[@Cheng-bei7](https://github.com/Cheng-bei7)（前端）开发，现发布github作为技术交流使用，严禁向公众出租、发售该系统。如若违规，本人依法追究民事责任。
 ## 软件架构
 后端：后端使用技术为springCloud、Spring boot、springMVC、mybatis、redis、webSocket、RabbitMQ等  
 前端：使用vue、element plus、axios等  

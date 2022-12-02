@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: sale.ljw.CreateJWTTest
+-------------------------------------------------------------------------------
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 32.188 s - in sale.ljw.CreateJWTTest

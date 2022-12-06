@@ -44,7 +44,9 @@ public class TokenFilter implements GlobalFilter, Ordered {
                 "/librarySystemReader/userInformationByReader/detectLoginUsername", //登录检测用户名
                 "/librarySystemReader/userInformationByReader/activateAccount",  //用户激活账户
                 "/librarySystemAdmin/loginAdmin/login", //管理员登录
-                "/librarySystemAdmin/bookByAdmin/uploadCoverAddress" //图书封面地址
+                "/librarySystemAdmin/bookByAdmin/uploadCoverAddress", //图书封面地址
+                "/librarySystemAdmin/lostBook/pay", //支付
+                "/librarySystemAdmin/lostBook/paymentConfirmation" //支付图片获取
         );
     }
 

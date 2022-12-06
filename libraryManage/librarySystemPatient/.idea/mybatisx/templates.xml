@@ -68,8 +68,8 @@
             <option name="tableUIInfoList">
               <list>
                 <TableUIInfo>
-                  <option name="className" value="Rolemodule" />
-                  <option name="tableName" value="roleModule" />
+                  <option name="className" value="Lostbook" />
+                  <option name="tableName" value="lostBook" />
                 </TableUIInfo>
               </list>
             </option>

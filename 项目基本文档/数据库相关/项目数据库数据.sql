@@ -1,4 +1,4 @@
-`libraryManage``Open`# 图书语言
+`mystudent``libraryManage``Open`# 图书语言
 INSERT INTO Constant(coding,VALUE) VALUES('LE001','英文')
 ,('LC002','中文')
 ,('LG003','德语')
@@ -538,3 +538,68 @@ FROM
 INNER JOIN moduleInfo ON moduleInfo.module_id=roleModule.module_id
 WHERE
 	role_id=1
+	
+CREATE TABLE `lostBook` (
+  `id` VARCHAR(100) NOT NULL,
+  `borrowId` INT(11) DEFAULT NULL,
+  `lostStatus` CHAR(5) DEFAULT NULL,
+  `payId` VARCHAR(100) DEFAULT NULL,
+  `payDate` DATE DEFAULT NULL,
+  PRIMARY KEY (`id`)
+)
+
+SELECT 
+	COUNT(1)
+FROM
+	Borrow
+WHERE
+	Borrow.borrow_id=8 AND Borrow.user_id=1
+	
+# 添加丢失图书
+INSERT INTO lostBook VALUES(1,8,'PB002',NULL,NULL);
+
+# 查询全部丢失图书
+SELECT 
+	lostBook.id lostBookId,Book.book_name bookName,Book.book_image bookImage,Constant.value lostBookStatus,Borrow.borrow_time borrowTime,lostBook.payId,lostBook.payDate
+FROM 
+	lostBook
+INNER JOIN Constant ON Constant.coding=lostBook.lostStatus
+INNER JOIN Borrow ON Borrow.borrow_id=lostBook.borrowId
+INNER JOIN Book ON Book.book_id=Borrow.book_id
+WHERE
+	lostBook.borrowId IN (
+		SELECT
+			Borrow.borrow_id
+		FROM
+			Borrow
+		WHERE
+			Borrow.user_id=1
+	)
+	
+	
+# 定时逾期到达三个星期任务
+SELECT 
+	Borrow.borrow_id
+FROM 
+	Borrow
+WHERE 
+	Borrow.borrow_tatus='BWS03' AND DATEDIFF(return_time,NOW())>21
+	
+#添加借阅信息
+INSERT INTO Borrow VALUES
+
+# 查询是否有未支付记录
+SELECT 
+	COUNT(1)
+FROM
+	lostBook
+WHERE
+	lostStatus='PB002' AND 
+	lostBook.borrowId IN (
+		SELECT
+			Borrow.borrow_id
+		FROM
+			Borrow
+		WHERE
+			Borrow.user_Id=1
+	)

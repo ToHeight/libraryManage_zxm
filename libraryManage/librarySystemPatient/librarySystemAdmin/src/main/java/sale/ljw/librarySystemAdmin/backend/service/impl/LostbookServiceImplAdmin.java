@@ -1,6 +1,5 @@
 package sale.ljw.librarySystemAdmin.backend.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.PageHelper;
@@ -29,20 +28,21 @@ public class LostbookServiceImplAdmin extends ServiceImpl<LostbookMapper, Lostbo
 
     @Override
     public ResponseResult<PageInfo<Map<String, Object>>> findAllLostBookList(Integer page) {
-        PageHelper.startPage(page,10);
-        ArrayList<Map<String,Object>> lostBookList=lostbookMapper.findAllLostBookList();
-        PageInfo<Map<String,Object>> lostBookPage=new PageInfo<>(lostBookList);
-        return ResponseResult.getSuccessResult(lostBookPage,"查询成功");
+        PageHelper.startPage(page, 10);
+        ArrayList<Map<String, Object>> lostBookList = lostbookMapper.findAllLostBookList();
+        PageInfo<Map<String, Object>> lostBookPage = new PageInfo<>(lostBookList);
+        return ResponseResult.getSuccessResult(lostBookPage, "查询成功");
     }
 
     @Override
     public ResponseResult<String> confirmReturn(Integer lostBookId) {
-        UpdateWrapper<Lostbook> updateWrapper=new UpdateWrapper<>();
-        updateWrapper.eq("id", lostBookId).set("lostStatus", "PB003");
-        if(update(updateWrapper)){
-            return ResponseResult.getSuccessResult(null,"归还成功");
+        UpdateWrapper<Lostbook> updateWrapper = new UpdateWrapper<>();
+        //判断是否是丢失状态，修饰状态则修改
+        updateWrapper.eq("id", lostBookId).in("lostStatus","PB002").set("lostStatus", "PB003");
+        if (update(updateWrapper)) {
+            return ResponseResult.getSuccessResult(null, "归还成功");
         }
-        return ResponseResult.getErrorResult("归还失败", StatusCode.ERROR, null);
+        return ResponseResult.getErrorResult("归还失败，请检查当前状态是否是未支付状态", StatusCode.ERROR, null);
     }
 }
 

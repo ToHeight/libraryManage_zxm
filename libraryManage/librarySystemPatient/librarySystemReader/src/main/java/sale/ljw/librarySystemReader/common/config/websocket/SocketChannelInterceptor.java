@@ -46,10 +46,12 @@ public class SocketChannelInterceptor extends ChannelInterceptorAdapter {
         switch (headerAccessor.getCommand()) {
             //连接状态
             case CONNECT:
-                Integer userId = Integer.parseInt(JwtUtils.parseJWT(headerAccessor.getNativeHeader("token").toString()));
+                if(headerAccessor.getNativeHeader("token")!=null){
+                    Integer userId = Integer.parseInt(JwtUtils.parseJWT(headerAccessor.getNativeHeader("token").toString()));
+                    //绑定id和界面id
+                    connection(userId, sessionId);
+                }
                 System.out.println("connect sessionId = " + sessionId);
-                //绑定id和界面id
-                connection(userId, sessionId);
                 break;
             //断开连接
             case DISCONNECT:

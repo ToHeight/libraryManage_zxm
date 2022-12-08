@@ -68,8 +68,8 @@ public class RLostBookServlet {
      * @return
      */
     @ApiOperation(value = "支付订单")
-    @GetMapping("/pay/{payId}")
-    public ResponseResult<String> payLostBook(@PathVariable String payId){
+    @PostMapping("/pay")
+    public ResponseResult<String> payLostBook(@RequestBody String payId){
         return lostbookServiceReader.payLostBook(payId);
     }
 

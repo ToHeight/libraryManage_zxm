@@ -24,10 +24,7 @@ import sale.ljw.common.utils.QRcodeZxingUtil2;
 import sale.ljw.librarySystemReader.backend.service.LostbookServiceReader;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -51,7 +48,7 @@ public class LostbookServiceImplReader extends ServiceImpl<LostbookMapper, Lostb
     @Autowired
     private SimpMessagingTemplate simpMessagingTemplate;
 
-    @Transactional
+    @Transactional(rollbackFor = RuntimeException.class)
     @Override
     public ResponseResult<String> addLostBook(Integer borrowId, String token) {
         //检测借阅id是否和用户关联
@@ -63,9 +60,9 @@ public class LostbookServiceImplReader extends ServiceImpl<LostbookMapper, Lostb
             }
             //更新图书状态
             UpdateWrapper<Borrow> updateWrapper = new UpdateWrapper<>();
-            updateWrapper.eq("borrow_id", borrowMapper).set("borrow_tatus", "BWS06");
+            updateWrapper.eq("borrow_id", borrowId).in("borrow_tatus", "BWS01","BWS04").set("borrow_tatus", "BWS06");
             if (borrowMapper.update(null, updateWrapper) == 0) {
-                throw new RuntimeException("图书表更新失败");
+                throw new RuntimeException("图书更新失败，请检查图书状态是否归还或者逾期");
             }
             //添加丢书信息
             Integer resultLostBook = lostbookMapper.addLostBook(borrowId);
@@ -81,14 +78,15 @@ public class LostbookServiceImplReader extends ServiceImpl<LostbookMapper, Lostb
         //生成支付id绑定id
         String payId = idWorker.nextId() + "";
         //redis中保存支付id和id,过期时间10分钟
-        redisTemplate.opsForValue().set(payId, JSON.toJSONString(lostBookId), 10, TimeUnit.MINUTES);
+        redisTemplate.boundValueOps(payId).set(JSON.toJSONString(lostBookId), 10, TimeUnit.MINUTES);
+//        redisTemplate.opsForValue().set(payId, JSON.toJSONString(lostBookId), 10, TimeUnit.MINUTES);
         Map<String, Object> payInformation = new HashMap<>();
         payInformation.put("payId", payId);
         payInformation.put("payNumber", 50 * lostBookId.size());
         payInformation.put("lostBookInformation", lostbookMapper.selectLostInformation(lostBookId));
         //返回支付图片和支付编号
         try {
-            return ResponseResult.getSuccessResult(QRcodeZxingUtil2.getQRCodeImage(prefix + "/pay/" + payId), JSON.toJSONString(payInformation));
+            return ResponseResult.getSuccessResult(QRcodeZxingUtil2.getQRCodeImage(prefix + "pay/" + payId), JSON.toJSONString(payInformation));
         } catch (WriterException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
@@ -114,14 +112,16 @@ public class LostbookServiceImplReader extends ServiceImpl<LostbookMapper, Lostb
     @Override
     public ResponseResult<String> payLostBook(String payId) {
         //从redis中取出lostBookId
-        ArrayList<Integer> lostBookId = JSON.parseObject((String) redisTemplate.opsForValue().get(payId), ArrayList.class);
+        ArrayList<Integer> lostBookId = JSON.parseObject((String) redisTemplate.boundValueOps(payId).get(), ArrayList.class);
+//        ArrayList<Integer> lostBookId = JSON.parseObject((String) redisTemplate.opsForValue().get(payId), ArrayList.class);
         if (lostBookId == null) {
+            simpMessagingTemplate.convertAndSend("/pay/payStatus/" + payId, "pay error,order may time out");
             return ResponseResult.getErrorResult("支付失败，订单不存在或超时", StatusCode.ERROR, null);
         }
         //用户支付中，修改丢失图书状态信息
         UpdateWrapper<Lostbook> updateWrapper = new UpdateWrapper<>();
         for (Integer bookId : lostBookId) {
-            updateWrapper.eq("id", lostBookId).set("lostStatus", "PB001").eq("lostStatus", "PB002").set("payId", payId).set("payDate", new Date());
+            updateWrapper.eq("id", bookId).eq("lostStatus", "PB002").set("lostStatus", "PB001").set("payId", payId).set("payDate", new Date());
             if (lostbookMapper.update(null, updateWrapper) == 0) {
                 simpMessagingTemplate.convertAndSend("/pay/payStatus/" + payId, "pay error");
                 throw new RuntimeException("当前丢失图书id为" + bookId + "的订单支付失败，可能已经支付成功，请刷新确定付款界面重新支付");
@@ -129,12 +129,10 @@ public class LostbookServiceImplReader extends ServiceImpl<LostbookMapper, Lostb
         }
         simpMessagingTemplate.convertAndSend("/pay/payStatus/" + payId, "pay success");
         return ResponseResult.getSuccessResult(null, "支付成功");
-
     }
 
     @Override
     public void updateBorrowLost() {
-
         ArrayList<Integer> borrowList = lostbookMapper.selectLostBook();
         //添加信息
         if (borrowList.size() != 0) {

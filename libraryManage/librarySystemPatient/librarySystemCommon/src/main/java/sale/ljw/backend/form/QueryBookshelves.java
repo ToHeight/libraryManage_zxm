@@ -35,4 +35,5 @@ public class QueryBookshelves {
     @ApiModelProperty(value = "用户id")
     @Null
     private String userId;
+
 }

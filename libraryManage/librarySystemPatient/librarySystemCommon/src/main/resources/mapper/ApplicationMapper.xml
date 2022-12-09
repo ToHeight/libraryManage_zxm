@@ -29,7 +29,7 @@
         WHERE application.applicationStatus IN ('APS04','APS01','APS02')
     </update>
     <delete id="cancellationApplication">
-        UPDATE application SET application.applicationStatus='APS03' WHERE applicationStatus IN ('APS01','APS02') AND applicationId=#{applicationId} AND userId=#{userId}
+        UPDATE application SET application.applicationStatus='APS03' WHERE applicationStatus IN ('APS01','APS02','APS05') AND applicationId=#{applicationId} AND userId=#{userId}
     </delete>
     <select id="findAllApplication" resultType="java.util.Map">
         SELECT

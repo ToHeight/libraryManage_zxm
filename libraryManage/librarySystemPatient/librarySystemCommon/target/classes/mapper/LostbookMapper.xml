@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sale.ljw.backend.dao.LostbookMapper">
+
+    <resultMap id="BaseResultMap" type="sale.ljw.backend.pojo.Lostbook">
+            <id property="id" column="id" jdbcType="VARCHAR"/>
+            <result property="borrowid" column="borrowId" jdbcType="INTEGER"/>
+            <result property="loststatus" column="lostStatus" jdbcType="CHAR"/>
+            <result property="payid" column="payId" jdbcType="VARCHAR"/>
+            <result property="paydate" column="payDate" jdbcType="DATE"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,borrowId,lostStatus,
+        payId,payDate
+    </sql>
+    <select id="associationId" resultType="java.lang.Integer">
+        SELECT
+            COUNT(1)
+        FROM
+            Borrow
+        WHERE
+            Borrow.borrow_id=#{borrowId} AND Borrow.user_id=#{userId}
+    </select>
+
+    <insert id="addLostBook">
+        INSERT INTO lostBook VALUES(null,#{borrowId},'PB002',null,null);
+    </insert>
+
+    <select id="findAllLostBook" resultType="java.util.Map">
+        SELECT
+            lostBook.id lostBookId,Book.book_name bookName,Book.book_image bookImage,Constant.value lostBookStatus,Borrow.borrow_time borrowTime,lostBook.payId,lostBook.payDate
+        FROM
+            lostBook
+                INNER JOIN Constant ON Constant.coding=lostBook.lostStatus
+                INNER JOIN Borrow ON Borrow.borrow_id=lostBook.borrowId
+                INNER JOIN Book ON Book.book_id=Borrow.book_id
+        WHERE
+                lostBook.borrowId IN (
+                SELECT
+                    Borrow.borrow_id
+                FROM
+                    Borrow
+                WHERE
+                    Borrow.user_id=#{userId}
+            )
+    </select>
+    <select id="selectLostBook" resultType="java.lang.Integer">
+        SELECT
+            Borrow.borrow_id
+        FROM
+            Borrow
+        WHERE
+            Borrow.borrow_tatus='BWS03' AND DATEDIFF(return_time,NOW())>21
+    </select>
+    <select id="findCountLostBook" resultType="java.lang.Integer">
+        SELECT
+            COUNT(1)
+        FROM
+            lostBook
+        WHERE
+            lostStatus='PB002' AND
+                lostBook.borrowId IN (
+                SELECT
+                    Borrow.borrow_id
+                FROM
+                    Borrow
+                WHERE
+                    Borrow.user_Id=#{userId}
+            )
+    </select>
+
+    <select id="findAllLostBookList" resultType="java.util.Map">
+        SELECT
+            lostBook.id lostBookId,Book.book_name bookName,Book.book_image bookImage,Constant.value lostBookStatus,Borrow.borrow_time borrowTime,lostBook.payId,lostBook.payDate
+        FROM
+            lostBook
+                INNER JOIN Constant ON Constant.coding=lostBook.lostStatus
+                INNER JOIN Borrow ON Borrow.borrow_id=lostBook.borrowId
+                INNER JOIN Book ON Book.book_id=Borrow.book_id
+    </select>
+    <select id="selectLostInformation" resultType="java.util.Map">
+        SELECT
+            lostBook.id lostBookId,Book.book_name bookName,Book.book_image bookImage,Constant.value lostBookStatus,Borrow.borrow_time borrowTime,lostBook.payId,lostBook.payDate
+        FROM
+            lostBook
+                INNER JOIN Constant ON Constant.coding=lostBook.lostStatus
+                INNER JOIN Borrow ON Borrow.borrow_id=lostBook.borrowId
+                INNER JOIN Book ON Book.book_id=Borrow.book_id
+        WHERE
+            lostBook.id IN
+        <foreach collection="lostBookId" open="(" close=")" separator="," item="lostBook">
+            #{lostBook}
+        </foreach>
+    </select>
+
+    <insert id="addBorrowLost">
+        INSERT INTO Borrow VALUES
+        <foreach collection="borrowList" open="(" close=")" separator="," item="borrowId">
+                null, #{borrowId},'PB002',null,null
+        </foreach>
+    </insert>
+</mapper>

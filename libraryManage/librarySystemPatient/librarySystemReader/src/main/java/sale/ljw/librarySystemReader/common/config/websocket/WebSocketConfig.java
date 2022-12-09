@@ -22,7 +22,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
         //配置消息代理,表示中介转发，客户端订阅前缀，就是推送的路径前缀
-        registry.enableSimpleBroker("/reserve", "/chat");
+        registry.enableSimpleBroker("/reserve", "/chat","/pay");
         //添加头信息，客户端连接服务端的前缀，客户端发送数据的前缀
         registry.setApplicationDestinationPrefixes("/app");
     }

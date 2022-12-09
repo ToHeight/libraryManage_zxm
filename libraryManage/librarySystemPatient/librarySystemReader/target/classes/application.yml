@@ -26,7 +26,7 @@ logging:
 spring:
   mail:
     username: sale.iove@qq.com
-    password: tvugozmdwulcdhgg
+    password: qupydsrjjaiceadg
     host: smtp.qq.com
     default-encoding: utf-8
   application:

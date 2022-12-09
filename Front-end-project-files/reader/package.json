@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "div": "vue-cli-service vite",
+    "div": "vue-cli-service dev",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
@@ -16,9 +16,13 @@
     "core-js": "^3.8.3",
     "element-plus": "^2.2.16",
     "jquery": "^3.6.1",
+    "jsencrypt": "^3.3.0",
+    "qrcodejs2": "^0.0.2",
+    "scroll-flip-page": "^1.1.1",
     "sockjs-client": "^1.6.1",
     "view-ui-plus": "^1.3.1",
     "vue": "^3.2.13",
+    "vue-infinite-scroll": "^2.0.2",
     "vue-router": "^4.1.5",
     "vue-stomp-ds": "^1.0.12",
     "websocket": "^1.0.34"
@@ -46,11 +50,11 @@
     },
     "rules": {
       "generator-star-spacing": "off",
-    "no-tabs":"off",
-    "no-unused-vars":"off",
-    "no-console":"off",
-    "no-irregular-whitespace":"off",
-    "no-debugger": "off"
+      "no-tabs": "off",
+      "no-unused-vars": "off",
+      "no-console": "off",
+      "no-irregular-whitespace": "off",
+      "no-debugger": "off"
     }
   },
   "browserslist": [

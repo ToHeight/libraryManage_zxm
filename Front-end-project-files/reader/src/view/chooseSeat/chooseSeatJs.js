@@ -1,7 +1,15 @@
 import SockJS from 'sockjs-client';
 import {Stomp} from "@stomp/stompjs";
-import {bookingSet, determineReservationConditions, findSeat, getFloors} from "@/api/zxmLibrary";
+import {
+    bookingSet,
+    cancelAppointment,
+    determineReservationConditions,
+    findSeat,
+    getFloors,
+    historyAppointment
+} from "@/api/zxmLibrary";
 import {ElMessage} from "element-plus";
+import {privateKey} from "@/api/keyJSEncrypt";
 
 export default {
     data() {
@@ -16,7 +24,7 @@ export default {
             seatShow: false,
             userImage: undefined,
             userName: undefined,
-            userId: JSON.parse(localStorage.getItem("userInformation")).id,
+            userId: '',
             floorId: '',
             areaId: '',
             SeatNumber: '',
@@ -61,6 +69,18 @@ export default {
                     areaId: 'D'
                 },
             ],
+            historyList:[{
+
+            }],
+            floorName:'',
+            appointmentsStatus:'',
+            appointmentTime:'',
+            appointmentsCreateTime:'',
+            loadingShow:false,
+            //分页
+            page:1,
+            pageSize:5,
+            total:0,
         }
     },
     methods: {
@@ -245,7 +265,7 @@ export default {
         webSocketInitialization() {
             let that = this;
             const socket = new SockJS(
-                "http://saleljw.free.idcfengye.com/library-system-reader/librarySystemReader/librarySystemReader-websocket"
+                "http://saleljw.5gzvip.91tunnel.com/library-system-reader/librarySystemReader/librarySystemReader-websocket"
             );
             var stompClient = Stomp.over(socket);
             this.stompClients = stompClient; //用stom进行包装，规范协议
@@ -287,6 +307,7 @@ export default {
                         res.data.result[i].timeRang = str
                     }
                     this.floors = res.data.result;
+                    this.loadingShow =true;
                 } else {
                     ElMessage.error(res.data.message);
                 }
@@ -335,6 +356,9 @@ export default {
             bookingSet(para, this.configs).then((res) => {
                 if (res.data.statusCode === 'C200') {
                     this.seatArry = res.data.result;
+                    this.determineReservationDisplay=false;
+                    this.apponitmentHistory();
+
                 } else {
                     ElMessage.error(res.data.message);
                 }
@@ -350,10 +374,52 @@ export default {
                 }
             })
         },
+        pageChange(val){
+            this.page = val;
+            this.apponitmentHistory();
+        },
+        //预约历史记录
+        apponitmentHistory(){
+            historyAppointment(this.page,this.configs).then((res) => {
+                if (res.data.statusCode == 'C404') {
+                    ElMessage.error(res.data.message);
+                } else if (res.data.statusCode == 'C200') {
+                    this.historyList = res.data.result.list;
+                    this.loadingShow = true;
+                    this.total=res.data.result.total;
+                }
+            })
+        },
+        //撤销按钮
+        canelDisable(index,row){
+            this.statusApponitment = row.appointmentsStatus === '预约已结束'||row.appointmentsStatus === '预约撤回';
+            return this.statusApponitment;
+        },
+
+        //座位撤销
+        canelSeat(index,row){
+            // let bookName = encodeURI(encodeURI(this.updateInput.bookName));
+            this.appointmentId = row.appointmentId
+            cancelAppointment(this.appointmentId,this.configs).then((res) => {
+                if (res.data.statusCode === 'C200') {
+                    this.apponitmentHistory();
+                    this.determineReservationDisplay=!this.determineReservationDisplay;
+                    // this.getSeat()
+                } else {
+                    ElMessage.error(res.data.message);
+                }
+            })
+        },
+
 
     },
     mounted() {
+        //对个人信息解密
+        let userInformation = JSON.parse(JSON.parse(privateKey(localStorage.getItem("userInformation"))));
+        this.userId=userInformation.id;
         this.determineReservationCondition();
         this.floorList();
+        this.apponitmentHistory();
+        this.loadingShow=false;
     },
 }

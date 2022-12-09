@@ -1,96 +1,83 @@
 
 <template>
-<!--  <section></section>-->
-<!--  <div class="bookShelf-wrap">-->
-<!--     <div class="bookShelf-book"></div>-->
-<!--     <div class="bookShelf-shelfFoot"></div>-->
-<!--  </div>-->
    <section>
 <!--  最终界面   -->
-     <div class="container">
-       <div class="card">
-         <div class="img">
-           <img src="../assets/dmbj.png" alt="">
-         </div>
-         <div class="content">
-           <div class="title">三体</div>
-           <div class="text">波雅·汉库克，日本漫画《航海王》及其衍生作品中的角色。人称：海贼女帝，是位于无风带女儿岛的海贼国家亚马逊·百合王国的现任皇帝，同时也是九蛇海贼团的船长，其绝世的容颜被世人评价为“世界第一美女”。</div>
-           <button class="button1">删除</button>
-           <button class="button2">借阅图书</button>
+     <div class="bookShelfWrap" v-if="loadingShow&&bookShelfData.length!==0">
+       <div class="container" v-for="item in bookShelfData" :key="item.bookName" @selection-change="selsChange">
+         <div class="card" >
+           <div class="img">
+             <img :src="item.bookImage" :alt="item.bookName">
+           </div>
+           <div class="content">
+             <div class="title" >
+               <span @click="getBookInfo(item)">{{ item.bookName }}</span>&nbsp;&nbsp;<span class="author">作者:{{item.bookAuthor}}</span>
+               <div class="status">
+                 <el-tag class="ml-2" type="success" v-if="item.bookStatus === '可借阅'" size="small">可借阅</el-tag>
+                 <el-tag class="ml-2" type="danger" v-if="item.bookStatus === '不可借阅'" size="small">不可借阅</el-tag>
+               </div>
+               <div class="tags">
+                 <div class="tagInfo">
+                   <el-tag v-for="tag in item.bookTags" :key="tag" class="mx-1" closable :disable-transitions="false" @close="deleteTag(tag,item.bookId,item.bookTags);">
+                     {{ tag.tagValue }}
+                   </el-tag>
+                   <el-input v-if="addTagShow===item.bookId"
+                             v-model="tagInput.tagValue"
+                             @keyup.enter="this.addTags(item);"
+                             style="width: 50px"
+                             size="small"
+                             @blur="this.addTagShow=!''?'':item.bookId"
+                   />
+                   <el-button v-else class="button-new-tag ml-1" size="small" @click="addTagPage(item)">
+                     + 新标签
+                   </el-button>
+                 </div>
+               </div>
+             </div>
+             <div class="text-wrap">
+               <div class="text">{{item.bookInfo}}</div>
+             </div>
+             <div class="more">
+               <span>[图书语言]:{{item.bookLanguage}}</span><br/>
+               <span>[作者国家]:{{item.bookCountry}}</span><br/>
+               <span>[图书种类]:{{item.bookType}}</span><br/>
+             </div>
+             <div class="tools">
+               <el-button type="primary" plain class="button1" :disabled="item.bookStatus==='不可借阅'" @click="borrowBook(item)">借阅图书</el-button>
+               <el-button type="danger" class="button2" plain  @click="deleteBookShelf(item)">删除</el-button>
+             </div>
+           </div>
          </div>
        </div>
+       <!--     分页-->
+       <div class="bookShelfPage">
+         <el-pagination
+             v-model:currentPage="page"
+             v-model:page-size="pageSize"
+             :page-sizes="[10, 20, 30]"
+             small="false"
+             @current-change="pageChange"
+             background="false"
+             layout="sizes, prev, pager, next"
+             :total="total"
+             @size-change="handleSizeChange"
+         />
+       </div>
      </div>
-<!--初始界面-->
-<!--     <div class="bookShelf-tools">-->
-<!--       <el-button type="danger" size="small" @click="deleteMore">批量删除</el-button>-->
-<!--     </div>-->
-<!--     <div class="bookShelf-show">-->
-<!--        <el-table :data="bookShelfData" style="width: 100%" @selection-change="selsChange" class="bookShelf-show"  max-height="1200" :header-cell-style="{background:'#e7a234',color:'#ffffff'}">-->
-<!--          <el-table-column type="selection" width="55" />-->
-<!--              <el-table-column fixed prop="bookStatus" label="图书状态" width="120">-->
-<!--                <template #default="scope">-->
-<!--                  <el-tag class="ml-2" type="success" v-if="scope.bookStatus==='可借阅'" size="small">可借阅</el-tag>-->
-<!--                  <el-tag class="ml-2" type="danger" v-if="scope.bookStatus==='不可借阅'" size="small">不可借阅</el-tag>-->
-<!--                </template>-->
-<!--              </el-table-column>-->
-<!--              <el-table-column fixed prop="bookImage" label="图书图片" width="150">-->
-<!--                <template #default="scope">-->
-<!--                  <el-image  style="width: 80px; height: 100px" :src="scope.row.bookImage" alt="" :fit="fill" ></el-image>-->
-<!--                </template>-->
-<!--              </el-table-column>-->
-<!--              <el-table-column prop="bookName" label="图书名称" width="120" />-->
-<!--              <el-table-column prop="bookAuthor" label="图书作者" width="120" />-->
-<!--              <el-table-column prop="bookType" label="图书种类" width="110" />-->
-<!--              <el-table-column prop="bookLanguage" label="图书语言" width="110" />-->
-<!--              <el-table-column prop="bookCountry" label="图书国家" width="150" />-->
-<!--              <el-table-column prop="bookTags" label="图书标签" width="150">-->
-<!--                <template #default="scope">-->
-<!--                  <div v-if="scope.row.bookTags.length!=0">-->
-<!--                  <el-tag class="ml-2" type="warning" v-for="tag in scope.row.bookTags" :key="tag.tagId" closable @close="deleteTag(tag)">-->
-<!--                    {{tag.tagValue}}-->
-<!--                  </el-tag>-->
-<!--                  </div>-->
-<!--                  <el-button link type="primary" size="small" @click="addTagPage(scope.$index, scope.row)">添加</el-button>-->
-<!--                  &lt;!&ndash;                    @click="addTags(scope.$index, scope.row)"&ndash;&gt;-->
-<!--&lt;!&ndash;                  <el-button link type="primary" size="small" @click="deleteTag(scope.$index, scope.row)">删除</el-button>&ndash;&gt;-->
-<!--                </template>-->
-<!--              </el-table-column>-->
-<!--              <el-table-column prop="bookInfo" label="图书信息" width="600" />-->
-<!--              <el-table-column fixed="right" label="功能" width="150">-->
-<!--                <template #default="scope">-->
-<!--&lt;!&ndash;                  <el-button link type="primary" size="small" @click="leaveMessage(scope.$index, scope.row)">留言</el-button>&ndash;&gt;-->
-<!--                  <el-button link type="primary" size="small" @click="deleteBookShelf(scope.$index, scope.row)">删除</el-button>-->
-<!--                  <el-button link type="primary" size="small" @click="borrowBook(scope.$index, scope.row)">借阅</el-button>-->
-<!--                </template>-->
-<!--              </el-table-column>-->
-<!--            </el-table>-->
-<!--     </div>-->
-<!--     标签添加弹窗-->
-     <el-dialog v-model="addTagShow" title="标签添加" width="30%" >
-<!--       <div>{{addTagInfo.bookId}}</div>-->
-       <el-tag class="ml-2" type="warning" v-for="item in addTagInfo.bookTags" :key="item.tagId">
-         {{item.tagValue}}
-       </el-tag>
-         <el-input v-model="tagInput.tagValue" placeholder="输入标签名称" label="添加标签:"/>
-       <template #footer>
-        <span class="dialog-footer">
-        <el-button @click="dialogVisible = false">Cancel</el-button>
-        <el-button type="primary" @click="addTags">提交</el-button>
-       </span>
-       </template>
-     </el-dialog>
-     <el-pagination
-         class="bookShelfPage"
-         v-model:currentPage="page"
-         v-model:page-size="pageSize"
-         :page-sizes="[10, 20, 30]"
-         small="false"
-         @current-change="pageChange"
-         background="false"
-         layout="sizes, prev, pager, next"
-         :total="total"
-         @size-change="handleSizeChange"
-     />
+     <div class="bookShelfNull" v-if="loadingShow&&bookShelfData.length===0">
+       <div class="emoji">📚</div>
+       <p class="Nulltitle">书架暂无图书</p>
+       <p class="Nulltext">请点击<el-button  link type="primary" @click="returnBook">图书大全</el-button>,多多添加图书！</p>
+     </div>
+     <!--  加载界面-->
+     <div class="loading" v-if="!loadingShow">
+       <!-- 【--x是自定义属性，在后面样式中会用到】 -->
+       <div style="--x:0"></div>
+       <div style="--x:1"></div>
+       <div style="--x:2"></div>
+       <div style="--x:3"></div>
+       <div style="--x:4"></div>
+       <div style="--x:5"></div>
+     </div>
    </section>
 </template>
 
@@ -101,7 +88,7 @@ import {ElMessage} from "element-plus";
 export default {
   data(){
     return{
-      addTagShow:false,
+      addTagShow:'',
       bookShelfData:[],
       bookId:undefined,
       bookName:undefined,
@@ -129,17 +116,19 @@ export default {
         }
       },
       addTagInfo:[],
+      tagNull:[
+        {
+          tagId:0,
+          tagValue:'无'
+        }
+      ],
       tagInput:[],
       value:undefined,
+      loadingShow:false,
+      shelfId:undefined,
     }
   },
   methods:{
-    //弹窗
-    addTagPage(index,row) {
-      this.addTagInfo={};
-      this.addTagInfo=row;
-      this.addTagShow = !this.addTagShow;
-    },
     //书架查询
      getBookShelf(){
        let para={
@@ -154,60 +143,51 @@ export default {
          if (res.data.statusCode === 'C200') {
            this.total = res.data.result.total;
            this.bookShelfData = res.data.result.list;
+           this.loadingShow = true;
            // alert(this.bookTags);
          } else {
-           ElMessage.error(res.data.msgId);
+           ElMessage.error(res.data.message);
          }
        });
      },
     //删除
-    deleteBookShelf(index, row){
-      let ids = [row.bookId];
+    deleteBookShelf(item){
+      let ids = [item.bookId];
+      let bookShelf = item.bookId;
       deleteFromBookShelf(ids,this.configs).then((res) =>{
         this.listLoading = true;
         if (res.data.statusCode === 'C200') {
-          this.getBookShelf();
-          ElMessage.success(res.data.msgId);
+          //懒加载删除图书
+          let a=0;
+          for (let i = 0; i < this.bookShelfData.length; i++) {
+            if(this.bookShelfData[i].bookId===bookShelf){
+              a=i;
+            }
+          }
+          this.bookShelfData.splice(a, 1);
+          ElMessage.success(res.data.message);
+          // this.getBookShelf();
         } else{
-          ElMessage.error(res.data.msgId);
+          ElMessage.error(res.data.message);
         }
       })
     },
-    //批量删除
-    selsChange(sels) {
-      this.sels = sels;
-    },
-    deleteMore(){
-      var ids = this.sels.map(item => item.bookId);
-      // alert(ids);
-      this.$confirm('确认删除选中记录吗？', '提示', {
-        type: 'warning'
-      }).then(() => {
-        this.listLoading = true;
-        // let para = {"ids": ids};
-        deleteFromBookShelf(ids,this.configs).then((res) => {
-          this.listLoading = true;
-          if (res.data.statusCode === 'C200') {
-            this.getBookShelf();
-            ElMessage.success(res.data.msgId);
-          } else{
-            ElMessage.error(res.data.msgId);
-          }
-        })
-      })
-    },
-
     //借阅图书
-    borrowBook(index, row){
-      let bookId = row.bookId;
-      bookBorrow(bookId,this.configs).then((res) => {
+    borrowBook(item){
+      // let bookId = item.bookId;
+      bookBorrow(item.bookId,item.shelfId,this.configs).then((res) => {
         this.listLoading = false;
         if (res.data.statusCode === 'C200') {
-          ElMessage.success(res.data.msgId);
+          ElMessage.success(res.data.message);
+          location.reload();
         } else {
-          ElMessage.error(res.data.msgId);
+          ElMessage.error(res.data.message);
         }
       });
+    },
+    //图书详情
+    getBookInfo(item){
+      window.open('http://' + window.location.host + '/#/bookInfo/'+item.bookId,'_blank')
     },
     //分页
     handleSizeChange(val){
@@ -218,38 +198,54 @@ export default {
       this.page = val;
       this.getBookShelf();
     },
-
+    //弹窗
+    addTagPage(item) {
+      this.addTagInfo={};
+      this.addTagInfo=item;
+      this.addTagShow = item.bookId;
+    },
     //添加图书标签
-    addTags(){
+    addTags(row){
       this.value = encodeURI(encodeURI(this.tagInput.tagValue));
       addBookTag(this.addTagInfo.bookId,this.value,this.configs).then((res) =>{
-        this.listLoading = true;
-        // alert(this.bookId)
         if (res.data.statusCode === 'C200') {
           // this.getBookShelf();
-          ElMessage.success(res.data.msgId);
-          this.addTagShow=false;
+          let tagValue={
+            tagValue:this.tagInput.tagValue,
+            tagId:res.data.result
+          }
+          row.bookTags.push(tagValue);
+          this.tagInput.tagValue='';
+          ElMessage.success(res.data.message);
         } else{
-          ElMessage.error(res.data.msgId);
+          ElMessage.error(res.data.message);
         }
       })
 
     },
     //标签删除
-    deleteTag(tag){
+    deleteTag(tag,bookId,tagsList){
        let tagId = tag.tagId;
-      deleteBookTag(tagId,this.configs).then((res) =>{
-        this.listLoading = true;
-        alert(tagId);
+      deleteBookTag(tagId,bookId,this.configs).then((res) =>{
         if (res.data.statusCode === 'C200') {
-          // this.getBookShelf();
-          ElMessage.success(res.data.msgId);
+          //懒加载删除标签
+          let a=0;
+          for (let i = 0; i < tagsList.length; i++) {
+            if(tagsList[i].tagId===tagId){
+              a=i;
+            }
+          }
+          tagsList.splice(a, 1);
+          ElMessage.success(res.data.message);
         } else{
-          ElMessage.error(res.data.msgId);
+          ElMessage.error(res.data.message);
         }
       })
 
     },
+    returnBook(){
+      this.$router.replace('/book');
+    }
   },
   mounted() {
     this.getBookShelf();
@@ -257,14 +253,14 @@ export default {
 }
 </script>
 
-<style  scoped>
+<style scoped>
 /*.bookShelf-wrap{*/
 /*  background-color: #f1cf69;*/
 /*}*/
 *{
   /* 初始化 */
   margin: 0;
-  padding: 0;
+  /*padding: 0;*/
   box-sizing: border-box;
 }
 body{
@@ -279,12 +275,14 @@ body{
   margin-top: 20px;
   margin-left: 20px;
   width: 1000px;
-  max-width: 500px;
+  max-width: 600px;
   height: 250px;
   background-color: #fff;
   border-radius: 25px;
   box-shadow: 0 10px 50px rgba(0,0,0,0.3);
   position: relative;
+  float: left;
+  margin-left: 20px;
 }
 .card{
   /* 弹性布局 垂直居中 */
@@ -302,7 +300,7 @@ body{
 }
 .card .img{
   width: 160px;
-  height: 180px;
+  height: 200px;
   border-radius: 20px;
   overflow: hidden;
   /* 防止被挤压 */
@@ -322,44 +320,199 @@ body{
   padding: 0 30px 0 35px;
   position: relative;
   /* 默认偏右一点 */
-  left: 5px;
+  /*left: 3px;*/
   /* 文本内容默认隐藏 */
   /*opacity: 0;*/
   /* 过渡效果 */
   transition: 0.6s;
 }
 .card .title{
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 700;
   margin-bottom: 20px;
+  /*float: left;*/
 }
-.card .text{
+.card .text-wrap{
+  height: 100px;
+  width: 350px;
+  overflow: hidden;
+  margin-top: -10px;
+}
+.card .text-wrap .text{
   font-size: 12px;
   color: #555;
   text-align: justify;
   margin-bottom: 25px;
+  overflow: scroll;
+  height: 117px;
+  width: 367px;
 }
 .button1{
-  padding: 13px 20px;
-  background-color: #000;
-  color: #fff;
+  padding: 10px 17px;
+  /*background-color: #000;*/
+  /*color: #fff;*/
   text-decoration: none;
   border-radius: 50px;
   letter-spacing: 1px;
   font-weight: 600;
-  box-shadow: 0 10px 50px rgba(0,0,0,0.2);
+  box-shadow: 0 10px 10px rgba(0,0,0,0.2);
   float: right;
+  margin-top: 10px;
 }
 .button2{
-  padding: 13px 20px;
-  background-color: #5b84b7;
-  color: #fff;
+  padding: 10px 17px;
+  /*background-color: #5b84b7;*/
+  /*color: #fff;*/
   text-decoration: none;
   border-radius: 50px;
   letter-spacing: 1px;
   font-weight: 600;
-  box-shadow: 0 10px 50px rgba(0,0,0,0.2);
+  box-shadow: 0 10px 10px rgba(0,0,0,0.2);
   float: right;
+  margin-top: 10px;
   margin-right: 10px;
 }
+.more{
+  font-size: 8px;
+  margin-top: 10px;
+  margin-left: -10px;
+  float: left;
+}
+.author{
+  font-size: 10px;
+  font-family: "楷体", "楷体_GB2312";
+}
+.status{
+  float: right;
+}
+.tags{
+  font-family: "楷体", "楷体_GB2312";
+  display: block;
+}
+.tagInfo{
+  margin-top: 3px;
+  display:inline-block;
+}
+.addTags{
+  color: rgba(126, 146, 161, 0.91);
+  display:inline-block;
+  /*position: absolute;*/
+  top: 5px;
+}
+.tagAddInput{
+  margin-top: 20px;
+}
+.bookShelfPage{
+  float: right;
+  margin-top: 15px;
+  margin-right: 500px;
+  margin-bottom: 15px;
+}
+.tagInfo{
+  margin-right: 3px;
+}
+.mx-1{
+  margin-right: 3px;
+}
+.dialog-footer{
+  width: 200px;
+}
+/*加载*/
+
+*{
+  /* 初始化 取消页面内外边距 */
+  margin: 0;
+  padding: 0;
+  /* 这个是告诉浏览器：你想要设置的边框喝内边距的值是包含在总宽高内的 */
+  box-sizing: border-box;
+}
+body{
+  /* 100%窗口高度 */
+  height: 100vh;
+  /* 弹性布局 水平、垂直居中 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #eef1f5;
+}
+.loading{
+  display: flex;
+  /* 水平显示 */
+  flex-direction: row;
+  margin-left: 400px;
+  margin-top: 100px;
+}
+.loading div{
+  position: relative;
+  width: 40px;
+  height: 200px;
+  /* 渐变背景 */
+  background: linear-gradient(to bottom,rgba(0,0,0,0.05),#eef1f5);
+  margin: 20px;
+  border-radius: 20px;
+  border: 2px solid #eef1f5;
+  /* 阴影 */
+  box-shadow: 15px 15px 20px rgba(0,0,0,0.1),
+  -15px -15px 20px #fff,
+  inset -5px -5px 5px rgba(255,255,255,0.5),
+  inset 5px 5px 5px rgba(0,0,0,0.05);
+  /* 溢出隐藏 */
+  overflow: hidden;
+}
+.loading div::before{
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  box-shadow: inset -5px -5px 5px rgba(0,0,0,0.1),
+  0 420px 0 400px lightskyblue;
+  /* 执行动画：动画名称 时长 加速后减速 无限次播放 */
+  animation: animate 2s ease-in-out infinite;
+  /* 动画延迟 通过var函数获取自定义属性--x，再由calc函数计算得出每个元素的动画延迟时间 */
+  animation-delay: calc(var(--x) * -0.3s);
+  /* 初始化时先向上移动160px */
+  transform: translateY(160px);
+}
+/* 定义动画 */
+@keyframes animate{
+  0%{
+    transform: translateY(160px);
+    /* hue-rotate是颜色滤镜，可以设置不同的度数来改变颜色 */
+    filter: hue-rotate(0deg);
+  }
+  50%{
+    transform: translateY(0px);
+    filter: hue-rotate(180deg);
+  }
+  100%{
+    transform: translateY(160px);
+    filter: hue-rotate(360deg);
+  }
+}
+.bookShelfNull {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.emoji {
+  font-size: 9em;
+  text-align: center;
+}
+.Nulltitle {
+  font-size: 2em;
+  text-align: center;
+  line-height: 0em;
+  color: black;
+  margin-top: 30px;
+}
+.Nulltext {
+  text-align: center;
+  font-size: 18px;
+  margin-top: 30px;
+}
+
 </style>

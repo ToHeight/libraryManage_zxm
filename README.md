@@ -39,8 +39,8 @@
 2、前端运行前需要 npm i --legacy-peer-deps 命令  
 3、后端使用redis和mysql、RabbitMQ、邮箱服务、华为对象存储服务等，需修改application.yml中的参数文件，修改mysql、RabbitMQ、电子邮件 地址和密码，修改obsHuaWei.properties中的华为对象存储Access Key ID和Secret Access Key。  
 4、使用教程：  
-前端：需在src/api/zxmLibrary.js中修改basezxm地址(本机为http://localhost:80)，修改成后端的地址，在reader端src/view/chooseSeat/chooseSeatJs.js中在webSocketInitialization()方法中修改SockJS的webSocket地址(本机为http://localhost:80/library-system-reader/librarySystemReader/librarySystemReader-websocket)，以及注意管理员端和用户端上传图片位置修改上传地址。  
-后端：配置文件application.yml中修改数据库、邮件、rabbitMQ信息(本机需开启redis),frontEndInterface.properties需修改前端地址(本机为http://localhost:8080/#/)，obsHuaWei.properties需修改华为存储云的ak、sk以及地址
+前端：需在src/api/zxmLibrary.js中修改basezxm地址(本机为 [http://localhost:80](http://localhost:80) )，修改成后端的地址，在reader端src/view/chooseSeat/chooseSeatJs.js中在webSocketInitialization()方法中修改SockJS的webSocket地址(本机为[http://localhost:80/library-system-reader/librarySystemReader/librarySystemReader-websocket](http://localhost:80/library-system-reader/librarySystemReader/librarySystemReader-websocket))，以及注意管理员端和用户端上传图片位置修改上传地址。  
+后端：配置文件application.yml中修改数据库、邮件、rabbitMQ信息(本机需开启redis),frontEndInterface.properties需修改前端地址(本机为[http://localhost:8080/#/](http://localhost:8080/#/))，obsHuaWei.properties需修改华为存储云的ak、sk以及地址
 
 读者端界面展示
 

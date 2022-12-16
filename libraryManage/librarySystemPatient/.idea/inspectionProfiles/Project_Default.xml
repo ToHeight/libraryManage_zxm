@@ -10,6 +10,8 @@
           <option value="X-Real-Ip" />
           <option value="token" />
           <option value="Access-Control-Expose-Headers" />
+          <option value="sessionId" />
+          <option value="sessId" />
         </set>
       </option>
     </inspection_tool>

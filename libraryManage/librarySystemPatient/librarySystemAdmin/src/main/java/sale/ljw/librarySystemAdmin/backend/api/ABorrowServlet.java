@@ -3,6 +3,7 @@ package sale.ljw.librarySystemAdmin.backend.api;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import sale.ljw.backend.form.QueryAllBorrow;
 import sale.ljw.common.common.http.ResponseResult;
@@ -23,6 +24,7 @@ public class ABorrowServlet {
      * @return
      */
     @ApiOperation(value = "查询全部借阅信息")
+    @PreAuthorize("hasAnyAuthority('3') or hasAnyRole('1','2')")
     @PostMapping("/queryAllBorrowingInformation")
     public ResponseResult<PageInfo<Map<String,Object>>> queryAllBorrowingInformation(@RequestBody @Valid QueryAllBorrow queryAllBorrow){
         return borrowServiceAdmin.queryAllBorrowingInformation(queryAllBorrow);
@@ -34,6 +36,7 @@ public class ABorrowServlet {
      * @return
      */
     @ApiOperation(value = "确定归还图书")
+    @PreAuthorize("hasAnyAuthority('3') or hasAnyRole('1','2')")
     @GetMapping("/confirmReturnBooks/{borrowId}")
     public ResponseResult<String> confirmReturnBooks(@PathVariable Integer borrowId){
         return borrowServiceAdmin.confirmReturnBooks(borrowId);

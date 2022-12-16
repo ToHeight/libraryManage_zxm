@@ -3,6 +3,7 @@ package sale.ljw.librarySystemAdmin.backend.api;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import sale.ljw.backend.form.AddActivity;
 import sale.ljw.backend.form.ModifyActivity;
@@ -25,6 +26,7 @@ public class AActivityServlet {
      * @return
      */
     @ApiOperation(value = "获取全部活动")
+    @PreAuthorize("hasAnyAuthority('5') or hasAnyRole('1','5')")
     @PostMapping("/findAllActivity")
     public ResponseResult<PageInfo<Map<String,Object>>> findAllActivity(@RequestBody @Valid QueryAllActivity queryAllActivity){
         return activityServiceAdmin.findAllActivity(queryAllActivity);
@@ -36,6 +38,7 @@ public class AActivityServlet {
      * @return
      */
     @ApiOperation(value = "发布活动")
+    @PreAuthorize("hasAnyAuthority('5') or hasAnyRole('1','5')")
     @PostMapping("/addActivity")
     public ResponseResult<String> addActivity(@RequestBody AddActivity addActivity){
         return activityServiceAdmin.addActivity(addActivity);
@@ -47,6 +50,7 @@ public class AActivityServlet {
      * @return
      */
     @ApiOperation(value = "删除活动")
+    @PreAuthorize("hasAnyAuthority('5') or hasAnyRole('1','5')")
     @GetMapping("/deleteActivity/{activityId}")
     public ResponseResult<String> deleteActivity(@PathVariable Integer activityId){
         return activityServiceAdmin.deleteActivity(activityId);
@@ -58,6 +62,7 @@ public class AActivityServlet {
      * @return
      */
     @ApiOperation(value = "修改活动")
+    @PreAuthorize("hasAnyAuthority('5') or hasAnyRole('1','5')")
     @PostMapping("/modifyActivity")
     public ResponseResult<String> modifyActivity(@RequestBody @Valid ModifyActivity modifyActivity){
         return activityServiceAdmin.modifyActivity(modifyActivity);

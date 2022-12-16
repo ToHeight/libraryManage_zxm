@@ -2,6 +2,7 @@ package sale.ljw.librarySystemAdmin.backend.api;
 
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import sale.ljw.backend.form.EditPermission;
 import sale.ljw.backend.form.RoleInfoData;
@@ -24,6 +25,7 @@ public class ARoleInfoServlet {
      * @return
      */
     @ApiOperation(value = "获取全部权限")
+    @PreAuthorize("hasAnyAuthority('8') or hasAnyRole('1')")
     @GetMapping("/findAllRoleInfo")
     public ResponseResult<ArrayList<RoleInfoData>> findAllRoleInfo() {
         return roleinfoService.findAllRoleInfo();
@@ -36,6 +38,7 @@ public class ARoleInfoServlet {
      * @return
      */
     @ApiOperation(value = "修改权限")
+    @PreAuthorize("hasAnyAuthority('8') or hasAnyRole('1')")
     @PostMapping("/editPermission")
     public ResponseResult<String> editPermission(@RequestBody @Valid EditPermission editPermission) {
         return roleinfoService.editPermission(editPermission);
@@ -46,6 +49,7 @@ public class ARoleInfoServlet {
      * @return
      */
     @ApiOperation(value = "模块下拉列表")
+    @PreAuthorize("hasAnyAuthority('8') or hasAnyRole('1')")
     @GetMapping("/findAllModule")
     public ResponseResult<ArrayList<Map<String, Object>>> findAllModule() {
         return roleinfoService.findAllModule();
@@ -57,6 +61,7 @@ public class ARoleInfoServlet {
      * @return
      */
     @ApiOperation(value = "增加权限")
+    @PreAuthorize("hasAnyAuthority('8') or hasAnyRole('1')")
     @PostMapping("/addRole")
     public ResponseResult<String> addRole(@RequestBody @Valid EditPermission editPermission){
         return roleinfoService.addRole(editPermission);
@@ -67,6 +72,7 @@ public class ARoleInfoServlet {
      * @return
      */
     @ApiOperation(value = "权限下拉列表")
+    @PreAuthorize("hasAnyAuthority('9') or hasAnyRole('1','4')")
     @GetMapping("/getRoleInfoList")
     public ResponseResult<ArrayList<Map<String,Object>>> getRoleInfoList(){
         return roleinfoService.getRoleInfoList();

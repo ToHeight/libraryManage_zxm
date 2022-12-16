@@ -3,6 +3,7 @@ package sale.ljw.librarySystemAdmin.backend.api;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import sale.ljw.backend.form.EditUserByAdmin;
 import sale.ljw.backend.form.QueryAllUser;
@@ -25,6 +26,7 @@ public class AUserServlet {
      * @return
      */
     @ApiOperation(value = "获取全部用户")
+    @PreAuthorize("hasAnyAuthority('9') or hasAnyRole('1','4')")
     @PostMapping("/findAllUser")
     public ResponseResult<PageInfo<Map<String, Object>>> findAllUser(@RequestBody @Valid QueryAllUser user) {
         return userServiceAdmin.findAllUser(user);
@@ -37,6 +39,7 @@ public class AUserServlet {
      * @return
      */
     @ApiOperation(value = "编辑用户")
+    @PreAuthorize("hasAnyAuthority('9') or hasAnyRole('1','4')")
     @PostMapping("/editUser")
     public ResponseResult<String> editUser(@RequestBody @Valid EditUserByAdmin editUserByAdmin) {
         return userServiceAdmin.editUser(editUserByAdmin);
@@ -49,6 +52,7 @@ public class AUserServlet {
      * @return
      */
     @ApiOperation(value = "激活账号")
+    @PreAuthorize("hasAnyAuthority('9') or hasAnyRole('1','4')")
     @GetMapping("/activateAccount/{userId}")
     public ResponseResult<String> activateAccount(@PathVariable Integer userId) {
         return userServiceAdmin.activateAccount(userId);

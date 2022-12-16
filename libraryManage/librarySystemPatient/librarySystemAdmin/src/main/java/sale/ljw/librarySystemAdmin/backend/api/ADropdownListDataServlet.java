@@ -2,6 +2,7 @@ package sale.ljw.librarySystemAdmin.backend.api;
 
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,7 +29,7 @@ public class ADropdownListDataServlet {
      * @return
      */
     @ApiOperation(value = "获取图书类别下拉列表")
-    @GetMapping("/getBookType")
+    @PreAuthorize("hasAnyAuthority('1') or hasAnyRole('1','2','3')")
     public ResponseResult<ArrayList<Map<String, Object>>> getBookType() {
         return librarySystemReaderFeignClient.getBookType();
     }
@@ -39,6 +40,7 @@ public class ADropdownListDataServlet {
      * @return
      */
     @ApiOperation(value = "获取图书状态下拉列表")
+    @PreAuthorize("hasAnyAuthority('1') or hasAnyRole('1','2','3')")
     @GetMapping("/getBookStatus")
     public ResponseResult<ArrayList<Map<String, Object>>> getBookStatus() {
         return constantServiceAdmin.getBookStatus();
@@ -50,6 +52,7 @@ public class ADropdownListDataServlet {
      * @return
      */
     @ApiOperation(value = "获取作者国家下拉列表")
+    @PreAuthorize("hasAnyAuthority('1') or hasAnyRole('1','2','3')")
     @GetMapping("/getAuthorCountry")
     public ResponseResult<ArrayList<Map<String, Object>>> getAuthorCountry() {
         return librarySystemReaderFeignClient.getAuthorCountry();
@@ -61,6 +64,7 @@ public class ADropdownListDataServlet {
      * @return
      */
     @ApiOperation(value = "获取图书语言下拉列表")
+    @PreAuthorize("hasAnyAuthority('1') or hasAnyRole('1','2','3')")
     @GetMapping("/getBookLanguage")
     public ResponseResult<ArrayList<Map<String, Object>>> getBookLanguage() {
         return librarySystemReaderFeignClient.getBookLanguage();
@@ -72,6 +76,7 @@ public class ADropdownListDataServlet {
      * @return
      */
     @ApiOperation(value = "获取借阅状态")
+    @PreAuthorize("hasAnyAuthority('2') or hasAnyRole('1','2')")
     @GetMapping("/getBorrowStatus")
     public ResponseResult<ArrayList<Map<String, Object>>> getBorrowStatus() {
         return librarySystemReaderFeignClient.getBorrowStatus();
@@ -83,6 +88,7 @@ public class ADropdownListDataServlet {
      * @return
      */
     @ApiOperation(value = "获取预定图书状态")
+    @PreAuthorize("hasAnyAuthority('2') or hasAnyRole('1','2')")
     @GetMapping("/getPreOrderBookStatus")
     public ResponseResult<ArrayList<Map<String, Object>>> getPreOrderBookStatus() {
         return librarySystemReaderFeignClient.getPreOrderBookStatus();
@@ -94,6 +100,7 @@ public class ADropdownListDataServlet {
      * @return
      */
     @ApiOperation(value = "活动类别")
+    @PreAuthorize("hasAnyAuthority('5') or hasAnyRole('1','5')")
     @GetMapping("/getEventCategory")
     public ResponseResult<ArrayList<Map<String, Object>>> getEventCategory() {
         return librarySystemReaderFeignClient.getEventCategory();
@@ -104,6 +111,7 @@ public class ADropdownListDataServlet {
      * @return
      */
     @ApiOperation(value = "获取活动状态")
+    @PreAuthorize("hasAnyAuthority('5') or hasAnyRole('1','5')")
     @GetMapping("/getActivityStatus")
     public ResponseResult<ArrayList<Map<String, Object>>> getActivityStatus() {
         return librarySystemReaderFeignClient.getActivityStatus();
@@ -114,6 +122,7 @@ public class ADropdownListDataServlet {
      * @return
      */
     @ApiOperation(value = "获取楼层")
+    @PreAuthorize("hasAnyAuthority('1') or hasAnyRole('1','2','3')")
     @GetMapping("/getFloor")
     public ResponseResult<ArrayList<Map<String, Object>>> getFloor() {
         return librarySystemReaderFeignClient.getFloor();
@@ -125,6 +134,7 @@ public class ADropdownListDataServlet {
      * @return
      */
     @ApiOperation(value = "获取性别")
+    @PreAuthorize("hasAnyAuthority('9') or hasAnyRole('1','4')")
     @GetMapping("/getGender")
     public ResponseResult<ArrayList<Map<String, Object>>> getGender() {
         return librarySystemReaderFeignClient.getGender();
@@ -136,6 +146,7 @@ public class ADropdownListDataServlet {
      * @return
      */
     @ApiOperation(value = "查询时间列表")
+    @PreAuthorize("hasAnyAuthority('6') or hasAnyRole('1','3')")
     @GetMapping("/queryTimeList")
     public ResponseResult<ArrayList<Map<String, Object>>> queryTimeList() {
         return appointmentstimeServiceAdmin.queryTimeList();
@@ -146,6 +157,7 @@ public class ADropdownListDataServlet {
      * @return
      */
     @ApiOperation(value = "获取楼层状态")
+    @PreAuthorize("hasAnyAuthority('6') or hasAnyRole('1','3')")
     @GetMapping("/findFloorStatus")
     public ResponseResult<ArrayList<Map<String, Object>>> findfloorStatus() {
         return constantServiceAdmin.findfloorStatus();

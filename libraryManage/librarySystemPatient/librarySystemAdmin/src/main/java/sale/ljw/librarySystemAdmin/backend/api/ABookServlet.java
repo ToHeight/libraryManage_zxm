@@ -3,6 +3,7 @@ package sale.ljw.librarySystemAdmin.backend.api;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import sale.ljw.backend.form.AddBook;
@@ -28,6 +29,7 @@ public class ABookServlet {
      * @return
      */
     @ApiOperation(value = "查询全部图书")
+    @PreAuthorize("hasAnyAuthority('1') or hasAnyRole('1','2','3')")
     @PostMapping("/queryAllBooks")
     public ResponseResult<PageInfo<Map<String, Object>>> queryAllBooks(@RequestBody @Valid QueryAllBooksByAdmin booksByAdmin) {
         return bookServiceAdmin.queryAllBooks(booksByAdmin);
@@ -40,6 +42,7 @@ public class ABookServlet {
      * @return
      */
     @ApiOperation(value = "修改图书信息")
+    @PreAuthorize("hasAnyAuthority('1') or hasAnyRole('1','2','3')")
     @PostMapping("/editBookInformation")
     public ResponseResult<String> editBookInformation(@RequestBody @Valid EditBookInformationByAdmin editBookInformation) {
         return bookServiceAdmin.editBookInformation(editBookInformation);
@@ -52,6 +55,7 @@ public class ABookServlet {
      * @return
      */
     @ApiOperation(value = "上传封面地址")
+    @PreAuthorize("hasAnyAuthority('10')")
     @PostMapping("/uploadCoverAddress")
     public String uploadCoverAddress(@RequestBody MultipartFile file) {
         return bookServiceAdmin.uploadCoverAddress(file);
@@ -64,6 +68,7 @@ public class ABookServlet {
      * @return
      */
     @ApiOperation(value = "新增书籍")
+    @PreAuthorize("hasAnyAuthority('1') or hasAnyRole('1','2','3')")
     @PostMapping("/addBook")
     public ResponseResult<String> addBook(@RequestBody @Valid AddBook addBook) {
         return bookServiceAdmin.addBook(addBook);
@@ -76,6 +81,7 @@ public class ABookServlet {
      * @return
      */
     @ApiOperation(value = "删除图书")
+    @PreAuthorize("hasAnyAuthority('1') or hasAnyRole('1','2','3')")
     @DeleteMapping("/deleteBookById/{bookId}")
     public ResponseResult<String> deleteBookById(@PathVariable String bookId) {
         return bookServiceAdmin.deleteBookById(bookId);
@@ -87,6 +93,7 @@ public class ABookServlet {
      * @return
      */
     @ApiOperation(value = "远程搜索书名")
+    @PreAuthorize("hasAnyAuthority('1') or hasAnyRole('1','2','3')")
     @PostMapping("/searchBookTitlesRemotely")
     public ResponseResult<List<Map<String, Object>>> searchBookTitlesRemotely(@RequestBody String bookName){
         return bookServiceAdmin.searchBookTitlesRemotely(bookName);

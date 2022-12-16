@@ -11,6 +11,7 @@ import sale.ljw.backend.pojo.Action;
  * @createDate 2022-10-17 15:29:15
  * @Entity generator.pojo.Action
  */
+@Deprecated
 @Mapper
 @Repository
 public interface ActionMapper extends BaseMapper<Action> {

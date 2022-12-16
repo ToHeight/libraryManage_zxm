@@ -8,6 +8,7 @@ import sale.ljw.backend.pojo.Action;
  * @description 针对表【Action】的数据库操作Service
  * @createDate 2022-10-17 15:29:15
  */
+@Deprecated
 public interface ActionServiceAdmin extends IService<Action> {
 
     int checkPermissions(String requestURI, String permission);

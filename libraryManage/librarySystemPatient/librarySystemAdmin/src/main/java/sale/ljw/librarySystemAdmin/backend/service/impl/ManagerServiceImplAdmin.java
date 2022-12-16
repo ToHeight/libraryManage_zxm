@@ -37,6 +37,7 @@ public class ManagerServiceImplAdmin extends ServiceImpl<ManagerMapper, Manager>
     private ManagerMapper managerMapper;
 
     @Override
+    @Deprecated
     public ResponseResult<LoginAdminInformation> login(LoginCredentials loginCredentials, HttpServletResponse response) {
         //查询
         QueryWrapper<Managerlogin> queryWrappper_0 = new QueryWrapper<>();

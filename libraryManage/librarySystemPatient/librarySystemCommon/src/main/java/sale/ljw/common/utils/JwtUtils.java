@@ -37,7 +37,24 @@ public class JwtUtils {
         }
         return token;
     }
-
+    public static String signAdmin(String permission, String userId,String username) {
+        String token = "";
+        try {
+            Date date = new Date(System.currentTimeMillis() + EXPIRE_TIME);
+            //秘钥及加密算法
+            Algorithm algorithm = Algorithm.HMAC256(TOKEN_SECRET);
+            //设置头部信息
+            Map<String, Object> header = new HashMap<>();
+            header.put("typ", "JWT");
+            header.put("alg", "HS256");
+            //携带username，password信息，生成签名
+            token = JWT.create().withHeader(header).withClaim("id", userId).withClaim("permission", permission).withClaim("username", username).withExpiresAt(date).sign(algorithm);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+        return token;
+    }
     public static boolean verify(String token) {
         /**
          * @desc 验证token，通过返回true
@@ -57,6 +74,10 @@ public class JwtUtils {
     public static String parseJWT(String token) {
         DecodedJWT decodeToken = JWT.decode(token);
         return decodeToken.getClaim("id").asString();
+    }
+    public static String getUsernameByToken(String token) {
+        DecodedJWT decodeToken = JWT.decode(token);
+        return decodeToken.getClaim("username").asString();
     }
 
     public static String parsePermission(String token) {

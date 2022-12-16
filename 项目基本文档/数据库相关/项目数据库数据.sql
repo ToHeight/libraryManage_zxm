@@ -605,3 +605,20 @@ WHERE
 	)
 
 # 查询全部丢失书籍
+SELECT 
+	manager_id id,manager_login username,manager_passwd PASSWORD,permission roleId
+FROM
+	ManagerLogin
+WHERE
+	manager_login=''
+	
+SELECT 
+	module_id
+FROM
+	roleModule
+WHERE 
+	role_id=1
+	
+	
+	
+SELECT * FROM libraryManage.`Action` WHERE action_name LIKE CONCAT('%','getBookType','%');

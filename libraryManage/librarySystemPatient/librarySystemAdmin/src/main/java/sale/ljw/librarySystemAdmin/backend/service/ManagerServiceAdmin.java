@@ -15,7 +15,7 @@ import java.util.Map;
  * @createDate 2022-10-17 16:28:59
  */
 public interface ManagerServiceAdmin extends IService<Manager> {
-
+    @Deprecated
     ResponseResult<LoginAdminInformation> login(LoginCredentials loginCredentials, HttpServletResponse response);
 
     ResponseResult<PageInfo<Map<String, Object>>> findAllManager(QueryMessages queryMessages);

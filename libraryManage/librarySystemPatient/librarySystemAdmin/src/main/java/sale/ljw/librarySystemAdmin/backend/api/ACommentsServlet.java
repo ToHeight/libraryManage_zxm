@@ -3,6 +3,7 @@ package sale.ljw.librarySystemAdmin.backend.api;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +28,7 @@ public class ACommentsServlet {
      * @return
      */
     @ApiOperation(value = "查询全部留言")
+    @PreAuthorize("hasAnyAuthority('2') or hasAnyRole('1','2')")
     @PostMapping("/queryAllMessages")
     public ResponseResult<PageInfo<Map<String, Object>>> queryAllMessages(@RequestBody @Valid QueryMessages queryMessages) {
         return commentsServiceAdmin.queryAllMessages(queryMessages);
@@ -38,6 +40,7 @@ public class ACommentsServlet {
      * @return
      */
     @ApiOperation(value = "删除留言")
+    @PreAuthorize("hasAnyAuthority('2') or hasAnyRole('1','2')")
     @PostMapping("/deleteComments")
     public ResponseResult<String> deleteComments(@RequestBody @Valid DeleteComments deleteComments){
         return commentsServiceAdmin.deleteComments(deleteComments);

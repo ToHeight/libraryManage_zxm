@@ -7,6 +7,7 @@ import sale.ljw.backend.pojo.Rolemodule;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Map;
 
 /**
@@ -22,6 +23,7 @@ public interface RolemoduleMapper extends BaseMapper<Rolemodule> {
     ArrayList<Map<String,Object>> findAllModule();
     @MapKey(value = "moduleId")
     ArrayList<Map<String,Object>> queryPermission(Integer permissionId);
+    LinkedList<String> findModelByRoleId(Integer modelId);
 }
 
 

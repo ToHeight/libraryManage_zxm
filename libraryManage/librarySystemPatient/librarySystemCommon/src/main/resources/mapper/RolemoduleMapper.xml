@@ -25,4 +25,12 @@
         WHERE
             role_id=#{permissionId}
     </select>
+    <select id="findModelByRoleId" resultType="java.lang.String">
+        SELECT
+            module_id
+        FROM
+            roleModule
+        WHERE
+            role_id=#{modelId}
+    </select>
 </mapper>

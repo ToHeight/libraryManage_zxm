@@ -3,6 +3,7 @@ package sale.ljw.librarySystemAdmin.backend.api;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +27,7 @@ public class AConstantServlet {
      * @return
      */
     @ApiOperation(value = "查询全部编码")
+    @PreAuthorize("hasAnyAuthority('4') or hasRole('1')")
     @PostMapping("/findAllConstant")
     public ResponseResult<PageInfo<Map<String,Object>>> findAllConstant(@RequestBody QueryMessages page){
       return   constantServiceAdmin.findAllConstant(page);
@@ -36,6 +38,7 @@ public class AConstantServlet {
      * @return
      */
     @ApiOperation(value = "修改编码数值")
+    @PreAuthorize("hasAnyAuthority('4') or hasRole('1')")
     @PostMapping("/editConstant")
     public ResponseResult<String> editConstant(@RequestBody EditConstant editConstant){
         return constantServiceAdmin.editConstant(editConstant);

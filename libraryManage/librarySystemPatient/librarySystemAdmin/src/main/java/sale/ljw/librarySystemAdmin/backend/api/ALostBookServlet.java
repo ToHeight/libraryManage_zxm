@@ -3,6 +3,7 @@ package sale.ljw.librarySystemAdmin.backend.api;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import sale.ljw.common.common.http.ResponseResult;
 import sale.ljw.librarySystemAdmin.backend.service.LostbookServiceAdmin;
@@ -24,6 +25,7 @@ public class ALostBookServlet {
      * @return
      */
     @ApiOperation(value = "查询全部丢失书籍")
+    @PreAuthorize("hasAnyAuthority('11') or hasAnyRole('1')")
     @GetMapping("/findAllLostBook/{page}")
     public ResponseResult<PageInfo<Map<String ,Object>>> findAllLostBook(@PathVariable(name = "page") Integer page){
         return lostbookServiceAdmin.findAllLostBookList(page);
@@ -35,6 +37,7 @@ public class ALostBookServlet {
      * @return
      */
     @ApiOperation(value = "支付图片")
+    @PreAuthorize("hasAnyAuthority('11') or hasAnyRole('1')")
     @PostMapping(value = "/paymentConfirmation")
     public ResponseResult<String> paymentConfirmation(@RequestBody ArrayList<Integer> lostBookId){
         return librarySystemReaderFeignClient.paymentConfirmation(lostBookId);
@@ -46,6 +49,7 @@ public class ALostBookServlet {
      * @return
      */
     @ApiOperation(value = "确认归还")
+    @PreAuthorize("hasAnyAuthority('11','3') or hasAnyRole('1','2')")
     @GetMapping(value = "/confirmReturn/{lostBookId}")
     public ResponseResult<String> confirmReturn(@PathVariable Integer lostBookId){
         return lostbookServiceAdmin.confirmReturn(lostBookId);

@@ -3,6 +3,7 @@ package sale.ljw.backend.dao;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
+import sale.ljw.backend.form.ManagerLoginInformation;
 import sale.ljw.backend.pojo.Managerlogin;
 
 /**
@@ -15,6 +16,7 @@ import sale.ljw.backend.pojo.Managerlogin;
 @Repository
 public interface ManagerloginMapper extends BaseMapper<Managerlogin> {
 
+    ManagerLoginInformation getUserInformation(String username);
 }
 
 

@@ -16,4 +16,23 @@
         ,manager_login,manager_passwd,
         permission
     </sql>
+    <resultMap id="managerLoginInformation" type="sale.ljw.backend.form.ManagerLoginInformation">
+        <id property="id" column="id" jdbcType="INTEGER"/>
+        <result property="username" column="username" jdbcType="VARCHAR"/>
+        <result property="password" column="password" jdbcType="VARCHAR"/>
+        <result property="roleId" column="roleId" jdbcType="INTEGER"/>
+        <collection property="modelId"
+                    select="sale.ljw.backend.dao.RolemoduleMapper.findModelByRoleId"
+                    ofType="integer"
+                    column="roleId"/>
+    </resultMap>
+
+    <select id="getUserInformation" resultMap="managerLoginInformation">
+        SELECT
+            manager_id id,manager_login username,manager_passwd PASSWORD,permission roleId
+        FROM
+            ManagerLogin
+        WHERE
+            manager_login=#{username}
+    </select>
 </mapper>

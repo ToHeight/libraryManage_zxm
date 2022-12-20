@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import sale.ljw.common.common.http.ResponseResult;
 import sale.ljw.common.common.http.StatusCode;
-import sale.ljw.common.utils.JwtUtils;
-import sale.ljw.librarySystemAdmin.backend.service.ActionServiceAdmin;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,9 +27,9 @@ import java.util.Map;
 public class PermissionCheck {
 
     @Autowired
-    private ActionServiceAdmin actionServiceAdmin;
-    @Autowired
     private JavaMailSenderImpl mailSender;
+/*    @Autowired
+    private ActionServiceAdmin actionServiceAdmin;
 
     public Boolean checkPermissions(HttpServletRequest request, HttpServletResponse response, Object handler) {
         //设置处理前方法
@@ -43,7 +41,7 @@ public class PermissionCheck {
             requestURI = requestURI.substring(0, requestURI.indexOf("/", requestURI.indexOf("/", requestURI.indexOf("/", 1) + 1) + 1));
         }
         return actionServiceAdmin.checkPermissions(requestURI, permission) != 0;
-    }
+    }*/
 
     @ResponseStatus(code = HttpStatus.NOT_IMPLEMENTED)
     @org.springframework.web.bind.annotation.ExceptionHandler(MethodArgumentNotValidException.class)

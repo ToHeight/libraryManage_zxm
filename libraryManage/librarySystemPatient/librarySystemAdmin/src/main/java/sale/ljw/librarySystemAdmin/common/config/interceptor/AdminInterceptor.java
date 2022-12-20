@@ -1,17 +1,12 @@
 package sale.ljw.librarySystemAdmin.common.config.interceptor;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
-import sale.ljw.common.utils.JwtUtils;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-@Component
+@Deprecated
+//@Component
 public class AdminInterceptor implements HandlerInterceptor {
 
-    @Autowired
+/*    @Autowired
     private PermissionCheck permissionCheck;
 
     @Override
@@ -23,5 +18,5 @@ public class AdminInterceptor implements HandlerInterceptor {
             return HandlerInterceptor.super.preHandle(request, response, handler);
         }
         return false;
-    }
+    }*/
 }

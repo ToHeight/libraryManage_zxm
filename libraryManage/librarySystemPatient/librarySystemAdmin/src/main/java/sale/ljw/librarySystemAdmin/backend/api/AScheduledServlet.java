@@ -4,6 +4,7 @@ import com.github.pagehelper.PageInfo;
 import com.netflix.discovery.converters.Auto;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +30,7 @@ public class AScheduledServlet {
      * @return
      */
     @ApiOperation(value = "获取全部预定图书")
+    @PreAuthorize("hasAnyAuthority('2') or hasAnyRole('1','2')")
     @PostMapping("/getAllPreOrderedBook")
     public ResponseResult<PageInfo<Map<String,Object>>> getAllPreOrderedBook(@RequestBody @Valid QueryPreOrderedBook book){
         return scheduledServiceAdmin.getAllPreOrderedBook(book);
@@ -40,6 +42,7 @@ public class AScheduledServlet {
      * @return
      */
     @ApiOperation(value = "修改预定状态")
+    @PreAuthorize("hasAnyAuthority('2') or hasAnyRole('1','2')")
     @PostMapping("/modifyReservationStatus")
     public ResponseResult<String> modifyReservationStatus(@RequestBody @Valid ModifyReservationStatus modifyReservationStatus){
         return scheduledServiceAdmin.modifyReservationStatus(modifyReservationStatus);

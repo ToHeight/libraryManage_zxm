@@ -12,6 +12,7 @@ import sale.ljw.librarySystemAdmin.backend.service.ActionServiceAdmin;
  * @description 针对表【Action】的数据库操作Service实现
  * @createDate 2022-10-17 15:29:15
  */
+@Deprecated
 @Service
 public class ActionServiceImplAdmin extends ServiceImpl<ActionMapper, Action>
         implements ActionServiceAdmin {

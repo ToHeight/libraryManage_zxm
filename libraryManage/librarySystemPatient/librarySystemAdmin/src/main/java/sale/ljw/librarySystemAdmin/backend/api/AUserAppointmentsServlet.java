@@ -3,6 +3,7 @@ package sale.ljw.librarySystemAdmin.backend.api;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import sale.ljw.backend.form.QueryMessages;
 import sale.ljw.common.common.http.ResponseResult;
@@ -23,6 +24,7 @@ public class AUserAppointmentsServlet {
      * @return
      */
     @ApiOperation(value = "查询全部预约信息")
+    @PreAuthorize("hasAnyAuthority('7') or hasAnyRole('1','3')")
     @PostMapping("/findAllAppointment")
     public ResponseResult<PageInfo<Map<String,Object>>> findAllAppointment(@RequestBody @Valid QueryMessages queryMessages){
        return userappointmentsServiceAdmin.findAllAppointment(queryMessages);
@@ -34,6 +36,7 @@ public class AUserAppointmentsServlet {
      * @return
      */
     @ApiOperation(value = "取消预约")
+    @PreAuthorize("hasAnyAuthority('7') or hasAnyRole('1','3')")
     @GetMapping("/cancelAppointment/{appintmentId}")
     public ResponseResult<String> cancelAppointment(@PathVariable Integer appintmentId){
         return userappointmentsServiceAdmin.cancelAppointment(appintmentId);
